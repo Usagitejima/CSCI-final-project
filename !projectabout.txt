@@ -1,0 +1,40 @@
+Extra Credit:
+
+    - Presentation (10pts)
+    - Unique tiles for each path (5pts)
+    - More players (5pts)
+    - Boosted points on random events (5pts)
+    - Same tile event (5pts)
+    - Additional factors (5pts)
+    17.5% boost!!!
+
+
+Restrictions:
+
+    - No references (& mark)
+    - No pointers
+    - No globals
+
+
+-------------------------------CODE SKELETON (OUTLINE OF OUR PROJECT) DUE THIS FRIDAY!!!-----------------------------------------------------------
+
+Use of comments are important (For the interview. I'm counting on you on the commenting part :3)
+
+
+Tips and tricks:
+
+    - Read the whole PROJECT
+    - For every struct and class you make, make a @brief description (type of comment)
+    - For every function you write:
+        - Write test cases
+        - Write pseudocode
+        - Write @brief @param and @return
+        - Every variable function should have a comment
+        - Every loops should have a comment
+    - Make helper functions wherever you can for repetitive tasks
+    - Start with bare minimum and slowly add features until the requirements are met
+    - Start early and ask questions often
+
+
+----------------------------------------WE HAVE TO DO SORTING ALGORITHM!!!!----------------------------------------------------------------------
+
