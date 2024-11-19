@@ -23,6 +23,12 @@ class Player{
         void setPride(int);
         void setAge(int);
 
+        void addStrength (int strength);
+        void addStamina (int stamina);
+        void addWisdom (int wisdom);
+        void addPridePoints (int pride_points);
+        void addAge (int age);
+
         void trainCub(int, int, int);
         void toPrideLands();
         void printStats();

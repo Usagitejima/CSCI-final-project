@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Player.h"
 
+//Default constructor
 Player::Player(){
     _name = "";
     _age = 1;
@@ -10,6 +11,7 @@ Player::Player(){
     _pride_points = 0;
 }
 
+//Constructor with parameters, make sure values are within the limit
 Player::Player(string name, int strength, int stamina, int wisdom){
     _name = name;
     _age = 1;
@@ -38,6 +40,7 @@ Player::Player(string name, int strength, int stamina, int wisdom){
     
 }
 
+//Get commands that return each value of the class
 string Player::getName(){
     return _name;
 }
@@ -62,6 +65,7 @@ int Player::getAge(){
     return _age;
 }
 
+//Set commands that sets the specific values
 void Player::setName(string name){
     _name = name;
 }
@@ -85,24 +89,31 @@ void Player::setAge(int age){
     _age = age;
 }
 
+//Choosing to train the cub which adds strength, stamina, and wisdom
+//However, subtracts pride points
 void Player::trainCub(int strength, int stamina, int wisdom){
-    _strength += strength;
-    _stamina += stamina;
-    _wisdom += wisdom;
-    _pride_points -= 5000;
+    addPridePoints(-5000);
+    addStamina(1000);
+    addStrength(1000);
+    addWisdom(1000);
 }
 
+//Choosing to go to pride lands directly which substracts strength, stamina, and wisdom
+//However, adds pride points
 void Player::toPrideLands(){
-    _pride_points += 5000;
-    _strength -= 2000;
-    _wisdom -= 2000;
-    _stamina -= 1000;
+    addPridePoints(5000);
+    addStamina(-1000);
+    addStrength(-2000);
+    addWisdom(-2000);
 }
 
+//Prints the stats of the player
 void Player::printStats(){
+    cout << "#~#~#~#~#~#~#~#" << endl;
     cout << _name << ", age " << _age << endl;
     cout << "Strength: " << _strength << endl;
     cout << "Stamina: " << _stamina << endl;
     cout << "Wisdom: " << _wisdom << endl;
     cout << "Pride Points: " << _pride_points << endl;
+    cout << "#~#~#~#~#~#~#~#" << endl;
 }
