@@ -88,6 +88,7 @@ void Player::setAge(int age){
     _age = age;
 }
 
+//Add commands for adding values
 void Player::addStrength (int strength){
     _strength += strength;
 }

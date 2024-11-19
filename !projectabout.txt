@@ -16,8 +16,6 @@ Restrictions:
     - No globals
 
 
--------------------------------CODE SKELETON (OUTLINE OF OUR PROJECT) DUE THIS FRIDAY!!!-----------------------------------------------------------
-
 Use of comments are important (For the interview. I'm counting on you on the commenting part :3)
 
 
@@ -38,3 +36,40 @@ Tips and tricks:
 
 ----------------------------------------WE HAVE TO DO SORTING ALGORITHM!!!!----------------------------------------------------------------------
 
+
+--------------------------------------------TIMELINES--------------------------------------------------------------------------------------------
+
+    - Friday, November 22th at 11:59 pm: Submit class files & Code Skeleton. The instructions for the skeleton are outlined below:
+        – Describe the classes in your program, detailing all data members and member functions. Provide
+complete class interfaces in header (.h) files as blueprints, including accessible functions but not
+detailed implementations. Implement basic functions like getters and setters in source (.cpp) files.
+Submit both the header (.h) and source (.cpp) files for each class.
+– For complex class functions, define the function signature, return type, and the concept/objective
+of each function (TIP: It might be helpful to use the function table format from the workbook).
+We suggest you pseudocode each complex function (this will only help you!).
+• Friday, December 6th at 11:59 pm: Interview Grading Sign-Up deadline. You must sign up for
+an interview grading timeslot no later than Friday, December 6th at 11:59 pm. The interviews will
+take place between December 12th and December 18th. If you do not sign up or miss your interview,
+then no points will be awarded for the project.
+– During the interview grading, TAs will be playing your game and asking questions about it. They
+will also ask about your implementations and conceptual questions.
+214
+• Tuesday, December 11th at 11:59 pm: Final Deliverables. Your project will be due on Tuesday,
+December 11th, at 11:59 pm. You must submit a zip file to the Project 2 assignment on Canvas,
+including all .h and .cpp files. The submission should compile and run. TAs will also be grading
+comments and code style.
+• Monday or Tuesday, December 9th or 10th: Project presentation. You may present your
+project during your recitation for extra credit.
+• Saturday, December 14th at 11:59 pm: Project Report. Write a 1-2 page report containing the
+following reflection questions:
+– How did you prepare for the project?
+– How did you develop our code skeleton? In what way(s) did you use your code skeleton?
+– Reflect on how you could have done better or how you could have completed the project faster or
+more eﬀiciently.
+– In addition, write a paragraph answering the following question, in the context of the Project
+in CSCI 1300: Did you have any false starts, or begin down a path only to have to turn back
+when figuring out the strategy/algorithm for your Final Project program? Describe in detail what
+happened, for example, what specific decision led you to the false starts, or, if not, why do you
+think your work had progressed so smoothly. In either case, give a specific example.
+– The report should be a 1-inch margin, single space, 12pt font size, Times New Roman. Submit a
+report as PDF to Project2 Report on Canvas
