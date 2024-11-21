@@ -1,27 +1,25 @@
-//Donna and Joanne
+// Donna and Joanne
 
 #ifndef TILE_H
 #define TILE_H
 
+
+
 #include <iostream>
+#include "Player.h"
 using namespace std;
 
-class Tile
+struct Tile
 {
-    private:
-        char color;
-        string effects;
+    char color;
+    string effects;
 
-    public:
-        Tile();
-        Tile(char);
+    // void Green(Player _player);
+    void Pink(Player _player);
+    // void Red();
+    // void Blue();
 
-        char getColor();
-        string getEffect();
-        
-        void setColor(char);
-        void setEffects(string);
-        
+    char determineColor(char tileColors[]);
 };
 
 #endif
