@@ -8,7 +8,8 @@ using namespace std;
 
 class Tile
 {
-private:
+
+public:
 char color;
 };
 
