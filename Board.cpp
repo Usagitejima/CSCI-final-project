@@ -1,3 +1,5 @@
+//Donna and Joanne
+
 #include "Board.h"
 #define RED "\033[48;2;230;10;10m"
 #define GREEN "\033[48;2;34;139;34m"  /* Grassy Green (34,139,34) */
@@ -35,7 +37,6 @@ void Board::initializeTiles(int player_index)
             temp.color = 'O';
         } 
         else if (i == 0) {
-            // Set the last tile as Orange for "Pride Rock"
             temp.color = 'Y';
         } 
         else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count)) {
@@ -72,16 +73,16 @@ void Board::initializeTiles(int player_index)
 }
 
 
-// Board::Board()
-// {
-//     _player_count = 1;
+Board::Board()
+{
+    _player_count = 1;
 
-//     // Initialize player position
-//     _player_position[0] = 0;
+    // Initialize player position
+    _player_position[0] = 0;
 
-//     // Initialize tiles
-//     initializeTiles();
-// }
+    // Initialize tiles
+    initializeBoard();
+}
 
 Board::Board(int player_count)
 {
@@ -186,23 +187,23 @@ void Board::displayBoard()
     }
 }
 
-// bool Board::movePlayer(int player_index)
-// {
-//     // Increment player position
-//     _player_position[player_index]++;
-//     if (_player_position[player_index] == _BOARD_SIZE - 1)
-//     {
-//         // Player reached last tile
-//         return true;
-//     }
-//     return false;
-// }
+bool Board::movePlayer(int player_index)
+{
+    // Increment player position
+    _player_position[player_index]++;
+    if (_player_position[player_index] == _BOARD_SIZE - 1)
+    {
+        // Player reached last tile
+        return true;
+    }
+    return false;
+}
 
-// int Board::getPlayerPosition(int player_index) const
-// {
-//     if (player_index >= 0 && player_index <= _player_count)
-//     {
-//         return _player_position[player_index];
-//     }
-//     return -1;
-// }
+int Board::getPlayerPosition(int player_index) const
+{
+    if (player_index >= 0 && player_index <= _player_count)
+    {
+        return _player_position[player_index];
+    }
+    return -1;
+}

@@ -1,12 +1,16 @@
+//Donna and Joanne
+
 #ifndef TILE_H
 #define TILE_H
 
 #include <iostream>
 using namespace std;
 
-struct Tile
+class Tile
 {
-char color;
 
+public:
+char color;
 };
+
 #endif

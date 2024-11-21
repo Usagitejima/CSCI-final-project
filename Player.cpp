@@ -1,3 +1,5 @@
+//Donna and Joanne
+
 #include "Player.h"
 
 //Default constructor
@@ -86,6 +88,23 @@ void Player::setPride(int pride){
 }
 void Player::setAge(int age){
     _age = age;
+}
+
+//Add commands for adding values
+void Player::addStrength (int strength){
+    _strength += strength;
+}
+void Player::addStamina (int stamina){
+    _stamina += stamina;
+}
+void Player::addWisdom (int wisdom){
+    _wisdom += wisdom;
+}
+void Player::addPridePoints (int pride_points){
+    _pride_points += pride_points;
+}
+void Player::addAge (int age){
+    _age += age;
 }
 
 //Choosing to train the cub which adds strength, stamina, and wisdom
