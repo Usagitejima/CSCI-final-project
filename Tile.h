@@ -6,9 +6,10 @@
 #include <iostream>
 using namespace std;
 
-struct Tile
+class Tile
 {
+private:
 char color;
-
 };
+
 #endif
