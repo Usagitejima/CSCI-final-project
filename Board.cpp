@@ -1,3 +1,5 @@
+//Donna and Joanne
+
 #include "Board.h"
 #define RED "\033[48;2;230;10;10m"
 #define GREEN "\033[48;2;34;139;34m"  /* Grassy Green (34,139,34) */
@@ -35,7 +37,6 @@ void Board::initializeTiles(int player_index)
             temp.color = 'O';
         } 
         else if (i == 0) {
-            // Set the last tile as Orange for "Pride Rock"
             temp.color = 'Y';
         } 
         else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count)) {
