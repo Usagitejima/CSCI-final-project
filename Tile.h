@@ -10,6 +10,7 @@ class Tile
 {
 public:
 char color;
+
 };
 
 #endif
