@@ -29,6 +29,8 @@ void Board::initializeTiles(int player_index)
     int green_count = 0;
     int total_tiles = _BOARD_SIZE;
 
+    srand(time(0));
+
     // Keep track of green tile positions to ensure we place exactly 30 greens
     for (int i = 0; i < total_tiles; i++)
     {
