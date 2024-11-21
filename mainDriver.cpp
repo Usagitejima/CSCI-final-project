@@ -19,4 +19,6 @@ int main(){
     board1.initializeBoard();
     board1.displayBoard();
 
+    
+
 }

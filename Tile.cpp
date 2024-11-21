@@ -1,26 +1,34 @@
 // Donna and Joanne
 
 #include "Tile.h"
-Tile::Tile(){
-    color = 'G';
-}
 
-Tile::Tile(char tileColor){
-    color = tileColor; 
-}
+    // void Tile::Green(_player){
+    //     //random events (50% chance of triggering)
+    // }
 
-char Tile::getColor(){
-    return color;
-}
+    void Tile::Pink(Player _player){
+        _player.addStamina(300);
+        _player.addStrength(300);
+        _player.addWisdom(300);
+        //also able to choose your advisor
+    }
 
-string Tile::getEffect(){
-    return effects;
-}
+    // void Tile::Red(){
+    //     _player.addStamina(-100);
+    //     _player.addWisdom(-100);
+    //     _player.addStrength(-100);
+    //     //move back 10 tiles
+    // }
 
-void Tile::setColor(char Color){
-    color = Color;
-}
+    // void Tile::Blue(){
+    //     _player.addStamina(200);
+    //     _player.addWisdom(200);
+    //     _player.addStrength(200);
+    // }
 
-void Tile::setEffects(string Effects){
-    effects = Effects;
-}
+    char Tile::determineColor(char tileColors[]){
+        for (int i = 0; i < 52; i++){
+            cout << tileColors[i] << endl;
+        }
+        return 'H';
+    }
