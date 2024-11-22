@@ -2,6 +2,9 @@
 #define PLAYER_H
 
 #include <iostream>
+#include "Board.h"
+#include "Tile.h"
+
 using namespace std;
 
 class Player{
