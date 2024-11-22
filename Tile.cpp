@@ -38,4 +38,6 @@
 
     char Tile::determineColor(){
         // 1. Based on position of the player, determine the color of the tile that the player is on
+        // 2. This will create and use an array to track the colors within the Board class
+        // 3. Then, it will be used to determine the current tile color
     }
