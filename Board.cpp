@@ -74,7 +74,7 @@ void Board::initializeTiles(int player_index)
     }
 }
 
-
+// Default constructor 
 Board::Board()
 {
     _player_count = 1;
@@ -86,6 +86,7 @@ Board::Board()
     initializeBoard();
 }
 
+// Constructor with parameters 
 Board::Board(int player_count)
 {
     if (player_count > _MAX_PLAYERS)
@@ -108,6 +109,7 @@ Board::Board(int player_count)
     initializeBoard();
 }
 
+// Returns true if the player is on the specific tile 
 bool Board::isPlayerOnTile(int player_index, int pos)
 {
     if (_player_position[player_index] == pos)
@@ -117,6 +119,7 @@ bool Board::isPlayerOnTile(int player_index, int pos)
     return false;
 }
 
+// Prints out tile 
 void Board::displayTile(int player_index, int pos)
 {
     // string space = "                                       ";
@@ -189,6 +192,7 @@ void Board::displayTile(int player_index, int pos)
     // tileCount++;
 }
 
+// Displays the player on a tile 
 void Board::displayTrack(int player_index)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
@@ -198,6 +202,7 @@ void Board::displayTrack(int player_index)
     cout << endl;
 }
 
+// 
 void Board::displayBoard()
 {
     for (int i = 0; i < 2; i++)
