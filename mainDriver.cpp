@@ -36,6 +36,14 @@ int main()
 
     Board mainBoard(numPlayers);
 
+    vector<string> playersList;
+    string currentName;
+    for (int i = 0; i < numPlayers; i++){
+        cout << "Player " << i+1 << ", please enter your name: " << endl;
+        cin >> currentName;
+        playersList.push_back(currentName);
+    }
+
     displayLions("characters.txt");
 
     Player player1("Joanne", 3000, 500, 200);
