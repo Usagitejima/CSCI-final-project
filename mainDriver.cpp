@@ -1,11 +1,17 @@
 // Donna and Joanne
 
-//include all header files
+// include all header files
 #include "Board.h"
 #include "Player.h"
 #include "Tile.h"
+#include <vector>
+#include <fstream>
 
-int main(){
+int split(string input_string, char separator, string arr[], const int ARR_SIZE);
+bool displayLions(string filename);
+
+int main()
+{
 
     /*
     1. Ask the user how many players will be playing the game
@@ -23,8 +29,15 @@ int main(){
     8. Code should repeat for each player
     */
 
-    // Code to create a new player and print stats
-    // Checks whether printing stats and adding stats work
+    int numPlayers;
+
+    cout << "How many players will be playing the game?" << endl;
+    cin >> numPlayers;
+
+    Board mainBoard(numPlayers);
+
+    displayLions("characters.txt");
+
     Player player1("Joanne", 3000, 500, 200);
     player1.printStats();
     player1.addStamina(300);
@@ -46,3 +59,77 @@ int main(){
     player1.Pink();
     player1.printStats();
 }
+
+int split(string input_string, char separator, string arr[], const int ARR_SIZE)
+{
+    string word;
+    int j = 0, k = 0;
+
+    if (input_string.length() == 0)
+    {
+        return 0;
+    }
+
+    for (unsigned int i = 0; i < input_string.length(); i++)
+    {
+        if (input_string[i] == separator)
+        {
+            arr[j] = word;
+            word = "";
+            j++;
+            continue;
+        }
+        else if (j == ARR_SIZE)
+        {
+            k++;
+            break;
+        }
+        else
+        {
+            word += input_string[i];
+        }
+    }
+
+    arr[j] = word;
+
+    if (j == 0)
+    {
+        return 1;
+    }
+    else if (k == 0)
+    {
+        return ARR_SIZE;
+    }
+    return -1;
+}
+
+bool displayLions(string filename)
+{
+    string fullLine;
+
+    ifstream fileIn(filename);
+    if (fileIn.fail())
+    {
+        return false;
+    }
+
+    getline(fileIn, fullLine);
+
+    while (getline(fileIn, fullLine))
+    {
+    
+        string arr1[6] = {};
+        split(fullLine, '|', arr1, 6);
+      
+        cout << "+++++++++++++++++" << endl;
+        cout << "Lion name: " << arr1[0] << endl;
+        cout << "Age: " << arr1[1] << endl;
+        cout << "Strength: " << arr1[2] << endl;
+        cout << "Stamina: " << arr1[3] << endl;
+        cout << "Wisdom: " << arr1[4] << endl;
+
+    }
+
+    return true;
+}
+

@@ -52,6 +52,7 @@ class Player{
         void Purple();
         void Orange();
         void Grey();
+
 };
 
 #endif
