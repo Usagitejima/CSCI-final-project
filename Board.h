@@ -2,6 +2,7 @@
 
 #ifndef BOARD_H
 #define BOARD_H
+
 #include "Tile.h"
 #include "Player.h"
 
@@ -25,5 +26,9 @@ public:
     void displayBoard();
     bool movePlayer(int player_index);
     int getPlayerPosition(int player_index) const;
+
+    //Function to determine which color the tile is that the player is currently on
+    char determineColor();
 };
+
 #endif
