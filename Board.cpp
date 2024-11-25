@@ -1,8 +1,9 @@
-//Donna and Joanne
+// Donna and Joanne
 
 #include "Board.h"
+
 #define RED "\033[48;2;230;10;10m"
-#define GREEN "\033[48;2;34;139;34m"  /* Grassy Green (34,139,34) */
+#define GREEN "\033[48;2;34;139;34m" /* Grassy Green (34,139,34) */
 #define BLUE "\033[48;2;10;10;230m"
 #define PINK "\033[48;2;255;105;180m"
 #define BROWN "\033[48;2;139;69;19m"
@@ -16,7 +17,7 @@ void Board::initializeBoard()
     // Seed random number generator in your main function once
     for (int i = 0; i < 2; i++)
     {
-        initializeTiles(i);  // This ensures each lane has a unique tile distribution
+        initializeTiles(i); // This ensures each lane has a unique tile distribution
     }
 }
 
@@ -34,14 +35,17 @@ void Board::initializeTiles(int player_index)
     // Keep track of green tile positions to ensure we place exactly 30 greens
     for (int i = 0; i < total_tiles; i++)
     {
-        if (i == total_tiles - 1) {
+        if (i == total_tiles - 1)
+        {
             // Set the last tile as Orange for "Pride Rock"
             temp.color = 'O';
-        } 
-        else if (i == 0) {
+        }
+        else if (i == 0)
+        {
             temp.color = 'Y';
-        } 
-        else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count)) {
+        }
+        else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count))
+        {
             temp.color = 'G';
             green_count++;
         }
@@ -51,21 +55,21 @@ void Board::initializeTiles(int player_index)
             int color_choice = rand() % 5;
             switch (color_choice)
             {
-                case 0:
-                    temp.color = 'B'; // Blue
-                    break;
-                case 1:
-                    temp.color = 'P'; // Pink
-                    break;
-                case 2:
-                    temp.color = 'N'; // Brown
-                    break;
-                case 3:
-                    temp.color = 'R'; // Red
-                    break;
-                case 4:
-                    temp.color = 'U'; // Purple
-                    break;
+            case 0:
+                temp.color = 'B'; // Blue
+                break;
+            case 1:
+                temp.color = 'P'; // Pink
+                break;
+            case 2:
+                temp.color = 'N'; // Brown
+                break;
+            case 3:
+                temp.color = 'R'; // Red
+                break;
+            case 4:
+                temp.color = 'U'; // Purple
+                break;
             }
         }
 
@@ -74,7 +78,7 @@ void Board::initializeTiles(int player_index)
     }
 }
 
-// Default constructor 
+// Default constructor
 Board::Board()
 {
     _player_count = 1;
@@ -86,7 +90,7 @@ Board::Board()
     initializeBoard();
 }
 
-// Constructor with parameters 
+// Constructor with parameters
 Board::Board(int player_count)
 {
     if (player_count > _MAX_PLAYERS)
@@ -109,7 +113,7 @@ Board::Board(int player_count)
     initializeBoard();
 }
 
-// Returns true if the player is on the specific tile 
+// Returns true if the player is on the specific tile
 bool Board::isPlayerOnTile(int player_index, int pos)
 {
     if (_player_position[player_index] == pos)
@@ -119,14 +123,14 @@ bool Board::isPlayerOnTile(int player_index, int pos)
     return false;
 }
 
-// Prints out tile 
+// Prints out tile
 void Board::displayTile(int player_index, int pos)
 {
     // string space = "                                       ";
     string color = "";
     int player = isPlayerOnTile(player_index, pos);
-    char tileColors[52];
-    int tileCount = 0;
+    // char tileColors[52];
+    // int tileCount = 0;
 
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
@@ -134,53 +138,53 @@ void Board::displayTile(int player_index, int pos)
     if (_tiles[player_index][pos].color == 'R')
     {
         color = RED;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'G')
     {
         color = GREEN;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'B')
     {
         color = BLUE;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'U')
     {
         color = PURPLE;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'N')
     {
         color = BROWN;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'P')
     {
         color = PINK;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'O')
     {
         color = ORANGE;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'Y')
     {
         color = GREY;
-        tileColors[tileCount] = _tiles[player_index][pos].color;
-        tileCount++;
+        // tileColors[tileCount] = _tiles[player_index][pos].color;
+        // tileCount++;
     }
 
-     if (player == true)
+    if (player == true)
     {
         cout << color << "|" << (player_index + 1) << "|" << RESET;
     }
@@ -190,9 +194,10 @@ void Board::displayTile(int player_index, int pos)
     }
 
     // tileCount++;
+
 }
 
-// Displays the player on a tile 
+// Displays the player on a tile
 void Board::displayTrack(int player_index)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
@@ -202,14 +207,15 @@ void Board::displayTrack(int player_index)
     cout << endl;
 }
 
-// 
+//
 void Board::displayBoard()
 {
     for (int i = 0; i < 2; i++)
     {
         displayTrack(i);
-        if (i == 0) {
-            cout << endl;  // Add an extra line between the two lanes
+        if (i == 0)
+        {
+            cout << endl; // Add an extra line between the two lanes
         }
     }
 }
@@ -233,4 +239,12 @@ int Board::getPlayerPosition(int player_index) const
         return _player_position[player_index];
     }
     return -1;
+}
+
+char Board::determineColor()
+{
+    // 1. Based on position of the player, determine the color of the tile that the player is on
+    // 2. This will create and use an array to track the colors within the Board class
+    // 3. Then, it will be used to determine the current tile color
+    return 'H';
 }

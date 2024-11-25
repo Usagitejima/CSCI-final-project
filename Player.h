@@ -2,8 +2,6 @@
 #define PLAYER_H
 
 #include <iostream>
-#include "Board.h"
-#include "Tile.h"
 
 using namespace std;
 
@@ -44,6 +42,16 @@ class Player{
         void trainCub(int, int, int);
         void toPrideLands();
         void printStats();
+
+        //The functions that are run based on the current color tile the player is on
+        void Green();
+        void Pink();
+        void Red();
+        void Blue();
+        void Brown();
+        void Purple();
+        void Orange();
+        void Grey();
 };
 
 #endif

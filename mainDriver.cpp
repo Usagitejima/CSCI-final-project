@@ -42,4 +42,7 @@ int main(){
     Board board1(2);
     board1.initializeBoard();
     board1.displayBoard();
+
+    player1.Pink();
+    player1.printStats();
 }
