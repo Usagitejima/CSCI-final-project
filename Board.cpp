@@ -12,25 +12,32 @@
 #define GREY "\033[48;2;128;128;128m" /* Grey (128,128,128) */
 #define RESET "\033[0m"
 
-void Board::initializeBoard()
+void Board::initializePrideBoard()
 {
     // Seed random number generator in your main function once
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 4; i++)
     {
-        initializeTiles(i); // This ensures each lane has a unique tile distribution
+        initializePrideTiles(i); // This ensures each lane has a unique tile distribution
+    }
+}
+
+void Board::initializeTrainBoard()
+{
+    // Seed random number generator in your main function once
+    for (int i = 0; i < 4; i++)
+    {
+        initializeTrainTiles(i); // This ensures each lane has a unique tile distribution
     }
 }
 
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
-void Board::initializeTiles(int player_index)
+void Board::initializePrideTiles(int player_index)
 {
     Tile temp;
     int green_count = 0;
     int total_tiles = _BOARD_SIZE;
-
-    srand(time(0));
 
     // Keep track of green tile positions to ensure we place exactly 30 greens
     for (int i = 0; i < total_tiles; i++)
@@ -52,7 +59,56 @@ void Board::initializeTiles(int player_index)
         else
         {
             // Randomly assign one of the other colors: Blue, Pink, Brown, Red, Purple
-            int color_choice = rand() % 5;
+            int color_choice = rand() % 4;
+            switch (color_choice)
+            {
+            case 0:
+                temp.color = 'B'; // Blue
+                break;
+            case 1:
+                temp.color = 'N'; // Brown
+                break;
+            case 2:
+                temp.color = 'R'; // Red
+                break;
+            case 3:
+                temp.color = 'U'; // Purple
+                break;
+            }
+        }
+
+        // Assign the tile to the board for the specified lane
+        _tiles[player_index][i] = temp;
+    }
+}
+
+void Board::initializeTrainTiles(int player_index)
+{
+    Tile temp;
+    int green_count = 0;
+    int total_tiles = _BOARD_SIZE;
+
+    // Keep track of green tile positions to ensure we place exactly 30 greens
+    for (int i = 0; i < total_tiles; i++)
+    {
+        if (i == total_tiles - 1)
+        {
+            // Set the last tile as Orange for "Pride Rock"
+            temp.color = 'O';
+        }
+        else if (i == 0)
+        {
+            temp.color = 'Y';
+        }
+        else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count))
+        {
+            temp.color = 'G';
+            green_count++;
+        }
+        else
+        {
+            // Randomly assign one of the other colors: Blue, Pink, Brown, Red, Purple
+            int color_choice = rand() % 4;
             switch (color_choice)
             {
             case 0:
@@ -65,9 +121,6 @@ void Board::initializeTiles(int player_index)
                 temp.color = 'N'; // Brown
                 break;
             case 3:
-                temp.color = 'R'; // Red
-                break;
-            case 4:
                 temp.color = 'U'; // Purple
                 break;
             }
@@ -87,7 +140,8 @@ Board::Board()
     _player_position[0] = 0;
 
     // Initialize tiles
-    initializeBoard();
+    initializePrideBoard();
+    initializeTrainBoard();
 }
 
 // Constructor with parameters
@@ -110,7 +164,8 @@ Board::Board(int player_count)
 
     // Initialize tiles
 
-    initializeBoard();
+    initializePrideBoard();
+    initializeTrainBoard();
 }
 
 // Returns true if the player is on the specific tile
@@ -198,7 +253,7 @@ void Board::displayTile(int player_index, int pos)
 }
 
 // Displays the player on a tile
-void Board::displayTrack(int player_index)
+void Board::displayPrideTrack(int player_index)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
     {
@@ -208,11 +263,34 @@ void Board::displayTrack(int player_index)
 }
 
 //
-void Board::displayBoard()
+void Board::displayPrideBoard()
 {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 1; i++)
     {
-        displayTrack(i);
+        displayPrideTrack(i);
+        if (i == 0)
+        {
+            cout << endl; // Add an extra line between the two lanes
+        }
+    }
+}
+
+// Displays the player on a tile
+void Board::displayTrainTrack(int player_index)
+{
+    for (int i = 0; i < _BOARD_SIZE; i++)
+    {
+        displayTile(player_index, i);
+    }
+    cout << endl;
+}
+
+//
+void Board::displayTrainBoard()
+{
+    for (int i = 0; i < 1; i++)
+    {
+        displayTrainTrack(i);
         if (i == 0)
         {
             cout << endl; // Add an extra line between the two lanes

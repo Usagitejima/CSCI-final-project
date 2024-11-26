@@ -6,6 +6,7 @@
 #include "Tile.h"
 #include <vector>
 #include <fstream>
+#include <iostream>
 
 //Split function to split a line containing a delimiter into multiple parts. Written by Joanne
 int split(string input_string, char separator, string arr[], const int ARR_SIZE);
@@ -55,13 +56,10 @@ int main()
     {
         do
         {
-            cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
+            cout << "Invalid number of players. Please choose a number between 1 and 4." << endl; 
             cin >> numPlayers;
         } while (numPlayers > 4 || numPlayers < 1);
     }
-
-    // Create a var of board class and store numPlayers
-    Board mainBoard(numPlayers);
 
     // Create a vector for a list of players
     // Prompt user to enter in names of the players and store them into the vector
@@ -148,6 +146,30 @@ int main()
 
     // _player1.Pink();
     // _player1.printStats();
+
+    // Create a var of board class and store numPlayers
+    srand(time(0));
+
+    Board mainBoard(numPlayers);
+    mainBoard.initializePrideBoard();
+    mainBoard.displayPrideBoard();
+    mainBoard.initializeTrainBoard();
+    mainBoard.displayTrainBoard();
+    vector<int> pathType;
+
+    cout << "Here are your two possible paths towards Pride Rock! The first path is straight towards Pride Lands and the second path is some Cub Training." << endl;
+
+    for (int i = 0; i < numPlayers; i++){
+        cout << playersList[i] << ", please choose your path. (Enter 1 or 2)" << endl;
+        cin >> pathType[i];
+        if (pathType[i] != 1 || pathType[i] != 2){
+            do{
+                cout << "Invalid input. Please enter 1 or 2." << endl;
+                cin >> pathType[i];
+            }while(pathType[i] != 1 || pathType[i] != 2);
+        }
+    }
+
 }
 
 //Split function to split a line containing a delimiter into multiple parts. Returns the amount of things split. Written by Joanne
