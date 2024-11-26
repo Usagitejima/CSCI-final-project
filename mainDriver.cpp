@@ -7,11 +7,26 @@
 #include <vector>
 #include <fstream>
 
+//Split function to split a line containing a delimiter into multiple parts. Written by Joanne
 int split(string input_string, char separator, string arr[], const int ARR_SIZE);
+//Display Lions function to display available lion characters and their stats. Written by Joanne
 bool displayLions(string filename, string arr2[5]);
+//Modify Display Lions function takes list of characters and modifies characters file when a player chooses a character
+//Therefore, no duplicates will be chosen. Written by Joanne
+void modifyDisplayLions(string filename, string str);
 
 int main()
 {
+
+    //Write to file the characters that are able to be chosen at the start of game
+    ofstream outFile("characters.txt");
+    outFile << "playerName|age|strength|stamina|wisdom|pridePoints" << endl
+            << "Apollo|5|500|500|1000|20000" << endl
+            << "Mane|8|900|600|600|20000" << endl
+            << "Elsa|12|900|700|500|20000" << endl
+            << "Zuri|7|600|500|900|20000" << endl
+            << "Roary|18|1000|500|500|20000" << endl;
+    outFile.close();
 
     /*
     1. Ask the user how many players will be playing the game
@@ -59,20 +74,34 @@ int main()
         playersList.push_back(currentName);
     }
 
-    // Run displayLions functions that shows a list of the characters and their stats
+    // Run displayLions functions that shows a list of the characters and their stats. Written by Joanne
     string lions[5];
-    displayLions("characters.txt", lions);
-
-    vector<string> chosenLions;
     string currentLion;
 
     for (int i = 0; i < numPlayers; i++)
     {
+        //Start with full list of characters
+        if (i == 0)
+        {
+            displayLions("characters.txt", lions);
+        }
+        //If any player after first, modify the file so previous player's character does not show up
+        else
+        {
+            modifyDisplayLions("characters.txt", currentLion);
+            displayLions("characters.txt", lions);
+        }
+        //Address the player and ask them to select a character
         bool validCharacter = false;
         cout << playersList[i] << ", please select a character by entering its name." << endl;
         cin >> currentLion;
-        for (int k = 0; k < 5; k++){
-            if (currentLion == lions[k]){
+
+        //Check to make sure that the character entered is in the list of characters
+        //If not, prompt the user to enter a character until it is valid
+        for (int k = 0; k < 5; k++)
+        {
+            if (currentLion == lions[k])
+            {
                 validCharacter = true;
             }
         }
@@ -92,7 +121,6 @@ int main()
                 }
             } while (validCharacter == false);
         }
-
     }
 
     // Player _player1("Joanne", 3000, 500, 200);
@@ -117,18 +145,22 @@ int main()
     // _player1.printStats();
 }
 
+//Split function to split a line containing a delimiter into multiple parts. Returns the amount of things split. Written by Joanne
 int split(string input_string, char separator, string arr[], const int ARR_SIZE)
 {
     string word;
     int j = 0, k = 0;
 
+    //If there is nothing to split, return 0
     if (input_string.length() == 0)
     {
         return 0;
     }
 
+    //Loop to go through the whole line
     for (unsigned int i = 0; i < input_string.length(); i++)
     {
+        //If there is a separator found, put the word into the array
         if (input_string[i] == separator)
         {
             arr[j] = word;
@@ -141,12 +173,14 @@ int split(string input_string, char separator, string arr[], const int ARR_SIZE)
             k++;
             break;
         }
+        //Keep adding characters into the word until it hits a delim
         else
         {
             word += input_string[i];
         }
     }
 
+    //Add remaining word to array
     arr[j] = word;
 
     if (j == 0)
@@ -160,19 +194,23 @@ int split(string input_string, char separator, string arr[], const int ARR_SIZE)
     return -1;
 }
 
+//Display Lions function to display available lion characters and their stats. Written by Joanne
 bool displayLions(string filename, string arr2[5])
 {
     string fullLine;
     int k = 0;
 
+    //Open file and make sure it opens
     ifstream fileIn(filename);
     if (fileIn.fail())
     {
         return false;
     }
 
+    //Skip first line
     getline(fileIn, fullLine);
 
+    //Split each line and print the stats of each lion character
     while (getline(fileIn, fullLine))
     {
 
@@ -188,8 +226,57 @@ bool displayLions(string filename, string arr2[5])
 
         arr2[k] = arr1[0];
         k++;
-
     }
 
+    fileIn.close();
+
     return true;
+}
+
+//Modify Display Lions function takes list of characters and modifies characters file when a player chooses a character
+//Therefore, no duplicates will be chosen. Written by Joanne
+void modifyDisplayLions(string filename, string str){
+    string fullLine;
+    vector<string> currentNames;
+    vector<string> fullLines;
+    int p = 0;
+
+    //Open file and make sure it opens
+    ifstream fileIn(filename);
+    if (fileIn.fail())
+    {
+        return;
+    }
+
+    //Split each line in the characters file and add each of the characters' name to a vector
+
+    while (getline(fileIn, fullLine))
+    {
+        fullLines.push_back(fullLine);
+        string array1[6];
+        split(fullLine, '|', array1, 6);
+        currentNames.push_back(array1[0]);
+        p++;
+    }
+
+    fileIn.close();
+
+    //Open file as output
+    ofstream fileOut(filename);
+
+    //If the name chosen by the user is in the file, break the loop (skip that line)
+    //If not, then add the line of the character into a new file (temp)
+    int vecsize = fullLines.size();
+    for (int i = 0; i < vecsize; i++)
+    {
+        if (str == currentNames[i])
+        {
+            continue;
+
+        } else {
+
+        fileOut << fullLines[i] << endl;
+        }
+    }
+
 }
