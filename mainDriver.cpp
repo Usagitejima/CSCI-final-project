@@ -80,6 +80,8 @@ int main()
 
     for (int i = 0; i < numPlayers; i++)
     {
+        cout << endl;
+        
         //Start with full list of characters
         if (i == 0)
         {
@@ -91,6 +93,9 @@ int main()
             modifyDisplayLions("characters.txt", currentLion);
             displayLions("characters.txt", lions);
         }
+
+        cout << endl;
+
         //Address the player and ask them to select a character
         bool validCharacter = false;
         cout << playersList[i] << ", please select a character by entering its name." << endl;
