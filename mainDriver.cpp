@@ -8,7 +8,7 @@
 #include <fstream>
 
 int split(string input_string, char separator, string arr[], const int ARR_SIZE);
-bool displayLions(string filename);
+bool displayLions(string filename, string arr2[5]);
 
 int main()
 {
@@ -29,43 +29,92 @@ int main()
     8. Code should repeat for each player
     */
 
+    // Varible to store the total number of players
     int numPlayers;
 
-    cout << "How many players will be playing the game?" << endl;
+    // Ask the user how many players will be playing and store in numPlayers
+    // Run invalid input is out of range and prompt user to reenter a number
+    cout << "How many players will be playing the game? (Up to 4 total players)" << endl;
     cin >> numPlayers;
+    if (numPlayers > 4 || numPlayers < 1)
+    {
+        do
+        {
+            cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
+            cin >> numPlayers;
+        } while (numPlayers > 4 || numPlayers < 1);
+    }
 
+    // Create a var of board class and store numPlayers
     Board mainBoard(numPlayers);
 
+    // Create a vector for a list of players
+    // Prompt user to enter in names of the players and store them into the vector
     vector<string> playersList;
     string currentName;
-    for (int i = 0; i < numPlayers; i++){
-        cout << "Player " << i+1 << ", please enter your name: " << endl;
+    for (int i = 0; i < numPlayers; i++)
+    {
+        cout << "Player " << i + 1 << ", please enter your name: " << endl;
         cin >> currentName;
         playersList.push_back(currentName);
     }
 
-    displayLions("characters.txt");
+    // Run displayLions functions that shows a list of the characters and their stats
+    string lions[5];
+    displayLions("characters.txt", lions);
 
-    Player player1("Joanne", 3000, 500, 200);
-    player1.printStats();
-    player1.addStamina(300);
-    player1.printStats();
+    vector<string> chosenLions;
+    string currentLion;
 
-    // Code to create another player and print stats
-    // Checks whether printing stats and setting stats work
-    Player player2("Usagi", 1000, 4000, 700); // 4000 exceeds the limit so it should set stamina to 100
-    player2.printStats();
-    player2.setStrength(9000);
-    player2.printStats();
+    for (int i = 0; i < numPlayers; i++)
+    {
+        bool validCharacter = false;
+        cout << playersList[i] << ", please select a character by entering its name." << endl;
+        cin >> currentLion;
+        for (int k = 0; k < 5; k++){
+            if (currentLion == lions[k]){
+                validCharacter = true;
+            }
+        }
 
-    // Code to create a new board
-    // Checks whether initializing and displaying the board works
-    Board board1(2);
-    board1.initializeBoard();
-    board1.displayBoard();
+        if (validCharacter == false)
+        {
+            do
+            {
+                cout << "Invalid character. Please enter the name of the character correctly." << endl;
+                cin >> currentLion;
+                for (int k = 0; k < 5; k++)
+                {
+                    if (currentLion == lions[k])
+                    {
+                        validCharacter = true;
+                    }
+                }
+            } while (validCharacter == false);
+        }
 
-    player1.Pink();
-    player1.printStats();
+    }
+
+    // Player _player1("Joanne", 3000, 500, 200);
+    // _player1.printStats();
+    // _player1.addStamina(300);
+    // _player1.printStats();
+
+    // // Code to create another player and print stats
+    // // Checks whether printing stats and setting stats work
+    // Player _player2("Usagi", 1000, 4000, 700); // 4000 exceeds the limit so it should set stamina to 100
+    // _player2.printStats();
+    // _player2.setStrength(9000);
+    // _player2.printStats();
+
+    // // Code to create a new board
+    // // Checks whether initializing and displaying the board works
+    // Board board1(2);
+    // board1.initializeBoard();
+    // board1.displayBoard();
+
+    // _player1.Pink();
+    // _player1.printStats();
 }
 
 int split(string input_string, char separator, string arr[], const int ARR_SIZE)
@@ -111,9 +160,10 @@ int split(string input_string, char separator, string arr[], const int ARR_SIZE)
     return -1;
 }
 
-bool displayLions(string filename)
+bool displayLions(string filename, string arr2[5])
 {
     string fullLine;
+    int k = 0;
 
     ifstream fileIn(filename);
     if (fileIn.fail())
@@ -125,10 +175,10 @@ bool displayLions(string filename)
 
     while (getline(fileIn, fullLine))
     {
-    
+
         string arr1[6] = {};
         split(fullLine, '|', arr1, 6);
-      
+
         cout << "+++++++++++++++++" << endl;
         cout << "Lion name: " << arr1[0] << endl;
         cout << "Age: " << arr1[1] << endl;
@@ -136,8 +186,10 @@ bool displayLions(string filename)
         cout << "Stamina: " << arr1[3] << endl;
         cout << "Wisdom: " << arr1[4] << endl;
 
+        arr2[k] = arr1[0];
+        k++;
+
     }
 
     return true;
 }
-
