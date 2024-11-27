@@ -196,20 +196,24 @@ int main()
     mainBoard.initializeTrainBoard();
     mainBoard.displayTrainBoard();
     vector<int> pathType;
+    int currentType;
 
     cout << "Here are your two possible paths towards Pride Rock! The first path is straight towards Pride Lands and the second path is some Cub Training." << endl;
 
     for (int i = 0; i < numPlayers; i++)
     {
         cout << playersList[i] << ", please choose your path. (Enter 1 or 2)" << endl;
-        cin >> pathType[i];
-        if (pathType[i] != 1 || pathType[i] != 2)
+        cin >> currentType;
+        pathType.push_back(currentType);
+        if (!(pathType[i] >= 1 && pathType[i] <= 2))
         {
             do
             {
+                pathType.pop_back();
                 cout << "Invalid input. Please enter 1 or 2." << endl;
-                cin >> pathType[i];
-            } while (pathType[i] != 1 || pathType[i] != 2);
+                cin >> currentType;
+                pathType.push_back(currentType);
+            } while (!(pathType[i] >= 1 && pathType[i] <= 2));
         }
     }
 }
