@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -52,6 +53,9 @@ class Player{
         void Purple();
         void Orange();
         void Grey();
+
+        //Function to set the stats of the player based on what character they choose. Written by Joanne
+        void setStats(string filename, string chosenChar);
 
 };
 

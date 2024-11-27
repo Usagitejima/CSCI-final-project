@@ -1,9 +1,10 @@
-//Donna and Joanne
+// Donna and Joanne
 
 #include "Player.h"
 
-//Default constructor
-Player::Player(){
+// Default constructor
+Player::Player()
+{
     _name = "";
     _age = 1;
     _stamina = 100;
@@ -12,121 +13,147 @@ Player::Player(){
     _pride_points = 0;
 }
 
-//Constructor with parameters, make sure values are within the limit
-Player::Player(string name, int strength, int stamina, int wisdom){
+// Constructor with parameters, make sure values are within the limit
+Player::Player(string name, int strength, int stamina, int wisdom)
+{
     _name = name;
     _age = 1;
     _pride_points = 0;
 
-    if(stamina < 100 || stamina > 1000){
+    if (stamina < 100 || stamina > 1000)
+    {
         _stamina = 100;
     }
-    else{
+    else
+    {
         _stamina = stamina;
     }
-    
-    if(strength < 100 || strength > 1000){
+
+    if (strength < 100 || strength > 1000)
+    {
         _strength = 100;
     }
-    else{
+    else
+    {
         _strength = strength;
     }
-    
-    if(wisdom < 100 || wisdom > 1000){
+
+    if (wisdom < 100 || wisdom > 1000)
+    {
         _wisdom = 100;
     }
-    else{
+    else
+    {
         _wisdom = wisdom;
     }
-    
 }
 
-//Get commands that return each value of the class
-string Player::getName(){
+// Get commands that return each value of the class
+string Player::getName()
+{
     return _name;
 }
 
-int Player::getStrength(){
+int Player::getStrength()
+{
     return _strength;
 }
 
-int Player::getStamina(){
+int Player::getStamina()
+{
     return _stamina;
 }
 
-int Player::getWisdom(){
+int Player::getWisdom()
+{
     return _wisdom;
 }
 
-int Player::getPride(){
+int Player::getPride()
+{
     return _pride_points;
 }
 
-int Player::getAge(){
+int Player::getAge()
+{
     return _age;
 }
 
-//Set commands that sets the specific values
-void Player::setName(string name){
+// Set commands that sets the specific values
+void Player::setName(string name)
+{
     _name = name;
 }
 
-void Player::setStrength(int strength){
+void Player::setStrength(int strength)
+{
     _strength = strength;
 }
 
-void Player::setStamina(int stamina){
+void Player::setStamina(int stamina)
+{
     _stamina = stamina;
 }
 
-void Player::setWisdom(int wisdom){
+void Player::setWisdom(int wisdom)
+{
     _wisdom = wisdom;
 }
 
-void Player::setPride(int pride){
+void Player::setPride(int pride)
+{
     _pride_points = pride;
 }
-void Player::setAge(int age){
+void Player::setAge(int age)
+{
     _age = age;
 }
 
-//Add commands for adding values
-void Player::addStrength (int strength){
+// Add commands for adding values
+void Player::addStrength(int strength)
+{
     _strength += strength;
 }
-void Player::addStamina (int stamina){
+void Player::addStamina(int stamina)
+{
     _stamina += stamina;
 }
-void Player::addWisdom (int wisdom){
+void Player::addWisdom(int wisdom)
+{
     _wisdom += wisdom;
 }
-void Player::addPridePoints (int pride_points){
+void Player::addPridePoints(int pride_points)
+{
     _pride_points += pride_points;
 }
-void Player::addAge (int age){
+void Player::addAge(int age)
+{
     _age += age;
 }
 
-//Choosing to train the cub which adds strength, stamina, and wisdom
-//However, subtracts pride points
-void Player::trainCub(int strength, int stamina, int wisdom){
+// Choosing to train the cub which adds strength, stamina, and wisdom
+// However, subtracts pride points
+void Player::trainCub(int strength, int stamina, int wisdom)
+{
     addPridePoints(-5000);
     addStamina(1000);
     addStrength(1000);
     addWisdom(1000);
 }
 
-//Choosing to go to pride lands directly which substracts strength, stamina, and wisdom
-//However, adds pride points
-void Player::toPrideLands(){
+// Choosing to go to pride lands directly which substracts strength, stamina, and wisdom
+// However, adds pride points
+void Player::toPrideLands()
+{
     addPridePoints(5000);
     addStamina(-1000);
     addStrength(-2000);
     addWisdom(-2000);
 }
 
-//Prints the stats of the player
-void Player::printStats(){
+// Prints the stats of the player
+void Player::printStats()
+{
     cout << "#~#~#~#~#~#~#~#" << endl;
     cout << _name << ", age " << _age << endl;
     cout << "Strength: " << _strength << endl;
@@ -194,3 +221,63 @@ void Player::Grey()
     // 1. Starting point of the game.
 }
 
+void Player::setStats(string filename, string chosenChar)
+{
+
+    string fullLine;
+
+    ifstream fileIn(filename);
+    if (fileIn.fail())
+    {
+        return;
+    }
+
+    while (getline(fileIn, fullLine))
+    {
+        string arr[6];
+
+        string word;
+        int j = 0, k = 0;
+
+        // If there is nothing to split, return 0
+        if (fullLine.length() == 0)
+        {
+            return;
+        }
+
+        // Loop to go through the whole line
+        for (unsigned int i = 0; i < fullLine.length(); i++)
+        {
+            // If there is a '|' found, put the word into the array
+            if (fullLine[i] == '|')
+            {
+                arr[j] = word;
+                word = "";
+                j++;
+                continue;
+            }
+            else if (j == 6)
+            {
+                k++;
+                break;
+            }
+            // Keep adding characters into the word until it hits a delim
+            else
+            {
+                word += fullLine[i];
+            }
+        }
+
+        // Add remaining word to array
+        arr[j] = word;
+
+        if (arr[0] == chosenChar)
+        {
+            setAge(stoi(arr[1]));
+            setStrength(stoi(arr[2]));
+            setStamina(stoi(arr[3]));
+            setWisdom(stoi(arr[4]));
+            setPride(stoi(arr[5]));
+        }
+    }
+}
