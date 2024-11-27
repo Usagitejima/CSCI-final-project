@@ -53,8 +53,38 @@ void Board::initializePrideTiles(int player_index)
         }
         else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count))
         {
-            temp.color = 'G';
-            green_count++;
+            if (i > 30)
+            {
+                temp.color = 'G';
+                green_count++;
+            }
+            else
+            {
+                int color_choice = rand() % 9;
+                switch (color_choice)
+                {
+                case 0:
+                    temp.color = 'B'; // Blue
+                    break;
+                case 1:
+                    temp.color = 'P'; // Pink
+                    break;
+                case 2:
+                    temp.color = 'N'; // Brown
+                    break;
+                case 3:
+                    temp.color = 'U'; // Purple
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    temp.color = 'G'; // Green
+                    green_count++;
+                    break;
+                }
+            }
         }
         else
         {
@@ -102,8 +132,35 @@ void Board::initializeTrainTiles(int player_index)
         }
         else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count))
         {
-            temp.color = 'G';
-            green_count++;
+            if (i < 30)
+            {
+                temp.color = 'G';
+                green_count++;
+            }
+            else
+            {
+                int color_choice = rand() % 7;
+                switch (color_choice)
+                {
+                case 0:
+                    temp.color = 'B'; // Blue
+                    break;
+                case 1:
+                    temp.color = 'P'; // Pink
+                    break;
+                case 2:
+                    temp.color = 'N'; // Brown
+                    break;
+                case 3:
+                    temp.color = 'U'; // Purple
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                    temp.color = 'G'; // Green
+                    break;
+                }
+            }
         }
         else
         {
@@ -249,7 +306,6 @@ void Board::displayTile(int player_index, int pos)
     }
 
     // tileCount++;
-
 }
 
 // Displays the player on a tile
