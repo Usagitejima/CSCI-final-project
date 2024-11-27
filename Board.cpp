@@ -60,7 +60,7 @@ void Board::initializePrideTiles(int player_index)
             }
             else
             {
-                int color_choice = rand() % 9;
+                int color_choice = rand() % 8;
                 switch (color_choice)
                 {
                 case 0:
@@ -79,7 +79,6 @@ void Board::initializePrideTiles(int player_index)
                 case 5:
                 case 6:
                 case 7:
-                case 8:
                     temp.color = 'G'; // Green
                     green_count++;
                     break;
