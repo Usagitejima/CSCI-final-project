@@ -12,6 +12,7 @@
 #define GREY "\033[48;2;128;128;128m" /* Grey (128,128,128) */
 #define RESET "\033[0m"
 
+//Initializes the board that leads player straight to the pride lands. Written by Donna
 void Board::initializePrideBoard()
 {
     // Seed random number generator in your main function once
@@ -21,6 +22,7 @@ void Board::initializePrideBoard()
     }
 }
 
+//Initializes the board that leads player to cub training. Written by Donna
 void Board::initializeTrainBoard()
 {
     // Seed random number generator in your main function once
