@@ -15,7 +15,9 @@ bool displayLions(string filename, string arr2[5]);
 // Modify Display Lions function takes list of characters and modifies characters file when a player chooses a character
 // Therefore, no duplicates will be chosen. Written by Joanne
 void modifyDisplayLions(string filename, string str);
-void setStats(string filename, string chosenChar, Player _player);
+// Output a main menu that will display choices for the user
+void outputMenu();
+bool displayAdvisors(string filename, string arr2[5]);
 
 int main()
 {
@@ -73,6 +75,7 @@ int main()
         cout << "Player " << i + 1 << ", please enter your name: " << endl;
         cin >> currentName;
         playersList.push_back(currentName);
+        // Depending on what value of i, assign to corresponding player
         if (i == 0)
         {
             player1.setName(currentName);
@@ -129,6 +132,7 @@ int main()
             }
         }
 
+        // If the character the user entered is invalid prompt user to enter the name until one matches
         if (validCharacter == false)
         {
             do
@@ -146,6 +150,7 @@ int main()
             } while (validCharacter == false);
         }
 
+        // Assign stats of the chosen character to corresponding player using setStats function
         if (i == 0)
         {
             player1.setStats("characters.txt", currentLion);
@@ -163,8 +168,6 @@ int main()
             player4.setStats("characters.txt", currentLion);
         }
     }
-
-    player1.printStats();
 
     // Player _player1("Joanne", 3000, 500, 200);
     // _player1.printStats();
@@ -187,10 +190,11 @@ int main()
     // _player1.Pink();
     // _player1.printStats();
 
-    // Create a var of board class and store numPlayers
     srand(time(0));
 
+    // Create a var of board class and store numPlayers
     Board mainBoard(numPlayers);
+    // Initialize and display randomized boards. Written by Donna
     mainBoard.initializePrideBoard();
     mainBoard.displayPrideBoard();
     mainBoard.initializeTrainBoard();
@@ -198,6 +202,8 @@ int main()
     vector<int> pathType;
     int currentType;
 
+    // Output options and prompt user to choose a path type
+    // Then, store the decision in a vector. Written by Donna
     cout << "Here are your two possible paths towards Pride Rock! The first path is straight towards Pride Lands and the second path is some Cub Training." << endl;
 
     for (int i = 0; i < numPlayers; i++)
@@ -216,6 +222,76 @@ int main()
             } while (!(pathType[i] >= 1 && pathType[i] <= 2));
         }
     }
+
+    // Code to choose an advisor if you choose cub training
+    string advisors[5];
+    string currentAdvisor;
+    bool validAdvisor = false;
+
+    for (int i = 0; i < numPlayers; i++)
+    {
+        if (i == 0)
+        {
+            if (pathType[0] == 2)
+            {
+                cout << playersList[0] << ", you chose to start with cub training." << endl
+                     << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
+                displayAdvisors("advisors.txt", advisors);
+                cout << "Please enter the name of the advisor you wish to choose." << endl;
+                cin >> currentAdvisor;
+
+                for (int k = 0; k < 5; k++)
+                {
+                    if (currentAdvisor == advisors[k])
+                    {
+                        validAdvisor = true;
+                    }
+                }
+
+                // If the character the user entered is invalid prompt user to enter the name until one matches
+                if (validAdvisor == false)
+                {
+                    do
+                    {
+                        cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                        cin >> currentAdvisor;
+                        for (int k = 0; k < 5; k++)
+                        {
+                            if (currentAdvisor == advisors[k])
+                            {
+                                validAdvisor = true;
+                            }
+                        }
+                    } while (validAdvisor == false);
+                }
+            }
+        }
+        else if (i == 1)
+        {
+            player2.setName(currentName);
+        }
+        else if (i == 2)
+        {
+            player3.setName(currentName);
+        }
+        else if (i == 3)
+        {
+            player4.setName(currentName);
+        }
+    }
+
+    // idea of how to run game?
+    // bool endGame = false;
+
+    //     while (endGame == false){
+
+    //     }
+
+    //     cout << mainBoard.movePlayer(1) << endl;
+    //     mainBoard.displayPrideBoard();
+    //     cout << mainBoard.getPlayerPosition(1) << endl;
+
+    //     mainBoard.displayPrideTrack(1);
 }
 
 // Split function to split a line containing a delimiter into multiple parts. Returns the amount of things split. Written by Joanne
@@ -353,4 +429,52 @@ void modifyDisplayLions(string filename, string str)
             fileOut << fullLines[i] << endl;
         }
     }
+}
+
+// Output a main menu that will display choices for the user
+void outputMenu()
+{
+    cout << "+++ Main Menu +++" << endl
+         << "1. Review pride points and leadership trait stats" << endl
+         << "2. Check character name and age" << endl
+         << "3. Display board to view current position" << endl
+         << "4. Check current advisor" << endl
+         << "5. Move forward" << endl
+         << "Please enter your choice (1 - 5):" << endl;
+}
+
+bool displayAdvisors(string filename, string arr2[5])
+{
+    string fullLine;
+    int k = 0;
+
+    // Open file and make sure it opens
+    ifstream fileIn(filename);
+    if (fileIn.fail())
+    {
+        return false;
+    }
+
+    // Skip first line
+    getline(fileIn, fullLine);
+
+    // Split each line and print the stats of each lion character
+    while (getline(fileIn, fullLine))
+    {
+
+        string arr1[3] = {};
+        split(fullLine, '|', arr1, 3);
+
+        cout << "+++++++++++++++++" << endl;
+        cout << "Advisor name: " << arr1[0] << endl;
+        cout << "Skill: " << arr1[1] << endl;
+        cout << "Description: " << arr1[2] << endl;
+
+        arr2[k] = arr1[0];
+        k++;
+    }
+
+    fileIn.close();
+
+    return true;
 }

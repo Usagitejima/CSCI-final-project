@@ -221,6 +221,7 @@ void Player::Grey()
     // 1. Starting point of the game.
 }
 
+//This function sets the stats of the player according to the character they chose
 void Player::setStats(string filename, string chosenChar)
 {
 

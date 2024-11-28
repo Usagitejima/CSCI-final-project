@@ -55,11 +55,6 @@ void Board::initializePrideTiles(int player_index)
         {
             if (i > 30)
             {
-                temp.color = 'G';
-                green_count++;
-            }
-            else
-            {
                 int color_choice = rand() % 8;
                 switch (color_choice)
                 {
@@ -83,6 +78,11 @@ void Board::initializePrideTiles(int player_index)
                     green_count++;
                     break;
                 }
+            }
+            else
+            {
+                temp.color = 'G';
+                green_count++;
             }
         }
         else
@@ -237,11 +237,9 @@ bool Board::isPlayerOnTile(int player_index, int pos)
 // Prints out tile
 void Board::displayTile(int player_index, int pos)
 {
-    // string space = "                                       ";
+    string space = "                                       ";
     string color = "";
     int player = isPlayerOnTile(player_index, pos);
-    // char tileColors[52];
-    // int tileCount = 0;
 
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
@@ -249,50 +247,34 @@ void Board::displayTile(int player_index, int pos)
     if (_tiles[player_index][pos].color == 'R')
     {
         color = RED;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'G')
     {
         color = GREEN;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'B')
     {
         color = BLUE;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'U')
     {
         color = PURPLE;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'N')
     {
         color = BROWN;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'P')
     {
         color = PINK;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'O')
     {
         color = ORANGE;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
     else if (_tiles[player_index][pos].color == 'Y')
     {
         color = GREY;
-        // tileColors[tileCount] = _tiles[player_index][pos].color;
-        // tileCount++;
     }
 
     if (player == true)
@@ -303,8 +285,6 @@ void Board::displayTile(int player_index, int pos)
     {
         cout << color << "| |" << RESET;
     }
-
-    // tileCount++;
 }
 
 // Displays the player on a tile
