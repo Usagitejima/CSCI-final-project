@@ -225,6 +225,7 @@ int main()
 
     // Code to choose an advisor if you choose cub training
     string advisors[5];
+    string chosenAdvisors[4];
     string currentAdvisor;
     bool validAdvisor = false;
 
@@ -234,9 +235,9 @@ int main()
         {
             if (pathType[0] == 2)
             {
+                displayAdvisors("advisors.txt", advisors);
                 cout << playersList[0] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
-                displayAdvisors("advisors.txt", advisors);
                 cout << "Please enter the name of the advisor you wish to choose." << endl;
                 cin >> currentAdvisor;
 
@@ -245,6 +246,7 @@ int main()
                     if (currentAdvisor == advisors[k])
                     {
                         validAdvisor = true;
+                        chosenAdvisors[0] = currentAdvisor;
                     }
                 }
 
@@ -260,6 +262,7 @@ int main()
                             if (currentAdvisor == advisors[k])
                             {
                                 validAdvisor = true;
+                                chosenAdvisors[0] = currentAdvisor;
                             }
                         }
                     } while (validAdvisor == false);
@@ -268,15 +271,117 @@ int main()
         }
         else if (i == 1)
         {
-            player2.setName(currentName);
+            if (pathType[1] == 2)
+            {
+                displayAdvisors("advisors.txt", advisors);
+                cout << playersList[1] << ", you chose to start with cub training." << endl
+                     << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
+                cout << "Please enter the name of the advisor you wish to choose." << endl;
+                cin >> currentAdvisor;
+
+                for (int k = 0; k < 5; k++)
+                {
+                    if (currentAdvisor == advisors[k])
+                    {
+                        validAdvisor = true;
+                        chosenAdvisors[1] = currentAdvisor;
+                    }
+                }
+
+                // If the character the user entered is invalid prompt user to enter the name until one matches
+                if (validAdvisor == false)
+                {
+                    do
+                    {
+                        cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                        cin >> currentAdvisor;
+                        for (int k = 0; k < 5; k++)
+                        {
+                            if (currentAdvisor == advisors[k])
+                            {
+                                validAdvisor = true;
+                                chosenAdvisors[1] = currentAdvisor;
+                            }
+                        }
+                    } while (validAdvisor == false);
+                }
+            }
         }
         else if (i == 2)
         {
-            player3.setName(currentName);
+            if (pathType[2] == 2)
+            {
+                displayAdvisors("advisors.txt", advisors);
+                cout << playersList[2] << ", you chose to start with cub training." << endl
+                     << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
+                cout << "Please enter the name of the advisor you wish to choose." << endl;
+                cin >> currentAdvisor;
+
+                for (int k = 0; k < 5; k++)
+                {
+                    if (currentAdvisor == advisors[k])
+                    {
+                        validAdvisor = true;
+                        chosenAdvisors[2] = currentAdvisor;
+                    }
+                }
+
+                // If the character the user entered is invalid prompt user to enter the name until one matches
+                if (validAdvisor == false)
+                {
+                    do
+                    {
+                        cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                        cin >> currentAdvisor;
+                        for (int k = 0; k < 5; k++)
+                        {
+                            if (currentAdvisor == advisors[k])
+                            {
+                                validAdvisor = true;
+                                chosenAdvisors[2] = currentAdvisor;
+                            }
+                        }
+                    } while (validAdvisor == false);
+                }
+            }
         }
         else if (i == 3)
         {
-            player4.setName(currentName);
+            if (pathType[3] == 2)
+            {
+                displayAdvisors("advisors.txt", advisors);
+                cout << playersList[3] << ", you chose to start with cub training." << endl
+                     << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
+                cout << "Please enter the name of the advisor you wish to choose." << endl;
+                cin >> currentAdvisor;
+
+                for (int k = 0; k < 5; k++)
+                {
+                    if (currentAdvisor == advisors[k])
+                    {
+                        validAdvisor = true;
+                        chosenAdvisors[3] = currentAdvisor;
+                    }
+                }
+
+                // If the character the user entered is invalid prompt user to enter the name until one matches
+                if (validAdvisor == false)
+                {
+                    do
+                    {
+                        cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                        cin >> currentAdvisor;
+                        for (int k = 0; k < 5; k++)
+                        {
+                            if (currentAdvisor == advisors[k])
+                            {
+                                validAdvisor = true;
+                                chosenAdvisors[3] = currentAdvisor;
+                            }
+                        }
+                    } while (validAdvisor == false);
+                }
+            }
         }
     }
 
