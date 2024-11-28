@@ -57,25 +57,22 @@ void Board::initializePrideTiles(int player_index)
         {
             if (i > 30)
             {
-                int color_choice = rand() % 8;
+                int color_choice = rand() % 7;
                 switch (color_choice)
                 {
                 case 0:
                     temp.color = 'B'; // Blue
                     break;
                 case 1:
-                    temp.color = 'P'; // Pink
-                    break;
-                case 2:
                     temp.color = 'N'; // Brown
                     break;
-                case 3:
+                case 2:
                     temp.color = 'U'; // Purple
                     break;
+                case 3:
                 case 4:
                 case 5:
                 case 6:
-                case 7:
                     temp.color = 'G'; // Green
                     green_count++;
                     break;

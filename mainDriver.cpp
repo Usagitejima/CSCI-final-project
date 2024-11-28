@@ -7,6 +7,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 // Split function to split a line containing a delimiter into multiple parts. Written by Joanne
 int split(string input_string, char separator, string arr[], const int ARR_SIZE);
@@ -80,16 +81,32 @@ int main()
     // Ask the user how many players will be playing and store in numPlayers
     // Run invalid input is out of range and prompt user to reenter a number
     cout << "Welcome!" << endl;
-    cout << "How many players will be playing the game? (Up to 4 total players)" << endl;
-    cin >> numPlayers;
-    if (numPlayers > 4 || numPlayers < 1)
-    {
-        do
-        {
+    while (true) {
+        cout << "How many players will be playing the game? (Up to 4 total players)" << endl;
+        if (cin >> numPlayers && numPlayers < 4 && numPlayers > 1) {
+            break;
+        } else {
             cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
-            cin >> numPlayers;
-        } while (numPlayers > 4 || numPlayers < 1);
+            cin.clear(); // reset the failbit
+            cin.ignore(); // discard the invalid input
+        }
     }
+
+    // if(!isdigit(numPlayers)){
+    //     do
+    //     {
+    //         cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
+    //         cin >> numPlayers;
+    //     } while (!isdigit(numPlayers));
+    // }
+    // else if (numPlayers > 4 || numPlayers < 1)
+    // {
+    //     do
+    //     {
+    //         cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
+    //         cin >> numPlayers;
+    //     } while (numPlayers > 4 || numPlayers < 1);
+    // }
 
     // Create a vector for a list of players
     // Prompt user to enter in names of the players and store them into the vector
