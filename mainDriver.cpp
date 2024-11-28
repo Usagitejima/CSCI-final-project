@@ -18,6 +18,9 @@ void modifyDisplayLions(string filename, string str);
 // Output a main menu that will display choices for the user
 void outputMenu();
 bool displayAdvisors(string filename, string arr2[5]);
+void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list);
+void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list);
+void menu3(Board _board, int currentPlayerIndex, int prideortrain);
 
 int main()
 {
@@ -386,11 +389,55 @@ int main()
     }
 
     // idea of how to run game?
-    // bool endGame = false;
+    bool endGame = false;
+    bool endTurn = false;
+    int choice;
 
-    //     while (endGame == false){
+    while (endGame == false)
+    {
+        cout << "Starting game..." << endl;
 
-    //     }
+        for (int turnCount = 0; turnCount < numPlayers; turnCount++)
+        {
+            if (turnCount == 0)
+            {
+                do
+                {
+                    endTurn = false;
+                    outputMenu();
+                    cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                    cin >> choice;
+                    if (choice == 1)
+                    {
+                        menu1(player1, 0, playersList);
+                    }
+                    else if (choice == 2)
+                    {
+                        menu2(player1, 0, playersList);
+                    }
+                    else if (choice == 3){
+                        cout << pathType[0] << endl;
+                        menu3(mainBoard, 0, pathType[0]);
+                    }
+                    else if (choice == 5)
+                    {
+                        endTurn = true;
+                    }
+                } while (endTurn == false);
+            }
+            else if (turnCount == 1)
+            {
+                outputMenu();
+                cout << playersList[1] << ", please enter your choice (1 - 5):" << endl;
+                cin >> choice;
+            }
+
+            if (turnCount == numPlayers - 1)
+            {
+                turnCount = -1;
+            }
+        }
+    }
 
     //     cout << mainBoard.movePlayer(1) << endl;
     //     mainBoard.displayPrideBoard();
@@ -544,8 +591,7 @@ void outputMenu()
          << "2. Check character name and age" << endl
          << "3. Display board to view current position" << endl
          << "4. Check current advisor" << endl
-         << "5. Move forward" << endl
-         << "Please enter your choice (1 - 5):" << endl;
+         << "5. Move forward" << endl;
 }
 
 bool displayAdvisors(string filename, string arr2[5])
@@ -582,4 +628,30 @@ bool displayAdvisors(string filename, string arr2[5])
     fileIn.close();
 
     return true;
+}
+
+void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list)
+{
+    cout << list[currentPlayerIndex] << ", here are your pride points and leadership trait stats: " << endl;
+    cout << "Strength: " << currentPlayer.getStrength() << endl;
+    cout << "Stamina: " << currentPlayer.getStamina() << endl;
+    cout << "Wisdom: " << currentPlayer.getWisdom() << endl;
+    cout << "Pride Points: " << currentPlayer.getPride() << endl;
+}
+
+void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
+{
+    cout << list[currentPlayerIndex] << ", here is your name and age: " << endl;
+    cout << "Name: " << currentPlayer.getName() << endl;
+    cout << "Age: " << currentPlayer.getAge() << endl;
+}
+
+void menu3(Board _board, int currentPlayerIndex, int prideortrain){
+    if (prideortrain == 1){
+        cout << "hi" << endl;
+        _board.displayTrainTrack(0);
+        _board.displayPrideTrack(0);
+    } else if (prideortrain == 2){
+        _board.displayTrainTrack(currentPlayerIndex);
+    }
 }
