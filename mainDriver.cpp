@@ -21,6 +21,7 @@ bool displayAdvisors(string filename, string arr2[5]);
 void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list);
 void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list);
 void menu3(Board _board, int currentPlayerIndex, int prideortrain);
+void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
 
 int main()
 {
@@ -56,8 +57,29 @@ int main()
     // Varible to store the total number of players
     int numPlayers;
 
+    cout << R"(
+                        \|\||
+                      -' ||||/
+                     /7   |||||/
+         |\_        /    |||||||/`-.____________
+       -' | \       \-' |||||||||               `-._
+      /7     \       -|||||||||||               `` -`.
+     /        `-_      ||||||               \   |   `\\
+     \-'_        `-.____|||||\  \______...---\_  \    \\
+      -- \                 |  \  \           | \  |    ``-.__--.
+         /                 |  |\  \         / / | |       ``---'
+ _______/    /_       ____/  /_/  /|_______/ /-_| |
+(,__________/  `-.___(,_(,__/(,__/_-----(,__/-(,__/
+
+    )";
+
+    cout << "LION KING: THE GAME" << endl;
+    cout << "Created by Donna and Joanne" << endl;
+    cout << endl;
+
     // Ask the user how many players will be playing and store in numPlayers
     // Run invalid input is out of range and prompt user to reenter a number
+    cout << "Welcome!" << endl;
     cout << "How many players will be playing the game? (Up to 4 total players)" << endl;
     cin >> numPlayers;
     if (numPlayers > 4 || numPlayers < 1)
@@ -75,6 +97,7 @@ int main()
     string currentName;
     for (int i = 0; i < numPlayers; i++)
     {
+        cout << endl;
         cout << "Player " << i + 1 << ", please enter your name: " << endl;
         cin >> currentName;
         playersList.push_back(currentName);
@@ -104,11 +127,11 @@ int main()
 
     for (int i = 0; i < numPlayers; i++)
     {
-        cout << endl;
 
         // Start with full list of characters
         if (i == 0)
         {
+            cout << endl;
             displayLions("characters.txt", lions);
         }
         // If any player after first, modify the file so previous player's character does not show up
@@ -124,6 +147,7 @@ int main()
         bool validCharacter = false;
         cout << playersList[i] << ", please select a character by entering its name." << endl;
         cin >> currentLion;
+        cout << endl;
 
         // Check to make sure that the character entered is in the list of characters
         // If not, prompt the user to enter a character until it is valid
@@ -142,6 +166,8 @@ int main()
             {
                 cout << "Invalid character. Please enter the name of the character correctly." << endl;
                 cin >> currentLion;
+                cout << endl;
+
                 for (int k = 0; k < 5; k++)
                 {
                     if (currentLion == lions[k])
@@ -415,9 +441,14 @@ int main()
                     {
                         menu2(player1, 0, playersList);
                     }
-                    else if (choice == 3){
+                    else if (choice == 3)
+                    {
                         cout << pathType[0] << endl;
                         menu3(mainBoard, 0, pathType[0]);
+                    }
+                    else if (choice == 4)
+                    {
+                        menu4(0, chosenAdvisors[0], "advisors.txt", playersList);
                     }
                     else if (choice == 5)
                     {
@@ -493,6 +524,47 @@ int split(string input_string, char separator, string arr[], const int ARR_SIZE)
         return ARR_SIZE;
     }
     return -1;
+}
+
+vector<string> splitVec(string input_string, char separator, const int size)
+{
+    vector<string> vecWords;
+    string word;
+    int j = 0, k = 0;
+
+    // If there is nothing to split, return 0
+    if (input_string.length() == 0)
+    {
+        return vecWords;
+    }
+
+    // Loop to go through the whole line
+    for (unsigned int i = 0; i < input_string.length(); i++)
+    {
+        // If there is a separator found, put the word into the array
+        if (input_string[i] == separator)
+        {
+            vecWords.push_back(word);
+            word = "";
+            j++;
+            continue;
+        }
+        else if (j == size)
+        {
+            k++;
+            break;
+        }
+        // Keep adding characters into the word until it hits a delim
+        else
+        {
+            word += input_string[i];
+        }
+    }
+
+    // Add remaining word to array
+    vecWords.push_back(word);
+
+    return vecWords;
 }
 
 // Display Lions function to display available lion characters and their stats. Written by Joanne
@@ -646,12 +718,51 @@ void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
     cout << "Age: " << currentPlayer.getAge() << endl;
 }
 
-void menu3(Board _board, int currentPlayerIndex, int prideortrain){
-    if (prideortrain == 1){
-        cout << "hi" << endl;
-        _board.displayTrainTrack(0);
-        _board.displayPrideTrack(0);
-    } else if (prideortrain == 2){
-        _board.displayTrainTrack(currentPlayerIndex);
+void menu3(Board _board, int currentPlayerIndex, int prideortrain)
+{
+    if (prideortrain == 1)
+    {
+        // cout << "hi" << endl;
+        // _board.displayTrainTrack(0);
+        // _board.displayPrideTrack(0);
     }
+    else if (prideortrain == 2)
+    {
+        // _board.displayTrainTrack(currentPlayerIndex);
+    }
+}
+
+void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list)
+{
+    string fullLine;
+    vector<string> advisors;
+    int k = 0;
+
+    // Open file and make sure it opens
+    ifstream fileIn(filename);
+
+    getline(fileIn, fullLine);
+
+    // Split each line and print the stats of each lion character
+    while (getline(fileIn, fullLine))
+    {
+
+        advisors = splitVec(fullLine, '|', 3);
+
+        if (advisor == "")
+        {
+            cout << "You currently do not have an advisor." << endl;
+            break;
+        }
+        else if (advisor == advisors[0])
+        {
+            cout << list[currentPlayerIndex] << "'s Advisor: " << advisors[0] << endl;
+            cout << "Skill: " << advisors[1] << endl;
+            cout << "Description: " << advisors[2] << endl;
+        } 
+
+        k++;
+    }
+
+    fileIn.close();
 }
