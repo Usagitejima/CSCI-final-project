@@ -162,39 +162,57 @@ int main()
 
         // Address the player and ask them to select a character
         bool validCharacter = false;
-        cout << playersList[i] << ", please select a character by entering its name." << endl;
-        cin >> currentLion;
-        cout << endl;
+        // cout << playersList[i] << ", please select a character by entering its name." << endl;
+        // cin >> currentLion;
+        // cout << endl;
 
         // Check to make sure that the character entered is in the list of characters
         // If not, prompt the user to enter a character until it is valid
-        for (int k = 0; k < 5; k++)
-        {
-            if (currentLion == lions[k])
+        // for (int k = 0; k < 5; k++)
+        // {
+        //     if (currentLion == lions[k])
+        //     {
+        //         validCharacter = true;
+        //     }
+        // }
+
+        while (validCharacter == false) {
+            cout << playersList[i] << ", please select a character by entering its name." << endl;
+            cin >> currentLion;
+            for (int k = 0; k < 5; k++)
             {
-                validCharacter = true;
+                if (currentLion == lions[k])
+                {
+                    validCharacter = true;
+                    break;
+                }
+            }
+            if (validCharacter == false){
+                cout << "Invalid character. Please enter the name of the character correctly." << endl;
+                cin.clear(); // reset the failbit
+                cin.ignore(); // discard the invalid input
             }
         }
 
         // If the character the user entered is invalid prompt user to enter the name until one matches
-        if (validCharacter == false)
-        {
-            do
-            {
-                cout << "Invalid character. Please enter the name of the character correctly." << endl;
-                cin >> currentLion;
-                cout << endl;
+        // if (validCharacter == false)
+        // {
+        //     do
+        //     {
+        //         cout << "Invalid character. Please enter the name of the character correctly." << endl;
+        //         cin >> currentLion;
+        //         cout << endl;
 
-                for (int k = 0; k < 5; k++)
-                {
-                    if (currentLion == lions[k])
-                    {
-                        validCharacter = true;
-                        chosenLions[i] = currentLion;
-                    }
-                }
-            } while (validCharacter == false);
-        }
+        //         for (int k = 0; k < 5; k++)
+        //         {
+        //             if (currentLion == lions[k])
+        //             {
+        //                 validCharacter = true;
+        //                 chosenLions[i] = currentLion;
+        //             }
+        //         }
+        //     } while (validCharacter == false);
+        // }
 
         // Assign stats of the chosen character to corresponding player using setStats function
         if (i == 0)
