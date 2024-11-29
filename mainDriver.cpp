@@ -18,10 +18,15 @@ bool displayLions(string filename, string arr2[5]);
 void modifyDisplayLions(string filename, string str);
 // Output a main menu that will display choices for the user
 void outputMenu();
+// Displays the list of advisors and their skills/descriptions.
 bool displayAdvisors(string filename, string arr2[5]);
+//Runs menu choice one, which allows the player to look at their stats and pride points
 void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list);
+//Runs menu choice two, which allows player to see their name and age
 void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list);
+//Runs menu choice three, which allows the player to see their current position on the path they chose
 void menu3(Board _board, int currentPlayerIndex, int prideortrain);
+//Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
 
 int main()
@@ -233,27 +238,6 @@ int main()
         }
     }
 
-    // Player _player1("Joanne", 3000, 500, 200);
-    // _player1.printStats();
-    // _player1.addStamina(300);
-    // _player1.printStats();
-
-    // // Code to create another player and print stats
-    // // Checks whether printing stats and setting stats work
-    // Player _player2("Usagi", 1000, 4000, 700); // 4000 exceeds the limit so it should set stamina to 100
-    // _player2.printStats();
-    // _player2.setStrength(9000);
-    // _player2.printStats();
-
-    // // Code to create a new board
-    // // Checks whether initializing and displaying the board works
-    // Board board1(2);
-    // board1.initializeBoard();
-    // board1.displayBoard();
-
-    // _player1.Pink();
-    // _player1.printStats();
-
     srand(time(0));
 
     // Create a var of board class and store numPlayers
@@ -267,7 +251,7 @@ int main()
     int currentType;
 
     // Output options and prompt user to choose a path type
-    // Then, store the decision in a vector. Written by Donna
+    // Then, store the decision in a vector. Prompt user to reenter input if invalid (not 1 or 2). Written by Donna
     cout << "Here are your two possible paths towards Pride Rock! The first path is straight towards Pride Lands and the second path is some Cub Training." << endl;
 
     for (int i = 0; i < numPlayers; i++)
@@ -293,6 +277,7 @@ int main()
     string currentAdvisor;
     bool validAdvisor = false;
 
+    //Display the various advisors from txt file
     for (int i = 0; i < numPlayers; i++)
     {
         if (i == 0)
@@ -462,6 +447,7 @@ int main()
         {
             if (turnCount == 0)
             {
+                //Display menu and allow user to make a choice. Only move turns when play chooses to move position
                 do
                 {
                     endTurn = false;
@@ -498,6 +484,7 @@ int main()
                 cin >> choice;
             }
 
+            //Keep loop running
             if (turnCount == numPlayers - 1)
             {
                 turnCount = -1;
@@ -561,6 +548,7 @@ int split(string input_string, char separator, string arr[], const int ARR_SIZE)
     return -1;
 }
 
+//Split function to split a line containing a delimiter int multiple parts and stores them in a vector, which is what is returned.
 vector<string> splitVec(string input_string, char separator, const int size)
 {
     vector<string> vecWords;
@@ -701,6 +689,7 @@ void outputMenu()
          << "5. Move forward" << endl;
 }
 
+// Displays the list of advisors and their skills/descriptions.
 bool displayAdvisors(string filename, string arr2[5])
 {
     string fullLine;
@@ -737,6 +726,7 @@ bool displayAdvisors(string filename, string arr2[5])
     return true;
 }
 
+//Runs menu choice one, which allows the player to look at their stats and pride points
 void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 {
     cout << list[currentPlayerIndex] << ", here are your pride points and leadership trait stats: " << endl;
@@ -746,6 +736,7 @@ void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list)
     cout << "Pride Points: " << currentPlayer.getPride() << endl;
 }
 
+//Runs menu choice two, which allows player to see their name and age
 void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 {
     cout << list[currentPlayerIndex] << ", here is your name and age: " << endl;
@@ -753,6 +744,7 @@ void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
     cout << "Age: " << currentPlayer.getAge() << endl;
 }
 
+//Runs menu choice three, which allows the player to see their current position on the path they chose
 void menu3(Board _board, int currentPlayerIndex, int prideortrain)
 {
     if (prideortrain == 1)
@@ -767,6 +759,7 @@ void menu3(Board _board, int currentPlayerIndex, int prideortrain)
     }
 }
 
+//Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list)
 {
     string fullLine;
