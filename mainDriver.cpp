@@ -90,7 +90,7 @@ int main()
     while (true)
     {
         cout << "How many players will be playing the game? (Up to 4 total players)" << endl;
-        if (cin >> numPlayers && numPlayers < 4 && numPlayers > 1)
+        if (cin >> numPlayers && numPlayers <= 4 && numPlayers > 1)
         {
             break;
         }
@@ -101,22 +101,6 @@ int main()
             cin.ignore(); // discard the invalid input
         }
     }
-
-    // if(!isdigit(numPlayers)){
-    //     do
-    //     {
-    //         cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
-    //         cin >> numPlayers;
-    //     } while (!isdigit(numPlayers));
-    // }
-    // else if (numPlayers > 4 || numPlayers < 1)
-    // {
-    //     do
-    //     {
-    //         cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
-    //         cin >> numPlayers;
-    //     } while (numPlayers > 4 || numPlayers < 1);
-    // }
 
     // Create a vector for a list of players
     // Prompt user to enter in names of the players and store them into the vector
@@ -172,19 +156,6 @@ int main()
 
         // Address the player and ask them to select a character
         bool validCharacter = false;
-        // cout << playersList[i] << ", please select a character by entering its name." << endl;
-        // cin >> currentLion;
-        // cout << endl;
-
-        // Check to make sure that the character entered is in the list of characters
-        // If not, prompt the user to enter a character until it is valid
-        // for (int k = 0; k < 5; k++)
-        // {
-        //     if (currentLion == lions[k])
-        //     {
-        //         validCharacter = true;
-        //     }
-        // }
 
         while (validCharacter == false)
         {
@@ -195,6 +166,7 @@ int main()
                 if (currentLion == lions[k])
                 {
                     validCharacter = true;
+                    cout << endl;
                     break;
                 }
             }
@@ -203,28 +175,9 @@ int main()
                 cout << "Invalid character. Please enter the name of the character correctly." << endl;
                 cin.clear();  // reset the failbit
                 cin.ignore(); // discard the invalid input
+                cout << endl;
             }
         }
-
-        // If the character the user entered is invalid prompt user to enter the name until one matches
-        // if (validCharacter == false)
-        // {
-        //     do
-        //     {
-        //         cout << "Invalid character. Please enter the name of the character correctly." << endl;
-        //         cin >> currentLion;
-        //         cout << endl;
-
-        //         for (int k = 0; k < 5; k++)
-        //         {
-        //             if (currentLion == lions[k])
-        //             {
-        //                 validCharacter = true;
-        //                 chosenLions[i] = currentLion;
-        //             }
-        //         }
-        //     } while (validCharacter == false);
-        // }
 
         // Assign stats of the chosen character to corresponding player using setStats function
         if (i == 0)
@@ -277,6 +230,7 @@ int main()
             } while (!(pathType[i] >= 1 && pathType[i] <= 2));
         }
     }
+
 
     // Code to choose an advisor if you choose cub training
     string advisors[5];
@@ -439,6 +393,7 @@ int main()
                 }
             }
         }
+        cout << endl;
     }
 
     // idea of how to run game?
@@ -471,7 +426,6 @@ int main()
                     }
                     else if (choice == 3)
                     {
-                        cout << pathType[0] << endl;
                         menu3(mainBoard, 0, pathType[0]);
                     }
                     else if (choice == 4)
@@ -487,9 +441,94 @@ int main()
             }
             else if (turnCount == 1)
             {
-                outputMenu();
-                cout << playersList[1] << ", please enter your choice (1 - 5):" << endl;
-                cin >> choice;
+                do
+                {
+                    endTurn = false;
+                    outputMenu();
+                    cout << playersList[1] << ", please enter your choice (1 - 5):" << endl;
+                    cin >> choice;
+                    if (choice == 1)
+                    {
+                        menu1(player2, 1, playersList);
+                    }
+                    else if (choice == 2)
+                    {
+                        menu2(player2, 1, playersList);
+                    }
+                    else if (choice == 3)
+                    {
+                        menu3(mainBoard, 1, pathType[1]);
+                    }
+                    else if (choice == 4)
+                    {
+                        menu4(1, chosenAdvisors[1], "advisors.txt", playersList);
+                    }
+                    else if (choice == 5)
+                    {
+                        menu5(mainBoard, 1, pathType);
+                        endTurn = true;
+                    }
+                } while (endTurn == false);
+            }else if (turnCount == 2)
+            {
+                do
+                {
+                    endTurn = false;
+                    outputMenu();
+                    cout << playersList[2] << ", please enter your choice (1 - 5):" << endl;
+                    cin >> choice;
+                    if (choice == 1)
+                    {
+                        menu1(player3, 2, playersList);
+                    }
+                    else if (choice == 2)
+                    {
+                        menu2(player3, 2, playersList);
+                    }
+                    else if (choice == 3)
+                    {
+                        menu3(mainBoard, 2, pathType[2]);
+                    }
+                    else if (choice == 4)
+                    {
+                        menu4(2, chosenAdvisors[2], "advisors.txt", playersList);
+                    }
+                    else if (choice == 5)
+                    {
+                        menu5(mainBoard, 2, pathType);
+                        endTurn = true;
+                    }
+                } while (endTurn == false);
+            }else if (turnCount == 3)
+            {
+                do
+                {
+                    endTurn = false;
+                    outputMenu();
+                    cout << playersList[3] << ", please enter your choice (1 - 5):" << endl;
+                    cin >> choice;
+                    if (choice == 1)
+                    {
+                        menu1(player4, 3, playersList);
+                    }
+                    else if (choice == 2)
+                    {
+                        menu2(player4, 3, playersList);
+                    }
+                    else if (choice == 3)
+                    {
+                        menu3(mainBoard, 3, pathType[3]);
+                    }
+                    else if (choice == 4)
+                    {
+                        menu4(3, chosenAdvisors[3], "advisors.txt", playersList);
+                    }
+                    else if (choice == 5)
+                    {
+                        menu5(mainBoard, 3, pathType);
+                        endTurn = true;
+                    }
+                } while (endTurn == false);
             }
 
             // Keep loop running
@@ -499,12 +538,6 @@ int main()
             }
         }
     }
-
-    //     cout << mainBoard.movePlayer(1) << endl;
-    //     mainBoard.displayPrideBoard();
-    //     cout << mainBoard.getPlayerPosition(1) << endl;
-
-    //     mainBoard.displayPrideTrack(1);
 }
 
 // Split function to split a line containing a delimiter into multiple parts. Returns the amount of things split. Written by Joanne
@@ -689,6 +722,7 @@ void modifyDisplayLions(string filename, string str)
 // Output a main menu that will display choices for the user
 void outputMenu()
 {
+    cout << endl;
     cout << "+++ Main Menu +++" << endl
          << "1. Review pride points and leadership trait stats" << endl
          << "2. Check character name and age" << endl
@@ -724,6 +758,7 @@ bool displayAdvisors(string filename, string arr2[5])
         cout << "Advisor name: " << arr1[0] << endl;
         cout << "Skill: " << arr1[1] << endl;
         cout << "Description: " << arr1[2] << endl;
+        cout << endl;
 
         arr2[k] = arr1[0];
         k++;
@@ -737,6 +772,7 @@ bool displayAdvisors(string filename, string arr2[5])
 // Runs menu choice one, which allows the player to look at their stats and pride points
 void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 {
+    cout << endl;
     cout << list[currentPlayerIndex] << ", here are your pride points and leadership trait stats: " << endl;
     cout << "Strength: " << currentPlayer.getStrength() << endl;
     cout << "Stamina: " << currentPlayer.getStamina() << endl;
@@ -747,6 +783,7 @@ void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 // Runs menu choice two, which allows player to see their name and age
 void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 {
+    cout << endl;
     cout << list[currentPlayerIndex] << ", here is your name and age: " << endl;
     cout << "Name: " << currentPlayer.getName() << endl;
     cout << "Age: " << currentPlayer.getAge() << endl;
@@ -755,6 +792,7 @@ void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 // Runs menu choice three, which allows the player to see their current position on the path they chose
 void menu3(Board _board, int currentPlayerIndex, int prideortrain)
 {
+    cout << endl;
     if (prideortrain == 1)
     {
         _board.displayPrideTrack(currentPlayerIndex);
@@ -768,6 +806,7 @@ void menu3(Board _board, int currentPlayerIndex, int prideortrain)
 // Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list)
 {
+    cout << endl;
     string fullLine;
     vector<string> advisors;
     int k = 0;
@@ -803,9 +842,11 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 
 void menu5(Board _board, int currentPlayerIndex, vector<int> vec)
 {
+    cout << endl;
     int rollDice = rand() % 6;
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
+    cout << endl;
     _board.movePlayer(currentPlayerIndex, rollDice);
     if (vec[currentPlayerIndex] == 1){
         _board.displayPrideTrack(currentPlayerIndex);
