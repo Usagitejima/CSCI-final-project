@@ -106,7 +106,7 @@ void Board::initializePrideTiles(int player_index)
         }
 
         // Assign the tile to the board for the specified lane
-        _tiles[player_index][i] = temp;
+        _prideTiles[player_index][i] = temp;
     }
 }
 
@@ -182,7 +182,7 @@ void Board::initializeTrainTiles(int player_index)
         }
 
         // Assign the tile to the board for the specified lane
-        _tiles[player_index][i] = temp;
+        _trainTiles[player_index][i] = temp;
     }
 }
 
@@ -234,7 +234,7 @@ bool Board::isPlayerOnTile(int player_index, int pos)
 }
 
 // Prints out tile
-void Board::displayTile(int player_index, int pos)
+void Board::displayPrideTile(int player_index, int pos)
 {
     string space = "                                       ";
     string color = "";
@@ -243,35 +243,88 @@ void Board::displayTile(int player_index, int pos)
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
     // Determine color to display
-    if (_tiles[player_index][pos].color == 'R')
+    if (_prideTiles[player_index][pos].color == 'R')
     {
         color = RED;
     }
-    else if (_tiles[player_index][pos].color == 'G')
+    else if (_prideTiles[player_index][pos].color == 'G')
     {
         color = GREEN;
     }
-    else if (_tiles[player_index][pos].color == 'B')
+    else if (_prideTiles[player_index][pos].color == 'B')
     {
         color = BLUE;
     }
-    else if (_tiles[player_index][pos].color == 'U')
+    else if (_prideTiles[player_index][pos].color == 'U')
     {
         color = PURPLE;
     }
-    else if (_tiles[player_index][pos].color == 'N')
+    else if (_prideTiles[player_index][pos].color == 'N')
     {
         color = BROWN;
     }
-    else if (_tiles[player_index][pos].color == 'P')
+    else if (_prideTiles[player_index][pos].color == 'P')
     {
         color = PINK;
     }
-    else if (_tiles[player_index][pos].color == 'O')
+    else if (_prideTiles[player_index][pos].color == 'O')
     {
         color = ORANGE;
     }
-    else if (_tiles[player_index][pos].color == 'Y')
+    else if (_prideTiles[player_index][pos].color == 'Y')
+    {
+        color = GREY;
+    }
+
+    if (player == true)
+    {
+        cout << color << "|" << (player_index + 1) << "|" << RESET;
+    }
+    else
+    {
+        cout << color << "| |" << RESET;
+    }
+}
+
+// Prints out tile
+void Board::displayTrainTile(int player_index, int pos)
+{
+    string space = "                                       ";
+    string color = "";
+    int player = isPlayerOnTile(player_index, pos);
+
+    // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
+
+    // Determine color to display
+    if (_trainTiles[player_index][pos].color == 'R')
+    {
+        color = RED;
+    }
+    else if (_trainTiles[player_index][pos].color == 'G')
+    {
+        color = GREEN;
+    }
+    else if (_trainTiles[player_index][pos].color == 'B')
+    {
+        color = BLUE;
+    }
+    else if (_trainTiles[player_index][pos].color == 'U')
+    {
+        color = PURPLE;
+    }
+    else if (_trainTiles[player_index][pos].color == 'N')
+    {
+        color = BROWN;
+    }
+    else if (_trainTiles[player_index][pos].color == 'P')
+    {
+        color = PINK;
+    }
+    else if (_trainTiles[player_index][pos].color == 'O')
+    {
+        color = ORANGE;
+    }
+    else if (_trainTiles[player_index][pos].color == 'Y')
     {
         color = GREY;
     }
@@ -291,7 +344,7 @@ void Board::displayPrideTrack(int player_index)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
     {
-        displayTile(player_index, i);
+        displayPrideTile(player_index, i);
     }
     cout << endl;
 }
@@ -314,7 +367,7 @@ void Board::displayTrainTrack(int player_index)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
     {
-        displayTile(player_index, i);
+        displayTrainTile(player_index, i);
     }
     cout << endl;
 }
@@ -332,10 +385,10 @@ void Board::displayTrainBoard()
     }
 }
 
-bool Board::movePlayer(int player_index)
+bool Board::movePlayer(int player_index, int diceAmount)
 {
     // Increment player position
-    _player_position[player_index]++;
+    _player_position[player_index] += diceAmount;
     if (_player_position[player_index] == _BOARD_SIZE - 1)
     {
         // Player reached last tile
