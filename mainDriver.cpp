@@ -843,7 +843,7 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 void menu5(Board _board, int currentPlayerIndex, vector<int> vec)
 {
     cout << endl;
-    int rollDice = rand() % 6;
+    int rollDice = rand() % 6 + 1;
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
     cout << endl;

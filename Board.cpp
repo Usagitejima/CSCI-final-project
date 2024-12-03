@@ -263,10 +263,10 @@ void Board::displayPrideTile(int player_index, int pos)
     {
         color = BROWN;
     }
-    else if (_prideTiles[player_index][pos].color == 'P')
-    {
-        color = PINK;
-    }
+    // else if (_prideTiles[player_index][pos].color == 'P')
+    // {
+    //     color = PINK;
+    // }
     else if (_prideTiles[player_index][pos].color == 'O')
     {
         color = ORANGE;
@@ -296,11 +296,11 @@ void Board::displayTrainTile(int player_index, int pos)
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
     // Determine color to display
-    if (_trainTiles[player_index][pos].color == 'R')
-    {
-        color = RED;
-    }
-    else if (_trainTiles[player_index][pos].color == 'G')
+    // if (_trainTiles[player_index][pos].color == 'R')
+    // {
+    //     color = RED;
+    // }
+    if (_trainTiles[player_index][pos].color == 'G')
     {
         color = GREEN;
     }
