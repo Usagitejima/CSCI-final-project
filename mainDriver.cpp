@@ -28,7 +28,7 @@ void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list);
 void menu3(Board _board, int currentPlayerIndex, int prideortrain);
 // Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
-void menu5(Board _board, int currentPlayerIndex, vector<int> vec /*, int currentPosition[]*/);
+void menu5(Board _board, int currentPlayerIndex, vector<int> vec, int arr[]);
 bool isValidInt(string value);
 
 int main()
@@ -404,7 +404,7 @@ int main()
     bool endGame = false;
     bool endTurn = false;
     int choice;
-    int position[4];
+    int currentPositions[4] = {0, 0, 0, 0};
 
     while (endGame == false)
     {
@@ -439,7 +439,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 0, pathType /*, position*/);
+                        menu5(mainBoard, 0, pathType, currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -470,7 +470,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 1, pathType /*, position*/);
+                        menu5(mainBoard, 1, pathType, currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -500,7 +500,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 2, pathType/*, position*/);
+                        menu5(mainBoard, 2, pathType, currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -530,7 +530,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 3, pathType/*, position*/);
+                        menu5(mainBoard, 3, pathType, currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -855,19 +855,21 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
     fileIn.close();
 }
 
-void menu5(Board _board, int currentPlayerIndex, vector<int> vec /*, int currentPosition[]*/)
+void menu5(Board _board, int currentPlayerIndex, vector<int> vec, int arr[])
 {
     cout << endl;
-    int rollDice = rand() % 6 + 1;
+    int rollDice = rand() % 7;
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
     cout << endl;
-    // currentPosition[currentPlayerIndex] += rollDice;
-    // rollDice = currentPosition[currentPlayerIndex];
-    _board.movePlayer(currentPlayerIndex, rollDice);
+    int path = vec[currentPlayerIndex];
+    arr[currentPlayerIndex] += rollDice;
+    _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
     if (vec[currentPlayerIndex] == 1){
         _board.displayPrideTrack(currentPlayerIndex);
     } else if (vec[currentPlayerIndex] == 2){
         _board.displayTrainTrack(currentPlayerIndex);
     }
+
+    cout << "color of tile: " << _board.determineColor(currentPlayerIndex, path, arr[currentPlayerIndex]) << endl;
 }

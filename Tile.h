@@ -7,8 +7,9 @@
 
 using namespace std;
 
-struct Tile
+class Tile
 {
+    public:
     char color;
 };
 

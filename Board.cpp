@@ -406,10 +406,16 @@ int Board::getPlayerPosition(int player_index) const
     return -1;
 }
 
-char Board::determineColor()
+char Board::determineColor(int player_index, int pathType, int pos)
 {
     // 1. Based on position of the player, determine the color of the tile that the player is on
     // 2. This will create and use an array to track the colors within the Board class
     // 3. Then, it will be used to determine the current tile color
-    return 'H';
+    if (pathType == 1){
+        return _prideTiles[player_index][pos].color;
+    }
+    else if (pathType == 2){
+        return _trainTiles[player_index][pos].color;
+    }
+    return 'M';
 }
