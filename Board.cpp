@@ -16,26 +16,26 @@
 void Board::initializePrideBoard()
 {
     // Seed random number generator in your main function once
-    for (int i = 0; i < 4; i++)
-    {
-        initializePrideTiles(i); // This ensures each lane has a unique tile distribution
-    }
+    // for (int i = 0; i < 4; i++)
+    // {
+        initializePrideTiles(); // This ensures each lane has a unique tile distribution
+    // }
 }
 
 //Initializes the board that leads player to cub training. Written by Donna
 void Board::initializeTrainBoard()
 {
     // Seed random number generator in your main function once
-    for (int i = 0; i < 4; i++)
-    {
-        initializeTrainTiles(i); // This ensures each lane has a unique tile distribution
-    }
+    // for (int i = 0; i < 4; i++)
+    // {
+        initializeTrainTiles(); // This ensures each lane has a unique tile distribution
+    // }
 }
 
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
-void Board::initializePrideTiles(int player_index)
+void Board::initializePrideTiles()
 {
     Tile temp;
     int green_count = 0;
@@ -106,11 +106,11 @@ void Board::initializePrideTiles(int player_index)
         }
 
         // Assign the tile to the board for the specified lane
-        _prideTiles[player_index][i] = temp;
+        _prideTiles[i] = temp;
     }
 }
 
-void Board::initializeTrainTiles(int player_index)
+void Board::initializeTrainTiles()
 {
     Tile temp;
     int green_count = 0;
@@ -182,7 +182,7 @@ void Board::initializeTrainTiles(int player_index)
         }
 
         // Assign the tile to the board for the specified lane
-        _trainTiles[player_index][i] = temp;
+        _trainTiles[i] = temp;
     }
 }
 
@@ -243,23 +243,23 @@ void Board::displayPrideTile(int player_index, int pos)
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
     // Determine color to display
-    if (_prideTiles[player_index][pos].color == 'R')
+    if (_prideTiles[pos].color == 'R')
     {
         color = RED;
     }
-    else if (_prideTiles[player_index][pos].color == 'G')
+    else if (_prideTiles[pos].color == 'G')
     {
         color = GREEN;
     }
-    else if (_prideTiles[player_index][pos].color == 'B')
+    else if (_prideTiles[pos].color == 'B')
     {
         color = BLUE;
     }
-    else if (_prideTiles[player_index][pos].color == 'U')
+    else if (_prideTiles[pos].color == 'U')
     {
         color = PURPLE;
     }
-    else if (_prideTiles[player_index][pos].color == 'N')
+    else if (_prideTiles[pos].color == 'N')
     {
         color = BROWN;
     }
@@ -267,11 +267,11 @@ void Board::displayPrideTile(int player_index, int pos)
     // {
     //     color = PINK;
     // }
-    else if (_prideTiles[player_index][pos].color == 'O')
+    else if (_prideTiles[pos].color == 'O')
     {
         color = ORANGE;
     }
-    else if (_prideTiles[player_index][pos].color == 'Y')
+    else if (_prideTiles[pos].color == 'Y')
     {
         color = GREY;
     }
@@ -300,31 +300,31 @@ void Board::displayTrainTile(int player_index, int pos)
     // {
     //     color = RED;
     // }
-    if (_trainTiles[player_index][pos].color == 'G')
+    if (_trainTiles[pos].color == 'G')
     {
         color = GREEN;
     }
-    else if (_trainTiles[player_index][pos].color == 'B')
+    else if (_trainTiles[pos].color == 'B')
     {
         color = BLUE;
     }
-    else if (_trainTiles[player_index][pos].color == 'U')
+    else if (_trainTiles[pos].color == 'U')
     {
         color = PURPLE;
     }
-    else if (_trainTiles[player_index][pos].color == 'N')
+    else if (_trainTiles[pos].color == 'N')
     {
         color = BROWN;
     }
-    else if (_trainTiles[player_index][pos].color == 'P')
+    else if (_trainTiles[pos].color == 'P')
     {
         color = PINK;
     }
-    else if (_trainTiles[player_index][pos].color == 'O')
+    else if (_trainTiles[pos].color == 'O')
     {
         color = ORANGE;
     }
-    else if (_trainTiles[player_index][pos].color == 'Y')
+    else if (_trainTiles[pos].color == 'Y')
     {
         color = GREY;
     }
@@ -412,10 +412,10 @@ char Board::determineColor(int player_index, int pathType, int pos)
     // 2. This will create and use an array to track the colors within the Board class
     // 3. Then, it will be used to determine the current tile color
     if (pathType == 1){
-        return _prideTiles[player_index][pos].color;
+        return _prideTiles[pos].color;
     }
     else if (pathType == 2){
-        return _trainTiles[player_index][pos].color;
+        return _trainTiles[pos].color;
     }
     return 'M';
 }
