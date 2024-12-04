@@ -28,7 +28,8 @@ void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list);
 void menu3(Board _board, int currentPlayerIndex, int prideortrain);
 // Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
-void menu5(Board _board, int currentPlayerIndex, vector<int> vec);
+void menu5(Board _board, int currentPlayerIndex, vector<int> vec /*, int currentPosition[]*/);
+bool isValidInt(string value);
 
 int main()
 {
@@ -63,6 +64,7 @@ int main()
 
     // Varible to store the total number of players
     int numPlayers;
+    string SnumPlayers;
 
     cout << R"(
                         \|\||
@@ -90,8 +92,9 @@ int main()
     while (true)
     {
         cout << "How many players will be playing the game? (Up to 4 total players)" << endl;
-        if (cin >> numPlayers && numPlayers <= 4 && numPlayers > 1)
+        if (cin >> SnumPlayers && isValidInt(SnumPlayers) == true && stoi(SnumPlayers) <= 4 && stoi(SnumPlayers) > 1)
         {
+            numPlayers = stoi(SnumPlayers);
             break;
         }
         else
@@ -209,6 +212,7 @@ int main()
     mainBoard.displayTrainBoard();
     vector<int> pathType;
     int currentType;
+    string ScurrentType;
 
     // Output options and prompt user to choose a path type
     // Then, store the decision in a vector. Prompt user to reenter input if invalid (not 1 or 2). Written by Donna
@@ -216,18 +220,18 @@ int main()
 
     for (int i = 0; i < numPlayers; i++)
     {
-        cout << playersList[i] << ", please choose your path. (Enter 1 or 2)" << endl;
-        cin >> currentType;
-        pathType.push_back(currentType);
-        if (!(pathType[i] >= 1 && pathType[i] <= 2))
-        {
-            do
-            {
-                pathType.pop_back();
-                cout << "Invalid input. Please enter 1 or 2." << endl;
-                cin >> currentType;
+        while(true){
+            cout << playersList[i] << ", please choose your path. (Enter 1 or 2)" << endl;
+            if(cin >> ScurrentType && isValidInt(ScurrentType) && (stoi(ScurrentType) == 1 || stoi(ScurrentType) == 2)){
+                currentType = stoi(ScurrentType);
                 pathType.push_back(currentType);
-            } while (!(pathType[i] >= 1 && pathType[i] <= 2));
+                break;
+            }
+            else{
+                cout << "Invalid input. Please enter 1 or 2." << endl;
+                cin.clear();  // reset the failbit
+                cin.ignore(); // discard the invalid input
+            }
         }
     }
 
@@ -400,6 +404,7 @@ int main()
     bool endGame = false;
     bool endTurn = false;
     int choice;
+    int position[4];
 
     while (endGame == false)
     {
@@ -434,7 +439,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 0, pathType);
+                        menu5(mainBoard, 0, pathType /*, position*/);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -465,7 +470,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 1, pathType);
+                        menu5(mainBoard, 1, pathType /*, position*/);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -495,7 +500,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 2, pathType);
+                        menu5(mainBoard, 2, pathType/*, position*/);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -525,7 +530,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 3, pathType);
+                        menu5(mainBoard, 3, pathType/*, position*/);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -538,6 +543,16 @@ int main()
             }
         }
     }
+}
+
+// Check if a string is a valid integer
+bool isValidInt(string value){
+    for (int i = 0; i < (int)value.length(); i++){
+        if(!isdigit(value[i])){
+            return false;
+        }
+    }
+    return true;
 }
 
 // Split function to split a line containing a delimiter into multiple parts. Returns the amount of things split. Written by Joanne
@@ -840,13 +855,15 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
     fileIn.close();
 }
 
-void menu5(Board _board, int currentPlayerIndex, vector<int> vec)
+void menu5(Board _board, int currentPlayerIndex, vector<int> vec /*, int currentPosition[]*/)
 {
     cout << endl;
     int rollDice = rand() % 6 + 1;
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
     cout << endl;
+    // currentPosition[currentPlayerIndex] += rollDice;
+    // rollDice = currentPosition[currentPlayerIndex];
     _board.movePlayer(currentPlayerIndex, rollDice);
     if (vec[currentPlayerIndex] == 1){
         _board.displayPrideTrack(currentPlayerIndex);
