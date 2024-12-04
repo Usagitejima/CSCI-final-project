@@ -10,15 +10,15 @@ class Board
 {
 private:
     static const int _BOARD_SIZE = 52;
-    Tile _prideTiles[4][_BOARD_SIZE];
-    Tile _trainTiles[4][_BOARD_SIZE];
+    Tile _prideTiles[_BOARD_SIZE];
+    Tile _trainTiles[_BOARD_SIZE];
     static const int _MAX_PLAYERS = 4;
     int _player_count;
     int _player_position[_MAX_PLAYERS];
     void displayPrideTile(int player_index, int pos);
     void displayTrainTile(int player_index, int pos);
-    void initializePrideTiles(int player_index);
-    void initializeTrainTiles(int player_index);
+    void initializePrideTiles();
+    void initializeTrainTiles();
     bool isPlayerOnTile(int player_index, int pos);
 
 public:

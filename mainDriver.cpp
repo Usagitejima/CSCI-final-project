@@ -25,10 +25,11 @@ void menu1(Player currentPlayer, int currentPlayerIndex, vector<string> list);
 // Runs menu choice two, which allows player to see their name and age
 void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list);
 // Runs menu choice three, which allows the player to see their current position on the path they chose
-void menu3(Board _board, int currentPlayerIndex, int prideortrain);
+void menu3(Board _board, int currentPlayerIndex, int prideortrain, int arr[]);
 // Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
-void menu5(Board _board, int currentPlayerIndex, vector<int> vec, int arr[]);
+// Runs menu choice five, which allows the player to roll the dice and move forward
+void menu5(Board _board, int currentPlayerIndex, int vec, int arr[]);
 bool isValidInt(string value);
 
 int main()
@@ -431,7 +432,7 @@ int main()
                     }
                     else if (choice == 3)
                     {
-                        menu3(mainBoard, 0, pathType[0]);
+                        menu3(mainBoard, 0, pathType[0], currentPositions);
                     }
                     else if (choice == 4)
                     {
@@ -439,7 +440,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 0, pathType, currentPositions);
+                        menu5(mainBoard, 0, pathType[0], currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -462,7 +463,7 @@ int main()
                     }
                     else if (choice == 3)
                     {
-                        menu3(mainBoard, 1, pathType[1]);
+                        menu3(mainBoard, 1, pathType[1], currentPositions);
                     }
                     else if (choice == 4)
                     {
@@ -470,7 +471,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 1, pathType, currentPositions);
+                        menu5(mainBoard, 1, pathType[1], currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -492,7 +493,7 @@ int main()
                     }
                     else if (choice == 3)
                     {
-                        menu3(mainBoard, 2, pathType[2]);
+                        menu3(mainBoard, 2, pathType[2], currentPositions);
                     }
                     else if (choice == 4)
                     {
@@ -500,7 +501,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 2, pathType, currentPositions);
+                        menu5(mainBoard, 2, pathType[2], currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -522,7 +523,7 @@ int main()
                     }
                     else if (choice == 3)
                     {
-                        menu3(mainBoard, 3, pathType[3]);
+                        menu3(mainBoard, 3, pathType[3], currentPositions);
                     }
                     else if (choice == 4)
                     {
@@ -530,7 +531,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 3, pathType, currentPositions);
+                        menu5(mainBoard, 3, pathType[3], currentPositions);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -805,15 +806,22 @@ void menu2(Player currentPlayer, int currentPlayerIndex, vector<string> list)
 }
 
 // Runs menu choice three, which allows the player to see their current position on the path they chose
-void menu3(Board _board, int currentPlayerIndex, int prideortrain)
+void menu3(Board _board, int currentPlayerIndex, int prideortrain, int arr[])
 {
     cout << endl;
+    // Depending on which path type user chose
     if (prideortrain == 1)
     {
+        //Move the position to the current one
+        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
+        //Display the specific user's path
         _board.displayPrideTrack(currentPlayerIndex);
     }
     else if (prideortrain == 2)
     {
+        //Move the position to the current one
+        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
+        //Display the specific user's path
         _board.displayTrainTrack(currentPlayerIndex);
     }
 }
@@ -855,32 +863,37 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
     fileIn.close();
 }
 
-void menu5(Board _board, int currentPlayerIndex, vector<int> vec, int arr[])
+// Runs menu choice five, which allows the player to roll the dice and move forward
+void menu5(Board _board, int currentPlayerIndex, int vec, int arr[])
 {
     cout << endl;
+    //"Roll the dice" which generates a number from 1-6
     int rollDice = rand() % 6 + 1;
+    //Display the rolled number
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
     cout << endl;
-    int path = vec[currentPlayerIndex];
+    //Add rolled number to the player's position
     arr[currentPlayerIndex] += rollDice;
 
+    //If the player has reached the last tile, display they have reached pride rock
     if(arr[currentPlayerIndex] >= 51){
         _board.movePlayer(currentPlayerIndex, 51);
-        if (vec[currentPlayerIndex] == 1){
+        if (vec == 1){
             _board.displayPrideTrack(currentPlayerIndex);
-        } else if (vec[currentPlayerIndex] == 2){
+        } else if (vec == 2){
             _board.displayTrainTrack(currentPlayerIndex);
         }
         cout << "You have reached the Pride Rock!" << endl;
     }
+    //Else, move the player depending on their position and display their correct path
     else{
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
-        if (vec[currentPlayerIndex] == 1){
+        if (vec == 1){
             _board.displayPrideTrack(currentPlayerIndex);
-        } else if (vec[currentPlayerIndex] == 2){
+        } else if (vec == 2){
             _board.displayTrainTrack(currentPlayerIndex);
         }
-        cout << "color of tile: " << _board.determineColor(currentPlayerIndex, path, arr[currentPlayerIndex]) << endl;
+        cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
     }
 }
