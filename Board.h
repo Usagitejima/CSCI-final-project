@@ -34,7 +34,7 @@ public:
     int getPlayerPosition(int player_index) const;
 
     //Function to determine which color the tile is that the player is currently on
-    char determineColor();
+    char determineColor(int player_index, int pathType, int pos);
 };
 
 #endif
