@@ -858,18 +858,29 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 void menu5(Board _board, int currentPlayerIndex, vector<int> vec, int arr[])
 {
     cout << endl;
-    int rollDice = rand() % 7;
+    int rollDice = rand() % 6 + 1;
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
     cout << endl;
     int path = vec[currentPlayerIndex];
     arr[currentPlayerIndex] += rollDice;
-    _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
-    if (vec[currentPlayerIndex] == 1){
-        _board.displayPrideTrack(currentPlayerIndex);
-    } else if (vec[currentPlayerIndex] == 2){
-        _board.displayTrainTrack(currentPlayerIndex);
-    }
 
-    cout << "color of tile: " << _board.determineColor(currentPlayerIndex, path, arr[currentPlayerIndex]) << endl;
+    if(arr[currentPlayerIndex] >= 51){
+        _board.movePlayer(currentPlayerIndex, 51);
+        if (vec[currentPlayerIndex] == 1){
+            _board.displayPrideTrack(currentPlayerIndex);
+        } else if (vec[currentPlayerIndex] == 2){
+            _board.displayTrainTrack(currentPlayerIndex);
+        }
+        cout << "You have reached the Pride Rock!" << endl;
+    }
+    else{
+        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
+        if (vec[currentPlayerIndex] == 1){
+            _board.displayPrideTrack(currentPlayerIndex);
+        } else if (vec[currentPlayerIndex] == 2){
+            _board.displayTrainTrack(currentPlayerIndex);
+        }
+        cout << "color of tile: " << _board.determineColor(currentPlayerIndex, path, arr[currentPlayerIndex]) << endl;
+    }
 }
