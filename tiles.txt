@@ -1,0 +1,38 @@
+File about the tiles
+
+GREY 'Y'
+- Starting tile
+- No other purpose
+
+ORANGE 'O'
+- Pride Rock
+- Ends the turn for players that reach it
+- Game ends when all player reach Pride Rock
+- Convert player's leadership points to pride points
+
+BLUE 'B'
+- Oasis Tile
+- "You have reached an oasis. Take a break and recover your strength and stamina (+100)"
+- Increase player's strength and stamina by 100
+
+BROWN 'N'
+- Player must go back three spaces
+
+PURPLE 'U'
+- Riddle Tile
+- Player must answer a riddle correctly in order to gain pride points
+- Answering wrong may cost you points
+
+GREEN 'G'
+- 50% chance of random event occuring
+- Random events can be passed based off of the amount of strength/stamina/wisdom points the player has, or based on what advisor the player has
+
+PRIDE PATH
+RED 'R'
+- Player gets an option to choose an advisor or add strength/stamina/wisdom/pride points (+500)
+- However, doing so will cause them to move back 10 spaces
+
+TRAIN PATH
+PINK 'P'
+- Choose another Advisor
+- However, choosing a different advisor will cost you pride points (-500)
