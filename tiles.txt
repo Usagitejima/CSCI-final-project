@@ -16,14 +16,17 @@ BLUE 'B'
 - Increase player's strength and stamina by 100
 
 BROWN 'N'
+- Hyena Tile
+- -100 Stamina and Strength
 - Player must go back three spaces
 
 PURPLE 'U'
 - Riddle Tile
-- Player must answer a riddle correctly in order to gain pride points
-- Answering wrong may cost you points
+- Player must answer a riddle correctly in order to gain pride points (+500 wisdom points)
+- Answering wrong may cost you points (-300 Wisdom points)
 
 GREEN 'G'
+- Savannah Tile
 - 50% chance of random event occuring
 - Random events can be passed based off of the amount of strength/stamina/wisdom points the player has, or based on what advisor the player has
 
@@ -35,4 +38,4 @@ RED 'R'
 TRAIN PATH
 PINK 'P'
 - Choose another Advisor
-- However, choosing a different advisor will cost you pride points (-500)
+- However, choosing a different advisor will cost you pride points (-300)
