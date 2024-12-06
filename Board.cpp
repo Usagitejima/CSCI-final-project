@@ -57,30 +57,30 @@ void Board::initializePrideTiles()
         {
             if (i > 30)
             {
-                int color_choice = rand() % 7;
+                int color_choice = rand() % 1 + 1;
                 switch (color_choice)
                 {
-                case 0:
-                    temp.color = 'B'; // Blue
-                    break;
+                // case 0:
+                //     temp.color = 'B'; // Blue
+                //     break;
                 case 1:
                     temp.color = 'N'; // Brown
                     break;
-                case 2:
-                    temp.color = 'U'; // Purple
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                    temp.color = 'G'; // Green
-                    green_count++;
-                    break;
+                // case 2:
+                //     temp.color = 'U'; // Purple
+                //     break;
+                // case 3:
+                // case 4:
+                // case 5:
+                // case 6:
+                //     temp.color = 'G'; // Green
+                //     green_count++;
+                //     break;
                 }
             }
             else
             {
-                temp.color = 'G';
+                temp.color = 'N';
                 green_count++;
             }
         }
@@ -90,18 +90,18 @@ void Board::initializePrideTiles()
             int color_choice = rand() % 4;
             switch (color_choice)
             {
-            case 0:
-                temp.color = 'B'; // Blue
-                break;
+            // case 0:
+            //     temp.color = 'B'; // Blue
+            //     break;
             case 1:
                 temp.color = 'N'; // Brown
                 break;
-            case 2:
-                temp.color = 'R'; // Red
-                break;
-            case 3:
-                temp.color = 'U'; // Purple
-                break;
+            // case 2:
+            //     temp.color = 'R'; // Red
+            //     break;
+            // case 3:
+            //     temp.color = 'U'; // Purple
+            //     break;
             }
         }
 

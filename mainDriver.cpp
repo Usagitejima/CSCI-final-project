@@ -31,8 +31,9 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 // Runs menu choice five, which allows the player to roll the dice and move forward
 void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
 bool isValidInt(string value);
-void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
+bool brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 int blueTile();
+int subtract100();
 
 int main()
 {
@@ -460,6 +461,22 @@ int main()
                     else if (choice == 5)
                     {
                         menu5(mainBoard, 0, pathType[0], currentPositions, player1);
+
+                        if(mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N'){
+                            bool isBrown = true;
+                            while(isBrown == true){
+                                player1.addStrength(subtract100());
+                                player1.addStamina(subtract100());
+
+                                brownTile(mainBoard, 0, pathType[0], currentPositions);
+                                
+                                if(brownTile(mainBoard, 0, pathType[0], currentPositions) == false){
+                                    isBrown = false;
+                                    break;
+                                }
+                            }
+                        }
+
                         if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'B')
                         {
                             cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
@@ -986,31 +1003,22 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _pla
         }
         cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
 
-        // Case brown
-        if (_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N')
-        {
-            brownTile(_board, currentPlayerIndex, vec, arr, _player);
-        }
     }
 }
 
-void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player)
+bool brownTile(Board _board, int currentPlayerIndex, int vec, int arr[])
 {
-    cout << "Oh no! You are now in land of Hyenas! You have lost 100 Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
-
-    // This  is not working, will fix it later
-    _player.addStamina(-100);
-    _player.addStrength(-100);
+    cout << "Oh no! You are now in land of Hyenas! You have lost (-100) Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
 
     if (arr[currentPlayerIndex] < 3)
     {
-        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - arr[currentPlayerIndex]);
+        // _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - arr[currentPlayerIndex]);
         arr[currentPlayerIndex] = 0;
     }
     else
     {
         arr[currentPlayerIndex] = arr[currentPlayerIndex] - 3;
-        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - 3);
+        // _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - 3);
     }
 
     if (vec == 1)
@@ -1025,8 +1033,13 @@ void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player 
 
     if (_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N')
     {
-        brownTile(_board, currentPlayerIndex, vec, arr, _player);
+        return true;
     }
+    return false;
+}
+
+int subtract100(){
+    return -100;
 }
 
 int blueTile()
