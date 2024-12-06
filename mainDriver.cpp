@@ -31,6 +31,7 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 // Runs menu choice five, which allows the player to roll the dice and move forward
 void menu5(Board _board, int currentPlayerIndex, int vec, int arr[]);
 bool isValidInt(string value);
+void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 
 int main()
 {
@@ -895,5 +896,36 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[])
             _board.displayTrainTrack(currentPlayerIndex);
         }
         cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
+
+        // Case brown
+        if(_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N'){
+            brownTile(_board, currentPlayerIndex, vec, arr);
+        }
+    }
+}
+
+void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
+    cout <<  "Oh no! You are now in land of Hyenas! You have lost 100 Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
+
+    // This if part is not working well as intended
+    if(arr[currentPlayerIndex] < 3){ 
+        arr[currentPlayerIndex] -= arr[currentPlayerIndex];
+        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - arr[currentPlayerIndex]);
+    } 
+    //This one is working well
+    else{
+        arr[currentPlayerIndex] = arr[currentPlayerIndex] - 3;
+        _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - 3);
+    }
+    
+    if (vec == 1){
+        _board.displayPrideTrack(currentPlayerIndex);
+    } else if (vec == 2){
+        _board.displayTrainTrack(currentPlayerIndex);
+    }
+    cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
+
+    if(_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N'){
+        brownTile(_board, currentPlayerIndex, vec, arr);
     }
 }
