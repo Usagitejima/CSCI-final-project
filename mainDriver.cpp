@@ -909,8 +909,8 @@ void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
 
     // This if part is not working well as intended
     if(arr[currentPlayerIndex] < 3){ 
-        arr[currentPlayerIndex] -= arr[currentPlayerIndex];
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - arr[currentPlayerIndex]);
+        arr[currentPlayerIndex] = 0;
     } 
     //This one is working well
     else{
