@@ -29,9 +29,9 @@ void menu3(Board _board, int currentPlayerIndex, int prideortrain, int arr[]);
 // Runs menu choice four, which allows the player to check their current advisor
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
 // Runs menu choice five, which allows the player to roll the dice and move forward
-void menu5(Board _board, int currentPlayerIndex, int vec, int arr[]);
+void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
 bool isValidInt(string value);
-void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
+void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
 
 int main()
 {
@@ -406,6 +406,7 @@ int main()
     bool endGame = false;
     bool endTurn = false;
     int choice;
+    string Schoice;
     int currentPositions[4] = {0, 0, 0, 0};
 
     while (endGame == false)
@@ -421,8 +422,19 @@ int main()
                 {
                     endTurn = false;
                     outputMenu();
-                    cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
-                    cin >> choice;
+                    while (true){
+                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                        cin >> Schoice;
+                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                            cout << "Invalid input. " << endl;
+                            cin.clear();  // reset the failbit
+                            cin.ignore(); // discard the invalid input
+                        }
+                        else{
+                            choice = stoi(Schoice);
+                            break;
+                        }
+                    }
                     if (choice == 1)
                     {
                         menu1(player1, 0, playersList);
@@ -441,7 +453,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 0, pathType[0], currentPositions);
+                        menu5(mainBoard, 0, pathType[0], currentPositions, player1);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -452,8 +464,19 @@ int main()
                 {
                     endTurn = false;
                     outputMenu();
-                    cout << playersList[1] << ", please enter your choice (1 - 5):" << endl;
-                    cin >> choice;
+                    while (true){
+                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                        cin >> Schoice;
+                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                            cout << "Invalid input. " << endl;
+                            cin.clear();  // reset the failbit
+                            cin.ignore(); // discard the invalid input
+                        }
+                        else{
+                            choice = stoi(Schoice);
+                            break;
+                        }
+                    }
                     if (choice == 1)
                     {
                         menu1(player2, 1, playersList);
@@ -472,7 +495,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 1, pathType[1], currentPositions);
+                        menu5(mainBoard, 1, pathType[1], currentPositions, player2);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -482,8 +505,19 @@ int main()
                 {
                     endTurn = false;
                     outputMenu();
-                    cout << playersList[2] << ", please enter your choice (1 - 5):" << endl;
-                    cin >> choice;
+                    while (true){
+                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                        cin >> Schoice;
+                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                            cout << "Invalid input. " << endl;
+                            cin.clear();  // reset the failbit
+                            cin.ignore(); // discard the invalid input
+                        }
+                        else{
+                            choice = stoi(Schoice);
+                            break;
+                        }
+                    }
                     if (choice == 1)
                     {
                         menu1(player3, 2, playersList);
@@ -502,7 +536,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 2, pathType[2], currentPositions);
+                        menu5(mainBoard, 2, pathType[2], currentPositions, player3);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -512,8 +546,19 @@ int main()
                 {
                     endTurn = false;
                     outputMenu();
-                    cout << playersList[3] << ", please enter your choice (1 - 5):" << endl;
-                    cin >> choice;
+                    while (true){
+                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                        cin >> Schoice;
+                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                            cout << "Invalid input. " << endl;
+                            cin.clear();  // reset the failbit
+                            cin.ignore(); // discard the invalid input
+                        }
+                        else{
+                            choice = stoi(Schoice);
+                            break;
+                        }
+                    }
                     if (choice == 1)
                     {
                         menu1(player4, 3, playersList);
@@ -532,7 +577,7 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 3, pathType[3], currentPositions);
+                        menu5(mainBoard, 3, pathType[3], currentPositions, player4);
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -865,7 +910,7 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 }
 
 // Runs menu choice five, which allows the player to roll the dice and move forward
-void menu5(Board _board, int currentPlayerIndex, int vec, int arr[])
+void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player)
 {
     cout << endl;
     //"Roll the dice" which generates a number from 1-6
@@ -899,20 +944,22 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[])
 
         // Case brown
         if(_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N'){
-            brownTile(_board, currentPlayerIndex, vec, arr);
+            brownTile(_board, currentPlayerIndex, vec, arr, _player);
         }
     }
 }
 
-void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
+void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player){
     cout <<  "Oh no! You are now in land of Hyenas! You have lost 100 Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
 
-    // This if part is not working well as intended
+    // This  is not working, will fix it later
+    _player.addStamina(-100);
+    _player.addStrength(-100);
+
     if(arr[currentPlayerIndex] < 3){ 
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - arr[currentPlayerIndex]);
         arr[currentPlayerIndex] = 0;
     } 
-    //This one is working well
     else{
         arr[currentPlayerIndex] = arr[currentPlayerIndex] - 3;
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - 3);
@@ -926,6 +973,6 @@ void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
     cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
 
     if(_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N'){
-        brownTile(_board, currentPlayerIndex, vec, arr);
+        brownTile(_board, currentPlayerIndex, vec, arr, _player);
     }
 }
