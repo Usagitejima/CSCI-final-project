@@ -32,6 +32,7 @@ void menu4(int currentPlayerIndex, string advisor, string filename, vector<strin
 void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
 bool isValidInt(string value);
 void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
+int blueTile();
 
 int main()
 {
@@ -222,21 +223,23 @@ int main()
 
     for (int i = 0; i < numPlayers; i++)
     {
-        while(true){
+        while (true)
+        {
             cout << playersList[i] << ", please choose your path. (Enter 1 or 2)" << endl;
-            if(cin >> ScurrentType && isValidInt(ScurrentType) && (stoi(ScurrentType) == 1 || stoi(ScurrentType) == 2)){
+            if (cin >> ScurrentType && isValidInt(ScurrentType) && (stoi(ScurrentType) == 1 || stoi(ScurrentType) == 2))
+            {
                 currentType = stoi(ScurrentType);
                 pathType.push_back(currentType);
                 break;
             }
-            else{
+            else
+            {
                 cout << "Invalid input. Please enter 1 or 2." << endl;
                 cin.clear();  // reset the failbit
                 cin.ignore(); // discard the invalid input
             }
         }
     }
-
 
     // Code to choose an advisor if you choose cub training
     string advisors[5];
@@ -422,15 +425,18 @@ int main()
                 {
                     endTurn = false;
                     outputMenu();
-                    while (true){
+                    while (true)
+                    {
                         cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
                         cin >> Schoice;
-                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                        if (isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1)
+                        {
                             cout << "Invalid input. " << endl;
                             cin.clear();  // reset the failbit
                             cin.ignore(); // discard the invalid input
                         }
-                        else{
+                        else
+                        {
                             choice = stoi(Schoice);
                             break;
                         }
@@ -454,6 +460,14 @@ int main()
                     else if (choice == 5)
                     {
                         menu5(mainBoard, 0, pathType[0], currentPositions, player1);
+                        if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'B')
+                        {
+                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
+                            player1.printStats();
+                            player1.addStrength(blueTile());
+                            player1.addStamina(blueTile());
+                            player1.printStats();
+                        }
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -464,15 +478,18 @@ int main()
                 {
                     endTurn = false;
                     outputMenu();
-                    while (true){
-                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                    while (true)
+                    {
+                        cout << playersList[1] << ", please enter your choice (1 - 5):" << endl;
                         cin >> Schoice;
-                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                        if (isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1)
+                        {
                             cout << "Invalid input. " << endl;
                             cin.clear();  // reset the failbit
                             cin.ignore(); // discard the invalid input
                         }
-                        else{
+                        else
+                        {
                             choice = stoi(Schoice);
                             break;
                         }
@@ -496,24 +513,36 @@ int main()
                     else if (choice == 5)
                     {
                         menu5(mainBoard, 1, pathType[1], currentPositions, player2);
+                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
+                        {
+                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
+                            player2.printStats();
+                            player2.addStrength(blueTile());
+                            player2.addStamina(blueTile());
+                            player2.printStats();
+                        }
                         endTurn = true;
                     }
                 } while (endTurn == false);
-            }else if (turnCount == 2)
+            }
+            else if (turnCount == 2)
             {
                 do
                 {
                     endTurn = false;
                     outputMenu();
-                    while (true){
-                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                    while (true)
+                    {
+                        cout << playersList[2] << ", please enter your choice (1 - 5):" << endl;
                         cin >> Schoice;
-                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                        if (isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1)
+                        {
                             cout << "Invalid input. " << endl;
                             cin.clear();  // reset the failbit
                             cin.ignore(); // discard the invalid input
                         }
-                        else{
+                        else
+                        {
                             choice = stoi(Schoice);
                             break;
                         }
@@ -540,21 +569,25 @@ int main()
                         endTurn = true;
                     }
                 } while (endTurn == false);
-            }else if (turnCount == 3)
+            }
+            else if (turnCount == 3)
             {
                 do
                 {
                     endTurn = false;
                     outputMenu();
-                    while (true){
-                        cout << playersList[0] << ", please enter your choice (1 - 5):" << endl;
+                    while (true)
+                    {
+                        cout << playersList[3] << ", please enter your choice (1 - 5):" << endl;
                         cin >> Schoice;
-                        if(isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1){
+                        if (isValidInt(Schoice) == false || stoi(Schoice) > 5 || stoi(Schoice) < 1)
+                        {
                             cout << "Invalid input. " << endl;
                             cin.clear();  // reset the failbit
                             cin.ignore(); // discard the invalid input
                         }
-                        else{
+                        else
+                        {
                             choice = stoi(Schoice);
                             break;
                         }
@@ -593,9 +626,12 @@ int main()
 }
 
 // Check if a string is a valid integer
-bool isValidInt(string value){
-    for (int i = 0; i < (int)value.length(); i++){
-        if(!isdigit(value[i])){
+bool isValidInt(string value)
+{
+    for (int i = 0; i < (int)value.length(); i++)
+    {
+        if (!isdigit(value[i]))
+        {
             return false;
         }
     }
@@ -858,16 +894,16 @@ void menu3(Board _board, int currentPlayerIndex, int prideortrain, int arr[])
     // Depending on which path type user chose
     if (prideortrain == 1)
     {
-        //Move the position to the current one
+        // Move the position to the current one
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
-        //Display the specific user's path
+        // Display the specific user's path
         _board.displayPrideTrack(currentPlayerIndex);
     }
     else if (prideortrain == 2)
     {
-        //Move the position to the current one
+        // Move the position to the current one
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
-        //Display the specific user's path
+        // Display the specific user's path
         _board.displayTrainTrack(currentPlayerIndex);
     }
 }
@@ -915,64 +951,85 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _pla
     cout << endl;
     //"Roll the dice" which generates a number from 1-6
     int rollDice = rand() % 6 + 1;
-    //Display the rolled number
+    // Display the rolled number
     cout << "Rolling dice..." << endl;
     cout << "You rolled a " << rollDice << "!" << endl;
     cout << endl;
-    //Add rolled number to the player's position
+    // Add rolled number to the player's position
     arr[currentPlayerIndex] += rollDice;
 
-    //If the player has reached the last tile, display they have reached pride rock
-    if(arr[currentPlayerIndex] >= 51){
+    // If the player has reached the last tile, display they have reached pride rock
+    if (arr[currentPlayerIndex] >= 51)
+    {
         _board.movePlayer(currentPlayerIndex, 51);
-        if (vec == 1){
+        if (vec == 1)
+        {
             _board.displayPrideTrack(currentPlayerIndex);
-        } else if (vec == 2){
+        }
+        else if (vec == 2)
+        {
             _board.displayTrainTrack(currentPlayerIndex);
         }
         cout << "You have reached the Pride Rock!" << endl;
     }
-    //Else, move the player depending on their position and display their correct path
-    else{
+    // Else, move the player depending on their position and display their correct path
+    else
+    {
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
-        if (vec == 1){
+        if (vec == 1)
+        {
             _board.displayPrideTrack(currentPlayerIndex);
-        } else if (vec == 2){
+        }
+        else if (vec == 2)
+        {
             _board.displayTrainTrack(currentPlayerIndex);
         }
         cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
 
         // Case brown
-        if(_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N'){
+        if (_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N')
+        {
             brownTile(_board, currentPlayerIndex, vec, arr, _player);
         }
     }
 }
 
-void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player){
-    cout <<  "Oh no! You are now in land of Hyenas! You have lost 100 Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
+void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player)
+{
+    cout << "Oh no! You are now in land of Hyenas! You have lost 100 Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
 
     // This  is not working, will fix it later
     _player.addStamina(-100);
     _player.addStrength(-100);
 
-    if(arr[currentPlayerIndex] < 3){ 
+    if (arr[currentPlayerIndex] < 3)
+    {
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - arr[currentPlayerIndex]);
         arr[currentPlayerIndex] = 0;
-    } 
-    else{
+    }
+    else
+    {
         arr[currentPlayerIndex] = arr[currentPlayerIndex] - 3;
         _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex] - 3);
     }
-    
-    if (vec == 1){
+
+    if (vec == 1)
+    {
         _board.displayPrideTrack(currentPlayerIndex);
-    } else if (vec == 2){
+    }
+    else if (vec == 2)
+    {
         _board.displayTrainTrack(currentPlayerIndex);
     }
     cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
 
-    if(_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N'){
+    if (_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N')
+    {
         brownTile(_board, currentPlayerIndex, vec, arr, _player);
     }
+}
+
+int blueTile()
+{
+    return 100;
 }
