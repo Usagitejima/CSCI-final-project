@@ -461,24 +461,12 @@ int main()
                     {
                         menu5(mainBoard, 0, pathType[0], currentPositions, player1);
 
-                        if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N'){
+                        while (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N'){
                             player1.printStats();
                             player1.addStrength(-100);
                             player1.addStamina(-100);
                             player1.printStats();
-
-                            // bool isBrown = true;
-                            // while(isBrown == true){
-                            //     player1.addStrength(subtract100());
-                            //     player1.addStamina(subtract100());
-
                             brownTile(mainBoard, 0, pathType[0], currentPositions);
-                                
-                            //     if(brownTile(mainBoard, 0, pathType[0], currentPositions) == false){
-                            //         isBrown = false;
-                            //         break;
-                            //     }
-                            // }
                         }
 
                         if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'B')
@@ -535,7 +523,7 @@ int main()
                     {
                         menu5(mainBoard, 1, pathType[1], currentPositions, player2);
 
-                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
+                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
                             player2.printStats();
                             player2.addStrength(-100);
                             player2.addStamina(-100);
@@ -597,6 +585,24 @@ int main()
                     else if (choice == 5)
                     {
                         menu5(mainBoard, 2, pathType[2], currentPositions, player3);
+
+                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
+                            player2.printStats();
+                            player2.addStrength(-100);
+                            player2.addStamina(-100);
+                            player2.printStats();
+                            brownTile(mainBoard, 1, pathType[1], currentPositions);
+                        }
+
+                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
+                        {
+                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
+                            player2.printStats();
+                            player2.addStrength(blueTile());
+                            player2.addStamina(blueTile());
+                            player2.printStats();
+                        }
+
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -642,6 +648,24 @@ int main()
                     else if (choice == 5)
                     {
                         menu5(mainBoard, 3, pathType[3], currentPositions, player4);
+
+                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
+                            player2.printStats();
+                            player2.addStrength(-100);
+                            player2.addStamina(-100);
+                            player2.printStats();
+                            brownTile(mainBoard, 1, pathType[1], currentPositions);
+                        }
+
+                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
+                        {
+                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
+                            player2.printStats();
+                            player2.addStrength(blueTile());
+                            player2.addStamina(blueTile());
+                            player2.printStats();
+                        }
+                        
                         endTurn = true;
                     }
                 } while (endTurn == false);
