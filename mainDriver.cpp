@@ -33,6 +33,7 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _pla
 bool isValidInt(string value);
 void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 int blueTile();
+int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex);
 
 int main()
 {
@@ -461,7 +462,8 @@ int main()
                     {
                         menu5(mainBoard, 0, pathType[0], currentPositions, player1);
 
-                        while (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N'){
+                        while (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N')
+                        {
                             player1.printStats();
                             player1.addStrength(-100);
                             player1.addStamina(-100);
@@ -476,6 +478,13 @@ int main()
                             player1.addStrength(blueTile());
                             player1.addStamina(blueTile());
                             player1.printStats();
+                        }
+
+                        if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'P')
+                        {
+                            player1.addPridePoints(pinkTile(advisors, chosenAdvisors, 0));
+                            cout << player1.getPride() << endl;
+                            cout << chosenAdvisors[0] << endl;
                         }
                         endTurn = true;
                     }
@@ -523,7 +532,8 @@ int main()
                     {
                         menu5(mainBoard, 1, pathType[1], currentPositions, player2);
 
-                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
+                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
+                        {
                             player2.printStats();
                             player2.addStrength(-100);
                             player2.addStamina(-100);
@@ -538,6 +548,12 @@ int main()
                             player2.addStrength(blueTile());
                             player2.addStamina(blueTile());
                             player2.printStats();
+                        }
+                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'P')
+                        {
+                            player2.addPridePoints(pinkTile(advisors, chosenAdvisors, 1));
+                            cout << player2.getPride() << endl;
+                            cout << chosenAdvisors[1] << endl;
                         }
 
                         endTurn = true;
@@ -586,7 +602,8 @@ int main()
                     {
                         menu5(mainBoard, 2, pathType[2], currentPositions, player3);
 
-                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
+                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
+                        {
                             player2.printStats();
                             player2.addStrength(-100);
                             player2.addStamina(-100);
@@ -649,7 +666,8 @@ int main()
                     {
                         menu5(mainBoard, 3, pathType[3], currentPositions, player4);
 
-                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N'){
+                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
+                        {
                             player2.printStats();
                             player2.addStrength(-100);
                             player2.addStamina(-100);
@@ -665,7 +683,7 @@ int main()
                             player2.addStamina(blueTile());
                             player2.printStats();
                         }
-                        
+
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -1040,7 +1058,6 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _pla
             _board.displayTrainTrack(currentPlayerIndex);
         }
         cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
-
     }
 }
 
@@ -1079,4 +1096,77 @@ void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[])
 int blueTile()
 {
     return 100;
+}
+
+int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
+{
+    string currentAdvisor;
+    bool validAdvisor = false;
+    displayAdvisors("advisors.txt", advisors);
+    cout << "You landed on an advisor tile!" << endl
+         << "Your current advisor: " << chosenAdvisors[currentPlayerIndex] << endl
+         << "You may change your advisor or choose to skip. Choosing a new advisor will cost 300 pride points." << endl;
+    cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
+    cin >> currentAdvisor;
+
+    if (currentAdvisor == "Skip")
+    {
+        validAdvisor = true;
+        return 0;
+    }
+
+    for (int k = 0; k < 5; k++)
+    {
+        if (currentAdvisor == advisors[k])
+        {
+            if (currentAdvisor == chosenAdvisors[currentPlayerIndex])
+            {
+                do
+                {
+                    cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                    cin >> currentAdvisor;
+                    if (currentAdvisor == "Skip")
+                    {
+                        validAdvisor = true;
+                        return 0;
+                    }
+                } while (currentAdvisor == chosenAdvisors[currentPlayerIndex]);
+            }
+            chosenAdvisors[currentPlayerIndex] = currentAdvisor;
+            validAdvisor = true;
+            return -300;
+        }
+    }
+
+    // If the character the user entered is invalid prompt user to enter the name until one matches
+    if (validAdvisor == false)
+    {
+        do
+        {
+            cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+            cin >> currentAdvisor;
+            for (int k = 0; k < 5; k++)
+            {
+                if (currentAdvisor == advisors[k])
+                {
+                    if (currentAdvisor == chosenAdvisors[currentPlayerIndex])
+                    {
+                        do
+                        {
+                            cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                            cin >> currentAdvisor;
+                            if (currentAdvisor == "Skip")
+                            {
+                                validAdvisor = true;
+                                return 0;
+                            }
+                        } while (currentAdvisor == chosenAdvisors[currentPlayerIndex]);
+                    }
+                    validAdvisor = true;
+                    chosenAdvisors[currentPlayerIndex] = currentAdvisor;
+                }
+            }
+        } while (validAdvisor == false);
+    }
+    return 0;
 }
