@@ -30,10 +30,16 @@ void menu3(Board _board, int currentPlayerIndex, int prideortrain, int arr[]);
 void menu4(int currentPlayerIndex, string advisor, string filename, vector<string> list);
 // Runs menu choice five, which allows the player to roll the dice and move forward
 void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _player);
+// Checks whether the string value is a valid integer or not. Written by Donna
 bool isValidInt(string value);
+// Hyena Tile, lose 100 stamina and strength, player must go back three spaces. Written by Donna
 void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
+// Oasis Tile, returns 100. Written by Joanne
 int blueTile();
+// Advisor Tile, allows user to choose a new advisor or stick with their current one. Only applicable for Cub Training Tile. Written by Joanne
 int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex);
+// Random Event Tile, chooses a random event that may only be bypassed with a certain amount of leadership points. Advisor choice
+// also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
 
 int main()
@@ -1079,6 +1085,7 @@ void menu5(Board _board, int currentPlayerIndex, int vec, int arr[], Player _pla
     }
 }
 
+// Hyena Tile, lose 100 stamina and strength, player must go back three spaces. Written by Donna
 void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[])
 {
     cout << "Oh no! You are now in land of Hyenas! You have lost (-100) Stamina and Strength points while fighting Hyenas! You have ran back three tiles to survive!" << endl;
@@ -1111,34 +1118,45 @@ void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[])
     // return false;
 }
 
+// Oasis Tile, returns 100. Written by Joanne
 int blueTile()
 {
     return 100;
 }
 
+// Advisor Tile, allows user to choose a new advisor or stick with their current one. Only applicable for Cub Training Tile. Written by Joanne
 int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
 {
+    //Create string for current advisor
     string currentAdvisor;
+    // Create bool to evaluate whether valid advisor within list
     bool validAdvisor = false;
+    //Call display advisors
     displayAdvisors("advisors.txt", advisors);
+    //Output to user the tile type, who their current advisor is, and how to choose a new one or skip this decision
     cout << "You landed on an advisor tile!" << endl
          << "Your current advisor: " << chosenAdvisors[currentPlayerIndex] << endl
          << "You may change your advisor or choose to skip. Choosing a new advisor will cost 300 pride points." << endl;
     cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
     cin >> currentAdvisor;
 
+    //If choose to skip, end the function
     if (currentAdvisor == "Skip")
     {
         validAdvisor = true;
         return 0;
     }
 
+    // Loop to compare the user input with the list of valid advisors
     for (int k = 0; k < 5; k++)
     {
+        //If it is a valid advisor...
         if (currentAdvisor == advisors[k])
         {
+            //If the inputted advisor is already their advisor...
             if (currentAdvisor == chosenAdvisors[currentPlayerIndex])
             {
+                // Output that the user already has that advisor. Prompt them to choose a new one or skip
                 do
                 {
                     cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
@@ -1150,8 +1168,10 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
                     }
                 } while (currentAdvisor == chosenAdvisors[currentPlayerIndex]);
             }
+            // Change the advisor of the player to the new one
             chosenAdvisors[currentPlayerIndex] = currentAdvisor;
             validAdvisor = true;
+            // The amount of pride points subtracted is 300.
             return -300;
         }
     }
@@ -1163,17 +1183,24 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
         {
             cout << "Invalid advisor. Please enter the name of the advisor correctly or type \"Skip\" to skip." << endl;
             cin >> currentAdvisor;
+
+            //If choose to skip, end the function
             if (currentAdvisor == "Skip")
             {
                 validAdvisor = true;
                 return 0;
             }
+
+                // Loop to compare the user input with the list of valid advisors
             for (int k = 0; k < 5; k++)
             {
+                //If it is a valid advisor...
                 if (currentAdvisor == advisors[k])
                 {
+                    //If the inputted advisor is already their advisor...
                     if (currentAdvisor == chosenAdvisors[currentPlayerIndex])
                     {
+                        // Output that the user already has that advisor. Prompt them to choose a new one or skip
                         do
                         {
                             cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
@@ -1185,25 +1212,31 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
                             }
                         } while (currentAdvisor == chosenAdvisors[currentPlayerIndex]);
                     }
-                    validAdvisor = true;
+                    // Change the advisor of the player to the new one
                     chosenAdvisors[currentPlayerIndex] = currentAdvisor;
+                    validAdvisor = true;
                 }
             }
         } while (validAdvisor == false);
     }
-    return 0;
+    // The amount of pride points subtracted is 300.
+    return -300;
 }
 
+// Random Event Tile, chooses a random event that may only be bypassed with a certain amount of leadership points. Advisor choice
+// also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer)
 {
-
+    // String variable to store full line of text
     string fullLine;
-    int k = 0;
+    // Vectors to store each part of the line of text into description, strength requirement, stamina requirement, wisdom requirement
+    // and amount of pride points gained or lost from the specific event
     vector<string> eventDesc;
     vector<int> strengthReq;
     vector<int> staminaReq;
     vector<int> wisdomReq;
     vector<int> pridePoints;
+    // Reroll variables
     string reroll1;
     int reroll;
 
@@ -1224,20 +1257,24 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
         string arr1[6] = {};
         split(fullLine, '|', arr1, 6);
 
+        // Add each part into corresponding vector
         eventDesc.push_back(arr1[1]);
         strengthReq.push_back(stoi(arr1[2]));
         staminaReq.push_back(stoi(arr1[3]));
         wisdomReq.push_back(stoi(arr1[4]));
         pridePoints.push_back(stoi(arr1[5]));
 
-        k++;
     }
 
+    // Close file
     fileIn.close();
 
+    //Output to user
     cout << "You landed on an event tile!" << endl;
 
-    int eventNumber = rand() % 7;
+    // Choose a random number between 1-10, which chooses a random event
+    //Then, output to user the event description and gain or loss of pride points
+    int eventNumber = rand() % 10;
     switch (eventNumber)
     {
     case 0:
@@ -1247,10 +1284,14 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
     case 4:
     case 5:
     case 6:
+    case 7:
+    case 8:
+    case 9:
         cout << "Event: " << eventDesc[eventNumber] << "(" << pridePoints[eventNumber] << ")" << endl;
         break;
     }
 
+    //If the player's advisor is Zazu (a chance to reroll event)...
     if (chosenAdvisors[currentPlayerIndex] == "Zazu")
     {
 
@@ -1274,7 +1315,7 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
 
         if (reroll == 1)
         {
-            eventNumber = rand() % 7;
+            eventNumber = rand() % 10;
             switch (eventNumber)
             {
             case 0:
@@ -1284,6 +1325,9 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
             case 4:
             case 5:
             case 6:
+            case 7:
+            case 8:
+            case 9:
                 cout << "Event: " << eventDesc[eventNumber] << "(" << pridePoints[eventNumber] << ")" << endl;
                 break;
             }
