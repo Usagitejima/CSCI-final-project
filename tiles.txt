@@ -13,7 +13,7 @@ ORANGE 'O'
 BLUE 'B'
 - Oasis Tile
 - "You have reached an oasis. Take a break and recover your strength and stamina (+100)"
-- Increase player's strength and stamina by 100
+- Increase player's strength, stamina, and wisdom by 100
 
 BROWN 'N'
 - Hyena Tile
@@ -22,8 +22,8 @@ BROWN 'N'
 
 PURPLE 'U'
 - Riddle Tile
-- Player must answer a riddle correctly in order to gain pride points (+500 wisdom points)
-- Answering wrong may cost you points (-300 Wisdom points)
+- Player must answer a riddle correctly in order to gain leadership points (+500 strength, stamina, OR wisdom points)
+- Answering wrong may cost you points (-300 strength, stamina, OR wisdom points)
 
 GREEN 'G'
 - Savannah Tile
