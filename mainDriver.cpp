@@ -41,6 +41,7 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
 // Random Event Tile, chooses a random event that may only be bypassed with a certain amount of leadership points. Advisor choice
 // also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
+bool purpleTile();
 
 int main()
 {
@@ -480,6 +481,24 @@ int main()
                                 break;
                             }
 
+                            // Case Purple
+                            if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'U')
+                            {
+                                if(purpleTile() == false){
+                                    cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
+                                    player1.addWisdom(-300);
+                                    cout << player1.getWisdom() << endl;
+                                }
+                                else{
+                                    cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
+                                    player1.addWisdom(500);
+                                    cout << player1.getWisdom() << endl;
+                                }
+                            }
+
+                            // Case Brown
                             while (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N')
                             {
                                 cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
@@ -491,6 +510,7 @@ int main()
                                 brownTile(mainBoard, 0, pathType[0], currentPositions);
                             }
 
+                            // Case Blue
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'B')
                             {
                                 cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
@@ -505,6 +525,7 @@ int main()
                                 cout << player1.getWisdom() << endl;
                             }
 
+                            // Case Pink
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'P')
                             {
                                 player1.addPridePoints(pinkTile(advisors, chosenAdvisors, 0, player1));
@@ -512,6 +533,7 @@ int main()
                                 cout << "Your new advisor: " << chosenAdvisors[0] << endl;
                             }
 
+                            // Case Green
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'G')
                             {
                                 cout << "Your Strength: " << player1.getStrength() << endl;
@@ -578,6 +600,24 @@ int main()
                                 break;
                             }
 
+                            // Case Purple
+                            if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'U')
+                            {
+                                if(purpleTile() == false){
+                                    cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player2.getWisdom() << " -> ";
+                                    player2.addWisdom(-300);
+                                    cout << player2.getWisdom() << endl;
+                                }
+                                else{
+                                    cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player2.getWisdom() << " -> ";
+                                    player2.addWisdom(500);
+                                    cout << player2.getWisdom() << endl;
+                                }
+                            }
+
+                            // Case Brown
                             while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
                             {
                                 cout << "Your Strength: " << endl << player2.getStrength() << " -> ";
@@ -589,6 +629,7 @@ int main()
                                 brownTile(mainBoard, 1, pathType[1], currentPositions);
                             }
 
+                            // Case Blue
                             if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
                             {
                                 cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
@@ -602,6 +643,8 @@ int main()
                                 player2.addWisdom(blueTile());
                                 cout << player2.getWisdom() << endl;
                             }
+
+                            // Case Pink
                             if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'P')
                             {
                                 player2.addPridePoints(pinkTile(advisors, chosenAdvisors, 1, player2));
@@ -609,6 +652,7 @@ int main()
                                 cout << "Your new advisor: " << chosenAdvisors[1] << endl;
                             }
 
+                            // Case Green
                             if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'G')
                             {
                                 cout << "Your Strength: " << player2.getStrength() << endl;
@@ -663,32 +707,80 @@ int main()
                         menu4(2, chosenAdvisors[2], "advisors.txt", playersList);
                     }
                     else if (choice == 5)
-                    {
-                        menu5(mainBoard, 2, pathType[2], currentPositions);
-
-                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
                         {
-                            player2.printStats();
-                            player2.addStrength(-100);
-                            player2.addStamina(-100);
-                            player2.printStats();
-                            brownTile(mainBoard, 1, pathType[1], currentPositions);
-                        }
+                            prideRocks[2] = menu5(mainBoard, 2, pathType[2], currentPositions);
+                            if (prideRocks[2] == true){
+                                break;
+                            }
 
-                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
-                        {
-                            cout << "You have reached an oasis. Take a break and recover your strength, stamina, and wisdom (+100)" << endl;
-                            player2.printStats();
-                            player2.addStrength(blueTile());
-                            player2.addStamina(blueTile());
-                            player2.addWisdom(blueTile());
-                            player2.printStats();
-                        }
+                            // Case Purple
+                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'U')
+                            {
+                                if(purpleTile() == false){
+                                    cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player3.getWisdom() << " -> ";
+                                    player3.addWisdom(-300);
+                                    cout << player3.getWisdom() << endl;
+                                }
+                                else{
+                                    cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player3.getWisdom() << " -> ";
+                                    player3.addWisdom(500);
+                                    cout << player3.getWisdom() << endl;
+                                }
+                            }
 
-                        endTurn = true;
-                    }
-                } while (endTurn == false);
-            }
+                            // Case Brown
+                            while (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'N')
+                            {
+                                cout << "Your Strength: " << endl << player3.getStrength() << " -> ";
+                                player3.addStrength(-100);
+                                cout << player3.getStrength() << endl;
+                                cout << "Your Stamina: " << endl << player3.getStamina() << " -> ";
+                                player3.addStamina(-100);
+                                cout << player3.getStamina() << endl;
+                                brownTile(mainBoard, 2, pathType[2], currentPositions);
+                            }
+
+                            // Case Blue
+                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'B')
+                            {
+                                cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
+                                cout << "Your Strength: " << endl << player3.getStrength() << " -> ";
+                                player3.addStrength(blueTile());
+                                cout << player3.getStrength() << endl;
+                                cout << "Your Stamina: " << endl << player3.getStamina() << " -> ";
+                                player3.addStamina(blueTile());
+                                cout << player3.getStamina() << endl;
+                                cout << "Your Wisdom: " << endl << player3.getWisdom() << " -> ";
+                                player3.addWisdom(blueTile());
+                                cout << player3.getWisdom() << endl;
+                            }
+
+                            // Case Pink
+                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'P')
+                            {
+                                player3.addPridePoints(pinkTile(advisors, chosenAdvisors, 2, player3));
+                                cout << player3.getPride() << endl;
+                                cout << "Your new advisor: " << chosenAdvisors[2] << endl;
+                            }
+
+                            // Case Green
+                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'G')
+                            {
+                                cout << "Your Strength: " << player3.getStrength() << endl;
+                                cout << "Your Stamina: " << player3.getStamina() << endl;
+                                cout << "Your Wisdom: " << player3.getWisdom() << endl;
+                                cout << "Your Pride Points: " << player3.getPride() << endl;
+                                player3.addPridePoints(greenTile(chosenAdvisors, 2, "randomEvents.txt", player3));
+                                cout << "Your Pride Points: " << player3.getPride() << endl;
+                            }
+
+                            endTurn = true;
+                        }
+                    } 
+                    while (endTurn == false);
+            } 
             else if (turnCount == 3)
             {
                 do
@@ -729,27 +821,75 @@ int main()
                     }
                     else if (choice == 5)
                     {
-                        menu5(mainBoard, 3, pathType[3], currentPositions);
+                        prideRocks[3] = menu5(mainBoard, 3, pathType[3], currentPositions);
+                            if (prideRocks[3] == true){
+                                break;
+                            }
 
-                        while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
-                        {
-                            player2.printStats();
-                            player2.addStrength(-100);
-                            player2.addStamina(-100);
-                            player2.printStats();
-                            brownTile(mainBoard, 1, pathType[1], currentPositions);
-                        }
+                            // Case Purple
+                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'U')
+                            {
+                                if(purpleTile() == false){
+                                    cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player4.getWisdom() << " -> ";
+                                    player4.addWisdom(-300);
+                                    cout << player4.getWisdom() << endl;
+                                }
+                                else{
+                                    cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
+                                    cout << "Your Wisdom Points: " << endl << player4.getWisdom() << " -> ";
+                                    player4.addWisdom(500);
+                                    cout << player4.getWisdom() << endl;
+                                }
+                            }
 
-                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
-                        {
-                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
-                            player2.printStats();
-                            player2.addStrength(blueTile());
-                            player2.addStamina(blueTile());
-                            player2.printStats();
-                        }
+                            // Case Brown
+                            while (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'N')
+                            {
+                                cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
+                                player4.addStrength(-100);
+                                cout << player4.getStrength() << endl;
+                                cout << "Your Stamina: " << endl << player4.getStamina() << " -> ";
+                                player4.addStamina(-100);
+                                cout << player4.getStamina() << endl;
+                                brownTile(mainBoard, 3, pathType[3], currentPositions);
+                            }
 
-                        endTurn = true;
+                            // Case Blue
+                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'B')
+                            {
+                                cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
+                                cout << "Your Strength: " << endl << player4.getStrength() << " -> ";
+                                player4.addStrength(blueTile());
+                                cout << player4.getStrength() << endl;
+                                cout << "Your Stamina: " << endl << player4.getStamina() << " -> ";
+                                player4.addStamina(blueTile());
+                                cout << player4.getStamina() << endl;
+                                cout << "Your Wisdom: " << endl << player4.getWisdom() << " -> ";
+                                player4.addWisdom(blueTile());
+                                cout << player4.getWisdom() << endl;
+                            }
+
+                            // Case Pink
+                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'P')
+                            {
+                                player4.addPridePoints(pinkTile(advisors, chosenAdvisors, 3, player4));
+                                cout << player4.getPride() << endl;
+                                cout << "Your new advisor: " << chosenAdvisors[3] << endl;
+                            }
+
+                            // Case Green
+                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'G')
+                            {
+                                cout << "Your Strength: " << player4.getStrength() << endl;
+                                cout << "Your Stamina: " << player4.getStamina() << endl;
+                                cout << "Your Wisdom: " << player4.getWisdom() << endl;
+                                cout << "Your Pride Points: " << player4.getPride() << endl;
+                                player4.addPridePoints(greenTile(chosenAdvisors, 3, "randomEvents.txt", player4));
+                                cout << "Your Pride Points: " << player4.getPride() << endl;
+                            }
+
+                            endTurn = true;
                     }
                 } while (endTurn == false);
             }
@@ -1456,4 +1596,88 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
 
     // cout << "pride: " << pridePoints[eventNumber] << endl;
     return pridePoints[eventNumber];
+}
+
+bool purpleTile(){
+    cout << "It's time to check your wisdom! " << endl;
+
+    srand(time(0));
+    
+    int riddle = rand() % 10;
+    string answer;
+
+    switch(riddle){
+        case 0:
+            cout << "What has keys but can't open locks? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "keyboard"){
+                return true;
+            }
+            break;
+        case 1:
+            cout << "I have a head, a tail, but no body. What am I? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "coin"){
+                return true;
+            }
+            break;
+        case 2:
+            cout << "I have a face and two hands but no arms or legs. What am I? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "clock"){
+                return true;
+            }
+            break;
+        case 3:
+            cout << "What is always coming but never arrives? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "tomorrow"){
+                return true;
+            }
+            break;
+        case 4:
+            cout << "What has a foot on each side but no legs? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "compass"){
+                return true;
+            }
+            break;
+        case 5:
+            cout << "What can you catch, but not throw? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "cold"){
+                return true;
+            }
+            break;
+        case 6:
+            cout << "What is black when it's clean and white when it's dirty? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "blackboard"){
+                return true;
+            }
+            break;
+        case 7:
+            cout << "I am wet when drying. What am I? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "towel"){
+                return true;
+            }
+            break;
+        case 8:
+            cout << "What word is always pronounced wrong? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "wrong"){
+                return true;
+            }
+            break;
+        case 9:
+            cout << "What is the end of everything? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cin >> answer;
+            if(answer == "g"){
+                return true;
+            }
+            break;
+    }
+
+    return false;
 }
