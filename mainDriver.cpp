@@ -34,6 +34,7 @@ bool isValidInt(string value);
 void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 int blueTile();
 int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex);
+int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
 
 int main()
 {
@@ -486,6 +487,14 @@ int main()
                             cout << player1.getPride() << endl;
                             cout << chosenAdvisors[0] << endl;
                         }
+
+                        if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'G')
+                        {
+                            player1.printStats();
+                            player1.addPridePoints(greenTile(chosenAdvisors, 0, "randomEvents.txt", player1));
+                            player1.printStats();
+                        }
+
                         endTurn = true;
                     }
                 } while (endTurn == false);
@@ -543,17 +552,25 @@ int main()
 
                         if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
                         {
-                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
+                            cout << "You have reached an oasis. Take a break and recover your strength, stamina, and wisdom (+100)" << endl;
                             player2.printStats();
                             player2.addStrength(blueTile());
                             player2.addStamina(blueTile());
+                            player2.addWisdom(blueTile());
                             player2.printStats();
                         }
                         if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'P')
                         {
                             player2.addPridePoints(pinkTile(advisors, chosenAdvisors, 1));
-                            cout << player2.getPride() << endl;
-                            cout << chosenAdvisors[1] << endl;
+                            // cout << player2.getPride() << endl;
+                            // cout << chosenAdvisors[1] << endl;
+                        }
+
+                        if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'G')
+                        {
+                            player2.printStats();
+                            player2.addPridePoints(greenTile(chosenAdvisors, 1, "randomEvents.txt", player2));
+                            player2.printStats();
                         }
 
                         endTurn = true;
@@ -613,10 +630,11 @@ int main()
 
                         if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
                         {
-                            cout << "You have reached an oasis. Take a break and recover your strength and stamina (+100)" << endl;
+                            cout << "You have reached an oasis. Take a break and recover your strength, stamina, and wisdom (+100)" << endl;
                             player2.printStats();
                             player2.addStrength(blueTile());
                             player2.addStamina(blueTile());
+                            player2.addWisdom(blueTile());
                             player2.printStats();
                         }
 
@@ -1143,8 +1161,13 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
     {
         do
         {
-            cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+            cout << "Invalid advisor. Please enter the name of the advisor correctly or type \"Skip\" to skip." << endl;
             cin >> currentAdvisor;
+            if (currentAdvisor == "Skip")
+            {
+                validAdvisor = true;
+                return 0;
+            }
             for (int k = 0; k < 5; k++)
             {
                 if (currentAdvisor == advisors[k])
@@ -1169,4 +1192,153 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex)
         } while (validAdvisor == false);
     }
     return 0;
+}
+
+int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer)
+{
+
+    string fullLine;
+    int k = 0;
+    vector<string> eventDesc;
+    vector<int> strengthReq;
+    vector<int> staminaReq;
+    vector<int> wisdomReq;
+    vector<int> pridePoints;
+    string reroll1;
+    int reroll;
+
+    // Open file and make sure it opens
+    ifstream fileIn(filename);
+    if (fileIn.fail())
+    {
+        return 0;
+    }
+
+    // Skip first line
+    getline(fileIn, fullLine);
+
+    // Split each line and print the stats of each lion character
+    while (getline(fileIn, fullLine))
+    {
+
+        string arr1[6] = {};
+        split(fullLine, '|', arr1, 6);
+
+        eventDesc.push_back(arr1[1]);
+        strengthReq.push_back(stoi(arr1[2]));
+        staminaReq.push_back(stoi(arr1[3]));
+        wisdomReq.push_back(stoi(arr1[4]));
+        pridePoints.push_back(stoi(arr1[5]));
+
+        k++;
+    }
+
+    fileIn.close();
+
+    cout << "You landed on an event tile!" << endl;
+
+    int eventNumber = rand() % 7;
+    switch (eventNumber)
+    {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        cout << "Event: " << eventDesc[eventNumber] << "(" << pridePoints[eventNumber] << ")" << endl;
+        break;
+    }
+
+    if (chosenAdvisors[currentPlayerIndex] == "Zazu")
+    {
+
+        cout << "Your advisor is Zazu, meaning that you have a chance to reroll this event. Type 1 to reroll and 0 to cancel." << endl;
+
+        while (true)
+        {
+
+            if (cin >> reroll1 && isValidInt(reroll1) == true && (stoi(reroll1) == 2 || stoi(reroll1) == 1))
+            {
+                reroll = stoi(reroll1);
+                break;
+            }
+            else
+            {
+                cout << "Invalid number. Type 1 to reroll and 0 to cancel." << endl;
+                cin.clear();  // reset the failbit
+                cin.ignore(); // discard the invalid input
+            }
+        }
+
+        if (reroll == 1)
+        {
+            eventNumber = rand() % 7;
+            switch (eventNumber)
+            {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                cout << "Event: " << eventDesc[eventNumber] << "(" << pridePoints[eventNumber] << ")" << endl;
+                break;
+            }
+        }
+    }
+
+    int playerStrength = currentPlayer.getStrength();
+    int playerStamina = currentPlayer.getStamina();
+    int playerWisdom = currentPlayer.getWisdom();
+
+    if (eventNumber < 6)
+    {
+        if (playerStrength >= strengthReq[eventNumber] && playerStamina >= staminaReq[eventNumber] && playerWisdom >= wisdomReq[eventNumber]){
+            cout << "You had enough strength/stamina/wisdom points to successfully bypass this negative event!" << endl
+            << "You gained 100 pride points" << endl;
+            pridePoints[eventNumber] = 100;
+        }
+        else if (chosenAdvisors[currentPlayerIndex] == "Rafiki")
+        {
+            cout << "Your advisor is Rafiki, meaning that you have a chance of bypassing this negative event." << endl
+                 << "Generating..." << endl;
+
+            int bypassNum = rand() % 3;
+            cout << bypassNum << endl;
+            switch (bypassNum)
+            {
+            case 0:
+            case 1:
+                cout << "Unfortunately, you did not bypass this event." << endl;
+                break;
+            case 2:
+                cout << "Congrats! You succesfully bypassed this event." << endl;
+                pridePoints[eventNumber] = 0;
+                break;
+            }
+        }
+        else if (chosenAdvisors[currentPlayerIndex] == "Sarabi")
+        {
+            cout << "Your advisor is Sarabi, meaning that you will lose less pride points from this negative event." << endl;
+            int newLoss = pridePoints[eventNumber] + -1 * (pridePoints[eventNumber] / 4);
+            cout << "You would originally lose " << pridePoints[eventNumber] << ", but because your advisor is Sarabi, " << "you will only lose " << newLoss << " pride points from this negative event." << endl;
+            pridePoints[eventNumber] = newLoss;
+        }
+    }
+    else if (eventNumber >= 6)
+    {
+        if (chosenAdvisors[currentPlayerIndex] == "Sarafina")
+        {
+            cout << "Your advisor is Sarafina, meaning that you will gain a boost in pride points from this positive event." << endl;
+            int newGain = pridePoints[eventNumber] + (pridePoints[eventNumber] / 4);
+            cout << "You would originally gain " << pridePoints[eventNumber] << ", but because your advisor is Sarafina, " << "you will gain " << newGain << " pride points from this positive event." << endl;
+            pridePoints[eventNumber] = newGain;
+        }
+    }
+
+    // cout << "pride: " << pridePoints[eventNumber] << endl;
+    return pridePoints[eventNumber];
 }

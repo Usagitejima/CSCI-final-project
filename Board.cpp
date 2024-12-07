@@ -155,7 +155,7 @@ void Board::initializeTrainTiles()
                 case 4:
                 case 5:
                 case 6:
-                    temp.color = 'P'; // Green
+                    temp.color = 'G'; // Green
                     break;
                 }
             }
@@ -167,7 +167,7 @@ void Board::initializeTrainTiles()
             switch (color_choice)
             {
             case 0:
-                temp.color = 'P'; // Blue
+                temp.color = 'B'; // Blue
                 break;
             case 1:
                 temp.color = 'P'; // Pink
