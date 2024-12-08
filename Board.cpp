@@ -143,9 +143,9 @@ void Board::initializeTrainTiles()
                 case 0:
                     temp.color = 'B'; // Blue
                     break;
-                // case 1:
-                //     temp.color = 'P'; // Pink
-                //     break;
+                case 1:
+                    temp.color = 'P'; // Pink
+                    break;
                 case 2:
                     temp.color = 'N'; // Brown
                     break;
@@ -169,9 +169,9 @@ void Board::initializeTrainTiles()
             case 0:
                 temp.color = 'B'; // Blue
                 break;
-            // case 1:
-            //     temp.color = 'P'; // Pink
-            //     break;
+            case 1:
+                temp.color = 'P'; // Pink
+                break;
             case 2:
                 temp.color = 'N'; // Brown
                 break;
