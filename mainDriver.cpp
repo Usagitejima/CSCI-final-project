@@ -42,6 +42,7 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
 // also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
 bool purpleTile(string filename);
+int redTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 // Function that converts leadership points to pride points
 // For every 100 leadership points, player gains 1,000 pride points
 int convertLeadershipPoints(Player currentPlayer);
@@ -585,6 +586,34 @@ int main()
                                 cout << "Your Pride Points: " << player1.getPride() << endl;
                                 player1.addPridePoints(greenTile(chosenAdvisors, 0, "randomEvents.txt", player1));
                                 cout << "Your Pride Points: " << player1.getPride() << endl;
+                            }
+
+                            // Case Red
+                            while(mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'R'){
+                                int choice = redTile(mainBoard, 0, pathType[0], currentPositions);
+                                if(choice == 0){
+                                    break;
+                                }
+                                else if(choice == 1){
+                                    break;
+                                }
+                                else{
+                                    cout << "Your Pride Points: " << endl << player1.getPride() << " -> ";
+                                    player1.addPridePoints(500);
+                                    cout << player1.getPride() << endl;
+
+                                    cout << "Your Stamina: " << endl << player1.getStamina() << " -> ";
+                                    player1.addStamina(500);
+                                    cout << player1.getStamina() << endl;
+
+                                    cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
+                                    player1.addStrength(500);
+                                    cout << player1.getStrength() << endl;
+                                    
+                                    cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
+                                    player1.addWisdom(500);
+                                    cout << player1.getWisdom() << endl;
+                                }
                             }
 
                             endTurn = true;
@@ -1753,6 +1782,49 @@ bool purpleTile(string filename){
     }
 
     return false;
+}
+
+int redTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
+
+    string choice;
+
+    cout << "You have stumbled accross a land of brave contract. You can either choose to have an advisor or gain (+500) Stamina, Strength, Wisdom Points and Pride Points. " << endl;
+    cout << "However, you will move back 10 tiles for choosing either option. Press 0 to move on, press 1 to choose an advisor or press 2 to gain (+500) Stamina, Strength, Wisdom Points and Pride Points. " << endl;
+
+    cin >> choice;
+
+    while(isValidInt(choice) == false || (stoi(choice) != 0 && stoi(choice) != 1 && stoi(choice) != 2)){
+        cin.clear();  // reset the failbit
+        cin.ignore(); // discard the invalid input
+        cout << "Invalid choice, please enter 0, 1 or 2." << endl;
+        cin >> choice;
+
+    }
+
+    if(stoi(choice) == 1 || stoi(choice) == 2){
+        if (arr[currentPlayerIndex] < 10)
+        {
+            _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex]);
+            arr[currentPlayerIndex] = 0;
+        }
+        else
+        {
+            arr[currentPlayerIndex] = arr[currentPlayerIndex] - 10;
+            _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex]);
+        }
+
+        if (vec == 1)
+        {
+            _board.displayPrideTrack(currentPlayerIndex);
+        }
+        else if (vec == 2)
+        {
+            _board.displayTrainTrack(currentPlayerIndex);
+        }
+        cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
+    }
+    
+    return stoi(choice);
 }
 
 // Function that converts leadership points to pride points
