@@ -42,6 +42,9 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
 // also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
 bool purpleTile();
+// Function that converts leadership points to pride points
+// For every 100 leadership points, player gains 1,000 pride points
+int convertLeadershipPoints(Player currentPlayer);
 
 int main()
 {
@@ -969,6 +972,11 @@ int main()
 
     cout << "All players have reached Pride Rock! Ending game..." << endl;
 
+    player1.addPridePoints(convertLeadershipPoints(player1));
+    player2.addPridePoints(convertLeadershipPoints(player2));
+    player3.addPridePoints(convertLeadershipPoints(player2));
+    player4.addPridePoints(convertLeadershipPoints(player2));
+
     // vector<int> finalPride;
 
     // for (int k = 0; k < numPlayers; k++){
@@ -1770,4 +1778,18 @@ bool purpleTile(){
     }
 
     return false;
+}
+
+// Function that converts leadership points to pride points
+// For every 100 leadership points, player gains 1,000 pride points
+int convertLeadershipPoints(Player currentPlayer){
+    int strength, stamina, wisdom, total;
+    strength = currentPlayer.getStrength();
+    stamina = currentPlayer.getStamina();
+    wisdom = currentPlayer.getWisdom();
+    total = strength + stamina + wisdom;
+    total /= 100;
+    total *= 1000;
+    cout << total << endl;
+    return total;
 }
