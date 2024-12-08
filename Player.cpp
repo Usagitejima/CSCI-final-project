@@ -133,11 +133,11 @@ void Player::addAge(int age)
 
 // Choosing to train the cub which adds strength, stamina, and wisdom
 // However, subtracts pride points
-void Player::trainCub(int strength, int stamina, int wisdom)
+void Player::trainCub()
 {
     addPridePoints(-5000);
-    addStamina(1000);
-    addStrength(1000);
+    addStamina(500);
+    addStrength(500);
     addWisdom(1000);
 }
 
@@ -146,9 +146,9 @@ void Player::trainCub(int strength, int stamina, int wisdom)
 void Player::toPrideLands()
 {
     addPridePoints(5000);
-    addStamina(-1000);
-    addStrength(-2000);
-    addWisdom(-2000);
+    addStamina(200);
+    addStrength(200);
+    addWisdom(200);
 }
 
 // Prints the stats of the player

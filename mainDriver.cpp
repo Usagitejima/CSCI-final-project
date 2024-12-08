@@ -229,6 +229,8 @@ int main()
     // Output options and prompt user to choose a path type
     // Then, store the decision in a vector. Prompt user to reenter input if invalid (not 1 or 2). Written by Donna
     cout << "Here are your two possible paths towards Pride Rock! The first path is straight towards Pride Lands and the second path is some Cub Training." << endl;
+    cout << "Going to the Pride Lands adds 200 Stamina Points, 200 Strength Points, and 200 Wisdom Points, as well as a boost of 5,000 Pride Points" << endl;
+    cout << "Recieving Cub Training adds 500 Stamina Points, 500 Strength Points, and 1,000 Wisdom Points, but you lose 5,000 Pride Points" << endl;
 
     for (int i = 0; i < numPlayers; i++)
     {
@@ -239,6 +241,44 @@ int main()
             {
                 currentType = stoi(ScurrentType);
                 pathType.push_back(currentType);
+                if (i == 0)
+                        {
+                            if (ScurrentType == "1"){
+                                // player1.printStats();
+                                player1.toPrideLands();
+                            }
+                            else if (ScurrentType == "2"){
+                                player1.trainCub();
+                            }
+                        }
+                        else if (i == 1)
+                        {
+                            if (ScurrentType == "1"){
+                                player2.toPrideLands();
+                            }
+                            else if (ScurrentType == "2"){
+                                // player2.printStats();
+                                player2.trainCub();
+                                // player2.printStats();
+                            }
+                        }
+                        else if (i == 2)
+                        {
+                            if (ScurrentType == "1"){
+                                player3.toPrideLands();
+                            }
+                            else if (ScurrentType == "2"){
+                                player3.trainCub();
+                            }
+                        }
+                        else if (i == 3){
+                            if (ScurrentType == "1"){
+                                player4.toPrideLands();
+                            }
+                            else if (ScurrentType == "2"){
+                                player4.trainCub();
+                            }
+                        }
                 break;
             }
             else

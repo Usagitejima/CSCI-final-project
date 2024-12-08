@@ -40,7 +40,7 @@ class Player{
         void addAge (int age);
 
         //Functions to choose path type and to print stats of the player
-        void trainCub(int, int, int);
+        void trainCub();
         void toPrideLands();
         void printStats();
 
