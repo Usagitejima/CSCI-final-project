@@ -299,6 +299,7 @@ int main()
     string chosenAdvisors[4];
     string currentAdvisor;
     bool validAdvisor = false;
+    vector<bool> haveAdvisor(4);
 
     // Display the various advisors from txt file
     for (int i = 0; i < numPlayers; i++)
@@ -307,6 +308,7 @@ int main()
         {
             if (pathType[0] == 2)
             {
+                haveAdvisor[0] = true; 
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[0] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -345,6 +347,7 @@ int main()
         {
             if (pathType[1] == 2)
             {
+                haveAdvisor[1] = true; 
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[1] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -383,6 +386,7 @@ int main()
         {
             if (pathType[2] == 2)
             {
+                haveAdvisor[2] = true; 
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[2] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -421,6 +425,7 @@ int main()
         {
             if (pathType[3] == 2)
             {
+                haveAdvisor[3] = true; 
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[3] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -595,7 +600,36 @@ int main()
                                     break;
                                 }
                                 else if(choice == 1){
-                                    break;
+                                    displayAdvisors("advisors.txt", advisors);
+                                    cout << playersList[0] << ", please choose your advisor to guide you through your journey." << endl;
+                                    cin >> currentAdvisor;
+
+                                    for (int k = 0; k < 5; k++)
+                                    {
+                                        if (currentAdvisor == advisors[k])
+                                        {
+                                            validAdvisor = true;
+                                            chosenAdvisors[0] = currentAdvisor;
+                                        }
+                                    }
+
+                                    // If the character the user entered is invalid prompt user to enter the name until one matches
+                                    if (validAdvisor == false)
+                                    {
+                                        do
+                                        {
+                                            cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                                            cin >> currentAdvisor;
+                                            for (int k = 0; k < 5; k++)
+                                            {
+                                                if (currentAdvisor == advisors[k])
+                                                {
+                                                    validAdvisor = true;
+                                                    chosenAdvisors[0] = currentAdvisor;
+                                                }
+                                            }
+                                        } while (validAdvisor == false);
+                                    }
                                 }
                                 else{
                                     cout << "Your Pride Points: " << endl << player1.getPride() << " -> ";
