@@ -417,7 +417,7 @@ int main()
     // idea of how to run game?
     bool endGame = false;
     bool endTurn = false;
-    bool prideRocks[4];
+    bool prideRocks[4] = {0, 0, 0, 0};
     int counter = 0;
     int choice;
     string Schoice;
@@ -554,7 +554,7 @@ int main()
                 do
                 {
                     endTurn = false;
-                    if (prideRocks[0] == true)
+                    if (prideRocks[1] == true)
                     {
                         endTurn = true;
                     }
@@ -673,6 +673,10 @@ int main()
                 do
                 {
                     endTurn = false;
+                    if (prideRocks[2] == true)
+                    {
+                        endTurn = true;
+                    }
                     outputMenu();
                     while (true)
                     {
@@ -786,6 +790,10 @@ int main()
                 do
                 {
                     endTurn = false;
+                    if (prideRocks[3] == true)
+                    {
+                        endTurn = true;
+                    }
                     outputMenu();
                     while (true)
                     {
