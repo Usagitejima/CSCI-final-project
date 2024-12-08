@@ -1037,47 +1037,74 @@ int main()
 
     player1.addPridePoints(convertLeadershipPoints(player1));
     player2.addPridePoints(convertLeadershipPoints(player2));
-    player3.addPridePoints(convertLeadershipPoints(player2));
-    player4.addPridePoints(convertLeadershipPoints(player2));
+player3.addPridePoints(convertLeadershipPoints(player3));
+    player4.addPridePoints(convertLeadershipPoints(player4));
 
-    // vector<int> finalPride;
+    cout << "Final Player Stats: " << endl;
 
-    // for (int k = 0; k < numPlayers; k++){
-    //     if (k == 0){
-    //     finalPride.push_back(player1.getPride());
-    //     } else if (k == 1){
-    //     finalPride.push_back(player2.getPride());
-    //     } else if (k == 2){
-    //     finalPride.push_back(player3.getPride());
-    //     } else if (k == 3){
-    //     finalPride.push_back(player4.getPride());
-    //     }
-    // }
+    for (int i = 0; i < numPlayers; i++)
+    {
+        if (i == 0)
+        {
+            player1.printStats();
+        }
+        else if (i == 1)
+        {
+            player2.printStats();
+        }
+        else if (i == 2)
+        {
+            player3.printStats();
+        }
+        else if (i == 3)
+        {
+            player4.printStats();
+        }
+    }
 
-    // int temp;
-    // string _temp;
+    vector<int> finalPride;
+
+    for (int k = 0; k < numPlayers; k++){
+        if (k == 0){
+        finalPride.push_back(player1.getPride());
+        } else if (k == 1){
+        finalPride.push_back(player2.getPride());
+        } else if (k == 2){
+        finalPride.push_back(player3.getPride());
+        } else if (k == 3){
+        finalPride.push_back(player4.getPride());
+        }
+    }
+
+    int temp;
+    string _temp;
+    for (int a = 0; a < numPlayers - 1; a++){
+        for (int b = 0; b < numPlayers - a - 1; b++){
+            // cout << finalPride[b] << " " << finalPride[b + 1] << endl;
+            if (finalPride[b] > finalPride[b + 1]){
+                temp = finalPride[b + 1];
+                _temp = playersList[b + 1];
+                finalPride[b + 1] = finalPride[b];
+                playersList[b + 1] = playersList[b];
+                finalPride[b] = temp;
+                playersList[b] = _temp;
+            }
+        }
+    }
+
     // for (int a = 0; a < numPlayers; a++){
-    //     for (int b = 0; b < numPlayers; b++){
-    //         if (finalPride[a] > finalPride[b]){
-    //             temp = finalPride[b];
-    //             _temp = playersList[b];
-    //             finalPride[b] = finalPride[a];
-    //             playersList[b] = playersList[a];
-    //             finalPride[a] = temp;
-    //             playersList[a] = _temp;
-    //         }
-    //     }
+    //     cout << finalPride[a] << endl;
     // }
 
-    // for (int c = 0; c < numPlayers; c++){
-    //     if (c == 0){
-    //     cout << "In first is " << playersList[3] << ", with " << finalPride[3] << " pride points!";
-    //     } else if (c == 1){
-    //     cout << "In first is " << playersList[2] << ", with " << finalPride[2] << " pride points!";
+    // for (int c = numPlayers; c > 0; c--){
+    //     if (c == 3){
+    //     cout << playersList[3] << ", with " << finalPride[3] << " pride points!";
     //     } else if (c == 2){
-    //     cout << "In first is " << playersList[1] << ", with " << finalPride[1] << " pride points!";
-    //     } else if (c == 3){
-    //     cout << "In first is " << playersList[0] << ", with " << finalPride[0] << " pride points!";
+    //     cout << playersList[2] << ", with " << finalPride[2] << " pride points!";
+    //     } else if (c == 1){
+    //     cout << playersList[1] << ", with " << finalPride[1] << " pride points!";
+    //     } else if (c == 0){
+    //     cout << playersList[0] << ", with " << finalPride[0] << " pride points!";
     //     }
     // }
 
@@ -1871,6 +1898,5 @@ int convertLeadershipPoints(Player currentPlayer){
     total = strength + stamina + wisdom;
     total /= 100;
     total *= 1000;
-    cout << total << endl;
     return total;
 }
