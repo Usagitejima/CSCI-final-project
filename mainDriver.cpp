@@ -929,6 +929,44 @@ int main()
 
     cout << "All players have reached Pride Rock! Ending game..." << endl;
 
+    // vector<int> finalPride;
+
+    // for (int k = 0; k < numPlayers; k++){
+    //     if (k == 0){
+    //     finalPride.push_back(player1.getPride());
+    //     } else if (k == 1){
+    //     finalPride.push_back(player2.getPride());
+    //     } else if (k == 2){
+    //     finalPride.push_back(player3.getPride());
+    //     } else if (k == 3){
+    //     finalPride.push_back(player4.getPride());
+    //     }
+    // }
+
+    // int temp;
+    // for (int a = 0; a < numPlayers; a++){
+    //     for (int b = 0; b < numPlayers; b++){
+    //         if (finalPride[a] > finalPride[b]){
+    //             temp = finalPride[b];
+    //             finalPride[b] = finalPride[a];
+    //             finalPride[a] = temp;
+    //         }
+    //     }
+    // }
+
+    // for (int c = 0; c < numPlayers; c++){
+    //     if (c == 0){
+    //     cout << finalPride[0];
+    //     } else if (c == 1){
+    //     finalPride.push_back(player2.getPride());
+    //     } else if (c == 2){
+    //     finalPride.push_back(player3.getPride());
+    //     } else if (c == 3){
+    //     finalPride.push_back(player4.getPride());
+    //     }
+    // }
+
+
 }
 
 // Check if a string is a valid integer
