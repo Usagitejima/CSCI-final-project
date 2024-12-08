@@ -599,36 +599,128 @@ int main()
                                 if(choice == 0){
                                     break;
                                 }
-                                else if(choice == 1){
-                                    displayAdvisors("advisors.txt", advisors);
-                                    cout << playersList[0] << ", please choose your advisor to guide you through your journey." << endl;
-                                    cin >> currentAdvisor;
+                                 else if(choice == 1){
+                                    if(haveAdvisor[0] == false){
+                                        displayAdvisors("advisors.txt", advisors);
+                                        cout << playersList[0] << ", please choose your advisor to guide you through your journey." << endl;
+                                        cin >> currentAdvisor;
 
-                                    for (int k = 0; k < 5; k++)
-                                    {
-                                        if (currentAdvisor == advisors[k])
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                validAdvisor = true;
+                                                chosenAdvisors[0] = currentAdvisor;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                                                cin >> currentAdvisor;
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        validAdvisor = true;
+                                                        chosenAdvisors[0] = currentAdvisor;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+
+                                        haveAdvisor[0] = true;
+                                    }
+                                    else if(haveAdvisor[0] == true){
+                                        
+                                        string currentAdvisor;
+
+                                        bool validAdvisor = false;
+
+                                        displayAdvisors("advisors.txt", advisors);
+
+                                        cout << "You already have an advisor! However, if you wish to change your current advisor go for it. " << endl;
+                                        cout << "Your current advisor: " << chosenAdvisors[0] << endl;
+                                        cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
+                                        cin >> currentAdvisor;
+
+                                        if (currentAdvisor == "Skip")
                                         {
                                             validAdvisor = true;
-                                            chosenAdvisors[0] = currentAdvisor;
+                                            break;
                                         }
-                                    }
 
-                                    // If the character the user entered is invalid prompt user to enter the name until one matches
-                                    if (validAdvisor == false)
-                                    {
-                                        do
+                                        for (int k = 0; k < 5; k++)
                                         {
-                                            cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
-                                            cin >> currentAdvisor;
-                                            for (int k = 0; k < 5; k++)
+                                            if (currentAdvisor == advisors[k])
                                             {
-                                                if (currentAdvisor == advisors[k])
+                                                // If the inputted advisor is already their advisor...
+                                                if (currentAdvisor == chosenAdvisors[0])
+                                                {
+                                                    // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                    do
+                                                    {
+                                                        cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                        cin >> currentAdvisor;
+                                                        if (currentAdvisor == "Skip")
+                                                        {
+                                                            validAdvisor = true;
+                                                            break;
+                                                        }
+                                                    } while (currentAdvisor == chosenAdvisors[0]);
+                                                }
+                                                // Change the advisor of the player to the new one
+                                                chosenAdvisors[0] = currentAdvisor;
+                                                validAdvisor = true;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly or type \"Skip\" to skip." << endl;
+                                                cin >> currentAdvisor;
+
+                                                // If choose to skip, end the function
+                                                if (currentAdvisor == "Skip")
                                                 {
                                                     validAdvisor = true;
-                                                    chosenAdvisors[0] = currentAdvisor;
+                                                    break;
                                                 }
-                                            }
-                                        } while (validAdvisor == false);
+
+                                                // Loop to compare the user input with the list of valid advisors
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    // If it is a valid advisor...
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        // If the inputted advisor is already their advisor...
+                                                        if (currentAdvisor == chosenAdvisors[0])
+                                                        {
+                                                            // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                            do
+                                                            {
+                                                                cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                                cin >> currentAdvisor;
+                                                                if (currentAdvisor == "Skip")
+                                                                {
+                                                                    validAdvisor = true;
+                                                                    break;
+                                                                }
+                                                            } while (currentAdvisor == chosenAdvisors[0]);
+                                                        }
+                                                        // Change the advisor of the player to the new one
+                                                        chosenAdvisors[0] = currentAdvisor;
+                                                        validAdvisor = true;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
                                     }
                                 }
                                 else{
