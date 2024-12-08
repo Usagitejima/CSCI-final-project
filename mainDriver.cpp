@@ -1096,17 +1096,9 @@ player3.addPridePoints(convertLeadershipPoints(player3));
     //     cout << finalPride[a] << endl;
     // }
 
-    // for (int c = numPlayers; c > 0; c--){
-    //     if (c == 3){
-    //     cout << playersList[3] << ", with " << finalPride[3] << " pride points!";
-    //     } else if (c == 2){
-    //     cout << playersList[2] << ", with " << finalPride[2] << " pride points!";
-    //     } else if (c == 1){
-    //     cout << playersList[1] << ", with " << finalPride[1] << " pride points!";
-    //     } else if (c == 0){
-    //     cout << playersList[0] << ", with " << finalPride[0] << " pride points!";
-    //     }
-    // }
+    for (int c = numPlayers - 1; c >= 0; c--){
+        cout << playersList[c] << ", with " << finalPride[c] << " pride points!" << endl;
+    }
 
 
 }
