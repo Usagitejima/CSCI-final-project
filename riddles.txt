@@ -1,0 +1,11 @@
+Index | Question | Answer
+1|What has keys but can't open locks?|keyboard
+2|I have a head, a tail, but no body. What am I?|coin
+3|I have a face and two hands but no arms or legs. What am I?|clock
+4|What is always coming but never arrives?|tomorrow
+5|What has a foot on each side but no legs?|compass
+6|What can you catch, but not throw?|cold
+7|What is black when it's clean and white when it's dirty?|blackboard
+8|I am wet when drying. What am I?|towel
+9|What word is always pronounced wrong?|wrong
+10|What is the end of everything?|g
