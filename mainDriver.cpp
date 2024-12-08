@@ -944,25 +944,29 @@ int main()
     // }
 
     // int temp;
+    // string _temp;
     // for (int a = 0; a < numPlayers; a++){
     //     for (int b = 0; b < numPlayers; b++){
     //         if (finalPride[a] > finalPride[b]){
     //             temp = finalPride[b];
+    //             _temp = playersList[b];
     //             finalPride[b] = finalPride[a];
+    //             playersList[b] = playersList[a];
     //             finalPride[a] = temp;
+    //             playersList[a] = _temp;
     //         }
     //     }
     // }
 
     // for (int c = 0; c < numPlayers; c++){
     //     if (c == 0){
-    //     cout << finalPride[0];
+    //     cout << "In first is " << playersList[3] << ", with " << finalPride[3] << " pride points!";
     //     } else if (c == 1){
-    //     finalPride.push_back(player2.getPride());
+    //     cout << "In first is " << playersList[2] << ", with " << finalPride[2] << " pride points!";
     //     } else if (c == 2){
-    //     finalPride.push_back(player3.getPride());
+    //     cout << "In first is " << playersList[1] << ", with " << finalPride[1] << " pride points!";
     //     } else if (c == 3){
-    //     finalPride.push_back(player4.getPride());
+    //     cout << "In first is " << playersList[0] << ", with " << finalPride[0] << " pride points!";
     //     }
     // }
 
