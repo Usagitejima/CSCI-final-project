@@ -41,7 +41,7 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
 // Random Event Tile, chooses a random event that may only be bypassed with a certain amount of leadership points. Advisor choice
 // also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
-bool purpleTile();
+bool purpleTile(string filename);
 // Function that converts leadership points to pride points
 // For every 100 leadership points, player gains 1,000 pride points
 int convertLeadershipPoints(Player currentPlayer);
@@ -527,7 +527,7 @@ int main()
                             // Case Purple
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'U')
                             {
-                                if(purpleTile() == false){
+                                if(purpleTile("riddles.txt") == false){
                                     cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
                                     cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
                                     player1.addWisdom(-300);
@@ -646,7 +646,7 @@ int main()
                             // Case Purple
                             if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'U')
                             {
-                                if(purpleTile() == false){
+                                if(purpleTile("riddles.txt") == false){
                                     cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
                                     cout << "Your Wisdom Points: " << endl << player2.getWisdom() << " -> ";
                                     player2.addWisdom(-300);
@@ -763,7 +763,7 @@ int main()
                             // Case Purple
                             if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'U')
                             {
-                                if(purpleTile() == false){
+                                if(purpleTile("riddles.txt") == false){
                                     cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
                                     cout << "Your Wisdom Points: " << endl << player3.getWisdom() << " -> ";
                                     player3.addWisdom(-300);
@@ -880,7 +880,7 @@ int main()
                             // Case Purple
                             if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'U')
                             {
-                                if(purpleTile() == false){
+                                if(purpleTile("riddles.txt") == false){
                                     cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
                                     cout << "Your Wisdom Points: " << endl << player4.getWisdom() << " -> ";
                                     player4.addWisdom(-300);
@@ -1696,7 +1696,36 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
     return pridePoints[eventNumber];
 }
 
-bool purpleTile(){
+bool purpleTile(string filename){
+    string fullLine;
+    vector<string> question;
+    vector<string> correctAnswer;
+
+        // Open file and make sure it opens
+    ifstream fileIn(filename);
+    if (fileIn.fail())
+    {
+        return 0;
+    }
+
+    // Skip first line
+    getline(fileIn, fullLine);
+
+    // Split each line and print the stats of each lion character
+    while (getline(fileIn, fullLine))
+    {
+
+        string arr1[3] = {};
+        split(fullLine, '|', arr1, 3);
+
+        // Add each part into corresponding vector
+        question.push_back(arr1[1]);
+        correctAnswer.push_back(arr1[2]);
+    }
+
+    // Close file
+    fileIn.close();
+
     cout << "It's time to check your wisdom! " << endl;
 
     srand(time(0));
@@ -1706,72 +1735,18 @@ bool purpleTile(){
 
     switch(riddle){
         case 0:
-            cout << "What has keys but can't open locks? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "keyboard"){
-                return true;
-            }
-            break;
         case 1:
-            cout << "I have a head, a tail, but no body. What am I? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "coin"){
-                return true;
-            }
-            break;
-        case 2:
-            cout << "I have a face and two hands but no arms or legs. What am I? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "clock"){
-                return true;
-            }
-            break;
+        case 2:   
         case 3:
-            cout << "What is always coming but never arrives? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "tomorrow"){
-                return true;
-            }
-            break;
         case 4:
-            cout << "What has a foot on each side but no legs? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "compass"){
-                return true;
-            }
-            break;
         case 5:
-            cout << "What can you catch, but not throw? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "cold"){
-                return true;
-            }
-            break;
         case 6:
-            cout << "What is black when it's clean and white when it's dirty? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "blackboard"){
-                return true;
-            }
-            break;
         case 7:
-            cout << "I am wet when drying. What am I? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "towel"){
-                return true;
-            }
-            break;
         case 8:
-            cout << "What word is always pronounced wrong? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == "wrong"){
-                return true;
-            }
-            break;
         case 9:
-            cout << "What is the end of everything? (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+            cout << question[riddle] << " (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
             cin >> answer;
-            if(answer == "g"){
+            if(answer == correctAnswer[riddle]){
                 return true;
             }
             break;
