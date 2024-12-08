@@ -36,12 +36,17 @@ bool isValidInt(string value);
 void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 // Oasis Tile, returns 100. Written by Joanne
 int blueTile();
-// Advisor Tile, allows user to choose a new advisor or stick with their current one. Only applicable for Cub Training Tile. Written by Joanne
+// Advisor Tile, allows user to choose a new advisor or stick with their current one. Only applicable for Cub Training Tile
+// Written by Joanne
 int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex, Player currentPlayer);
 // Random Event Tile, chooses a random event that may only be bypassed with a certain amount of leadership points. Advisor choice
 // also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
+// Riddle Tile, player must answer a riddle correctly in order to gain leadership points (+500 each), and answering wrong costs wisdom points (-300)
+//Written by Donna
 bool purpleTile(string filename);
+// Bravery Contract, player gets an option to choose an advisor or add leadership/pride points (+500), however, doing so will cause them to move back 10 spaces
+// Written by Donna
 int redTile(Board _board, int currentPlayerIndex, int vec, int arr[]);
 // Function that converts leadership points to pride points
 // For every 100 leadership points, player gains 1,000 pride points
@@ -1795,6 +1800,7 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
             }
         }
 
+        // if player chooses to reroll, run the code again
         if (reroll == 1)
         {
             eventNumber = rand() % 10;
@@ -1820,14 +1826,17 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
     int playerStamina = currentPlayer.getStamina();
     int playerWisdom = currentPlayer.getWisdom();
 
+// regarding the negative events
     if (eventNumber < 6)
     {
+        //if player has enough leadership points, they can successfully bypass
         if (playerStrength >= strengthReq[eventNumber] && playerStamina >= staminaReq[eventNumber] && playerWisdom >= wisdomReq[eventNumber])
         {
             cout << "You had enough strength/stamina/wisdom points to successfully bypass this negative event!" << endl
                  << "You gained 100 pride points" << endl;
             pridePoints[eventNumber] = 100;
         }
+        // if the player's advisor is rafiki, the user has a chance of bypassing the negative event
         else if (chosenAdvisors[currentPlayerIndex] == "Rafiki")
         {
             cout << "Your advisor is Rafiki, meaning that you have a chance of bypassing this negative event." << endl
@@ -1847,6 +1856,7 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
                 break;
             }
         }
+        // If player's advisor is sarabi, lose a fraction less of pride points from negative events
         else if (chosenAdvisors[currentPlayerIndex] == "Sarabi")
         {
             cout << "Your advisor is Sarabi, meaning that you will lose less pride points from this negative event." << endl;
@@ -1855,8 +1865,10 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
             pridePoints[eventNumber] = newLoss;
         }
     }
+    // regarding the positive events
     else if (eventNumber >= 6)
     {
+        // If player's advisor is sarafina, gain a fraction more of pride points from positive events
         if (chosenAdvisors[currentPlayerIndex] == "Sarafina")
         {
             cout << "Your advisor is Sarafina, meaning that you will gain a boost in pride points from this positive event." << endl;
@@ -1870,6 +1882,8 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
     return pridePoints[eventNumber];
 }
 
+// Riddle Tile, player must answer a riddle correctly in order to gain leadership points (+500 each), and answering wrong costs wisdom points (-300)
+//Written by Donna
 bool purpleTile(string filename){
     string fullLine;
     vector<string> question;
@@ -1929,6 +1943,8 @@ bool purpleTile(string filename){
     return false;
 }
 
+// Bravery Contract, player gets an option to choose an advisor or add leadership/pride points (+500), however, doing so will cause them to move back 10 spaces
+// Written by Donna
 int redTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
 
     string choice;
@@ -1979,8 +1995,10 @@ int convertLeadershipPoints(Player currentPlayer){
     strength = currentPlayer.getStrength();
     stamina = currentPlayer.getStamina();
     wisdom = currentPlayer.getWisdom();
+    // add total of leadership points and divide by 100, then multiply by 1000
     total = strength + stamina + wisdom;
     total /= 100;
     total *= 1000;
+    // return number of pride points to add
     return total;
 }
