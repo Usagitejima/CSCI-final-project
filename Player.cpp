@@ -154,13 +154,12 @@ void Player::toPrideLands()
 // Prints the stats of the player
 void Player::printStats()
 {
-    cout << "#~#~#~#~#~#~#~#" << endl;
+    cout << endl;
     cout << _name << ", age " << _age << endl;
     cout << "Strength: " << _strength << endl;
     cout << "Stamina: " << _stamina << endl;
     cout << "Wisdom: " << _wisdom << endl;
     cout << "Pride Points: " << _pride_points << endl;
-    cout << "#~#~#~#~#~#~#~#" << endl;
 }
 
 void Player::Green()

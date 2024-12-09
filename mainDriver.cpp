@@ -43,7 +43,7 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
 // also plays a big part in how events may be bypassed or affected. Written by Joanne
 int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, Player currentPlayer);
 // Riddle Tile, player must answer a riddle correctly in order to gain leadership points (+500 each), and answering wrong costs wisdom points (-300)
-//Written by Donna
+// Written by Donna
 bool purpleTile(string filename);
 // Bravery Contract, player gets an option to choose an advisor or add leadership/pride points (+500), however, doing so will cause them to move back 10 spaces
 // Written by Donna
@@ -251,43 +251,52 @@ int main()
                 currentType = stoi(ScurrentType);
                 pathType.push_back(currentType);
                 if (i == 0)
-                        {
-                            if (ScurrentType == "1"){
-                                // player1.printStats();
-                                player1.toPrideLands();
-                            }
-                            else if (ScurrentType == "2"){
-                                player1.trainCub();
-                            }
-                        }
-                        else if (i == 1)
-                        {
-                            if (ScurrentType == "1"){
-                                player2.toPrideLands();
-                            }
-                            else if (ScurrentType == "2"){
-                                // player2.printStats();
-                                player2.trainCub();
-                                // player2.printStats();
-                            }
-                        }
-                        else if (i == 2)
-                        {
-                            if (ScurrentType == "1"){
-                                player3.toPrideLands();
-                            }
-                            else if (ScurrentType == "2"){
-                                player3.trainCub();
-                            }
-                        }
-                        else if (i == 3){
-                            if (ScurrentType == "1"){
-                                player4.toPrideLands();
-                            }
-                            else if (ScurrentType == "2"){
-                                player4.trainCub();
-                            }
-                        }
+                {
+                    if (ScurrentType == "1")
+                    {
+                        // player1.printStats();
+                        player1.toPrideLands();
+                    }
+                    else if (ScurrentType == "2")
+                    {
+                        player1.trainCub();
+                    }
+                }
+                else if (i == 1)
+                {
+                    if (ScurrentType == "1")
+                    {
+                        player2.toPrideLands();
+                    }
+                    else if (ScurrentType == "2")
+                    {
+                        // player2.printStats();
+                        player2.trainCub();
+                        // player2.printStats();
+                    }
+                }
+                else if (i == 2)
+                {
+                    if (ScurrentType == "1")
+                    {
+                        player3.toPrideLands();
+                    }
+                    else if (ScurrentType == "2")
+                    {
+                        player3.trainCub();
+                    }
+                }
+                else if (i == 3)
+                {
+                    if (ScurrentType == "1")
+                    {
+                        player4.toPrideLands();
+                    }
+                    else if (ScurrentType == "2")
+                    {
+                        player4.trainCub();
+                    }
+                }
                 break;
             }
             else
@@ -313,7 +322,7 @@ int main()
         {
             if (pathType[0] == 2)
             {
-                haveAdvisor[0] = true; 
+                haveAdvisor[0] = true;
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[0] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -352,7 +361,7 @@ int main()
         {
             if (pathType[1] == 2)
             {
-                haveAdvisor[1] = true; 
+                haveAdvisor[1] = true;
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[1] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -391,7 +400,7 @@ int main()
         {
             if (pathType[2] == 2)
             {
-                haveAdvisor[2] = true; 
+                haveAdvisor[2] = true;
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[2] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -430,7 +439,7 @@ int main()
         {
             if (pathType[3] == 2)
             {
-                haveAdvisor[3] = true; 
+                haveAdvisor[3] = true;
                 displayAdvisors("advisors.txt", advisors);
                 cout << playersList[3] << ", you chose to start with cub training." << endl
                      << "Therefore, you may choose an advisor to help guide you through your journey." << endl;
@@ -488,13 +497,16 @@ int main()
                 // Display menu and allow user to make a choice. Only move turns when play chooses to move position
                 do
                 {
+                    // make endturn false at each turn
                     endTurn = false;
+                    // if player has reached pride rock, skip their turn
                     if (prideRocks[0] == true)
                     {
                         endTurn = true;
                     }
                     else
                     {
+                        // output menu and allow player to make a choice
                         outputMenu();
                         while (true)
                         {
@@ -512,41 +524,55 @@ int main()
                                 break;
                             }
                         }
+                        // if their choice is one, run menu1 function that outputs their stats
                         if (choice == 1)
                         {
                             menu1(player1, 0, playersList);
                         }
+                        // if their choice is two, run menu2 function that displays their name and age
                         else if (choice == 2)
                         {
                             menu2(player1, 0, playersList);
                         }
+                        // if their choice is three, run menu3 function that allows player to see their chosen path and position
                         else if (choice == 3)
                         {
                             menu3(mainBoard, 0, pathType[0], currentPositions);
                         }
+                        // if their choice is four, run menu4 function that allows player to check their current advisor
                         else if (choice == 4)
                         {
                             menu4(0, chosenAdvisors[0], "advisors.txt", playersList);
                         }
+                        // if their choice is five, run menu5 function that moves player
                         else if (choice == 5)
                         {
+                            // store whether they have reached pride rock or not in array
                             prideRocks[0] = menu5(mainBoard, 0, pathType[0], currentPositions);
-                            if (prideRocks[0] == true){
+                            // if they reached pride rock this turn, end the turn
+                            if (prideRocks[0] == true)
+                            {
                                 break;
                             }
 
                             // Case Purple
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'U')
                             {
-                                if(purpleTile("riddles.txt") == false){
+                                // if they got the answer wrong, deduct 300 wisdom points
+                                if (purpleTile("riddles.txt") == false)
+                                {
                                     cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player1.getWisdom() << " -> ";
                                     player1.addWisdom(-300);
                                     cout << player1.getWisdom() << endl;
                                 }
-                                else{
+                                // if they got the answer correct, add 500 wisdom points
+                                else
+                                {
                                     cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player1.getWisdom() << " -> ";
                                     player1.addWisdom(500);
                                     cout << player1.getWisdom() << endl;
                                 }
@@ -555,26 +581,34 @@ int main()
                             // Case Brown
                             while (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'N')
                             {
-                                cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
+                                // deduct strength and stamina points
+                                cout << "Your Strength: " << endl
+                                     << player1.getStrength() << " -> ";
                                 player1.addStrength(-100);
                                 cout << player1.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player1.getStamina() << " -> ";
+                                cout << "Your Stamina: " << endl
+                                     << player1.getStamina() << " -> ";
                                 player1.addStamina(-100);
                                 cout << player1.getStamina() << endl;
+                                // run brown tile function which will move player back 3 spaces
                                 brownTile(mainBoard, 0, pathType[0], currentPositions);
                             }
 
                             // Case Blue
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'B')
                             {
+                                // add 100 leadership points
                                 cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
-                                cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
+                                cout << "Your Strength: " << endl
+                                     << player1.getStrength() << " -> ";
                                 player1.addStrength(blueTile());
                                 cout << player1.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player1.getStamina() << " -> ";
+                                cout << "Your Stamina: " << endl
+                                     << player1.getStamina() << " -> ";
                                 player1.addStamina(blueTile());
                                 cout << player1.getStamina() << endl;
-                                cout << "Your Wisdom: " << endl << player1.getWisdom() << " -> ";
+                                cout << "Your Wisdom: " << endl
+                                     << player1.getWisdom() << " -> ";
                                 player1.addWisdom(blueTile());
                                 cout << player1.getWisdom() << endl;
                             }
@@ -582,30 +616,41 @@ int main()
                             // Case Pink
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'P')
                             {
+                                // if they change their advisor, it will dedect 300 pride points
                                 player1.addPridePoints(pinkTile(advisors, chosenAdvisors, 0, player1));
                                 cout << player1.getPride() << endl;
-                                cout << "Your new advisor: " << chosenAdvisors[0] << endl;
+                                // output advisor
+                                cout << "Your advisor: " << chosenAdvisors[0] << endl;
                             }
 
                             // Case Green
                             if (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'G')
                             {
+                                // output player's stats
                                 cout << "Your Strength: " << player1.getStrength() << endl;
                                 cout << "Your Stamina: " << player1.getStamina() << endl;
                                 cout << "Your Wisdom: " << player1.getWisdom() << endl;
                                 cout << "Your Pride Points: " << player1.getPride() << endl;
+                                // run green tile function and deduct/add pride points
                                 player1.addPridePoints(greenTile(chosenAdvisors, 0, "randomEvents.txt", player1));
                                 cout << "Your Pride Points: " << player1.getPride() << endl;
                             }
 
                             // Case Red
-                            while(mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'R'){
+                            while (mainBoard.determineColor(0, pathType[0], currentPositions[0]) == 'R')
+                            {
+                                // store player's choice
                                 int choice = redTile(mainBoard, 0, pathType[0], currentPositions);
-                                if(choice == 0){
+                                // if choose to skip..
+                                if (choice == 0)
+                                {
                                     break;
                                 }
-                                 else if(choice == 1){
-                                    if(haveAdvisor[0] == false){
+                                // if they choose to choose an advisor when they currently don't have one..
+                                else if (choice == 1)
+                                {
+                                    if (haveAdvisor[0] == false)
+                                    {
                                         displayAdvisors("advisors.txt", advisors);
                                         cout << playersList[0] << ", please choose your advisor to guide you through your journey." << endl;
                                         cin >> currentAdvisor;
@@ -639,8 +684,10 @@ int main()
 
                                         haveAdvisor[0] = true;
                                     }
-                                    else if(haveAdvisor[0] == true){
-                                        
+                                    // if they do have an advisor already and want to change
+                                    else if (haveAdvisor[0] == true)
+                                    {
+
                                         string currentAdvisor;
 
                                         bool validAdvisor = false;
@@ -728,20 +775,26 @@ int main()
                                         }
                                     }
                                 }
-                                else{
-                                    cout << "Your Pride Points: " << endl << player1.getPride() << " -> ";
+                                // if they decide to boost pride/leadership points instead
+                                else
+                                {
+                                    cout << "Your Pride Points: " << endl
+                                         << player1.getPride() << " -> ";
                                     player1.addPridePoints(500);
                                     cout << player1.getPride() << endl;
 
-                                    cout << "Your Stamina: " << endl << player1.getStamina() << " -> ";
+                                    cout << "Your Stamina: " << endl
+                                         << player1.getStamina() << " -> ";
                                     player1.addStamina(500);
                                     cout << player1.getStamina() << endl;
 
-                                    cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
+                                    cout << "Your Strength: " << endl
+                                         << player1.getStrength() << " -> ";
                                     player1.addStrength(500);
                                     cout << player1.getStrength() << endl;
-                                    
-                                    cout << "Your Wisdom Points: " << endl << player1.getWisdom() << " -> ";
+
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player1.getWisdom() << " -> ";
                                     player1.addWisdom(500);
                                     cout << player1.getWisdom() << endl;
                                 }
@@ -799,22 +852,27 @@ int main()
                         else if (choice == 5)
                         {
                             prideRocks[1] = menu5(mainBoard, 1, pathType[1], currentPositions);
-                            if (prideRocks[1] == true){
+                            if (prideRocks[1] == true)
+                            {
                                 break;
                             }
 
                             // Case Purple
                             if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'U')
                             {
-                                if(purpleTile("riddles.txt") == false){
+                                if (purpleTile("riddles.txt") == false)
+                                {
                                     cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player2.getWisdom() << " -> ";
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player2.getWisdom() << " -> ";
                                     player2.addWisdom(-300);
                                     cout << player2.getWisdom() << endl;
                                 }
-                                else{
+                                else
+                                {
                                     cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player2.getWisdom() << " -> ";
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player2.getWisdom() << " -> ";
                                     player2.addWisdom(500);
                                     cout << player2.getWisdom() << endl;
                                 }
@@ -823,10 +881,12 @@ int main()
                             // Case Brown
                             while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'N')
                             {
-                                cout << "Your Strength: " << endl << player2.getStrength() << " -> ";
+                                cout << "Your Strength: " << endl
+                                     << player2.getStrength() << " -> ";
                                 player2.addStrength(-100);
                                 cout << player2.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player2.getStamina() << " -> ";
+                                cout << "Your Stamina: " << endl
+                                     << player2.getStamina() << " -> ";
                                 player2.addStamina(-100);
                                 cout << player2.getStamina() << endl;
                                 brownTile(mainBoard, 1, pathType[1], currentPositions);
@@ -836,13 +896,16 @@ int main()
                             if (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'B')
                             {
                                 cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
-                                cout << "Your Strength: " << endl << player2.getStrength() << " -> ";
+                                cout << "Your Strength: " << endl
+                                     << player2.getStrength() << " -> ";
                                 player2.addStrength(blueTile());
                                 cout << player2.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player2.getStamina() << " -> ";
+                                cout << "Your Stamina: " << endl
+                                     << player2.getStamina() << " -> ";
                                 player2.addStamina(blueTile());
                                 cout << player2.getStamina() << endl;
-                                cout << "Your Wisdom: " << endl << player2.getWisdom() << " -> ";
+                                cout << "Your Wisdom: " << endl
+                                     << player2.getWisdom() << " -> ";
                                 player2.addWisdom(blueTile());
                                 cout << player2.getWisdom() << endl;
                             }
@@ -866,6 +929,170 @@ int main()
                                 cout << "Your Pride Points: " << player2.getPride() << endl;
                             }
 
+                            //Case Red
+                            while (mainBoard.determineColor(1, pathType[1], currentPositions[1]) == 'R')
+                            {
+                                // store player's choice
+                                int choice = redTile(mainBoard, 1, pathType[1], currentPositions);
+                                // if choose to skip..
+                                if (choice == 0)
+                                {
+                                    break;
+                                }
+                                // if they choose to choose an advisor when they currently don't have one..
+                                else if (choice == 1)
+                                {
+                                    if (haveAdvisor[1] == false)
+                                    {
+                                        displayAdvisors("advisors.txt", advisors);
+                                        cout << playersList[1] << ", please choose your advisor to guide you through your journey." << endl;
+                                        cin >> currentAdvisor;
+
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                validAdvisor = true;
+                                                chosenAdvisors[1] = currentAdvisor;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                                                cin >> currentAdvisor;
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        validAdvisor = true;
+                                                        chosenAdvisors[1] = currentAdvisor;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+
+                                        haveAdvisor[1] = true;
+                                    }
+                                    // if they do have an advisor already and want to change
+                                    else if (haveAdvisor[1] == true)
+                                    {
+
+                                        string currentAdvisor;
+
+                                        bool validAdvisor = false;
+
+                                        displayAdvisors("advisors.txt", advisors);
+
+                                        cout << "You already have an advisor! However, if you wish to change your current advisor go for it. " << endl;
+                                        cout << "Your current advisor: " << chosenAdvisors[1] << endl;
+                                        cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
+                                        cin >> currentAdvisor;
+
+                                        if (currentAdvisor == "Skip")
+                                        {
+                                            validAdvisor = true;
+                                            break;
+                                        }
+
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                // If the inputted advisor is already their advisor...
+                                                if (currentAdvisor == chosenAdvisors[1])
+                                                {
+                                                    // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                    do
+                                                    {
+                                                        cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                        cin >> currentAdvisor;
+                                                        if (currentAdvisor == "Skip")
+                                                        {
+                                                            validAdvisor = true;
+                                                            break;
+                                                        }
+                                                    } while (currentAdvisor == chosenAdvisors[1]);
+                                                }
+                                                // Change the advisor of the player to the new one
+                                                chosenAdvisors[1] = currentAdvisor;
+                                                validAdvisor = true;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly or type \"Skip\" to skip." << endl;
+                                                cin >> currentAdvisor;
+
+                                                // If choose to skip, end the function
+                                                if (currentAdvisor == "Skip")
+                                                {
+                                                    validAdvisor = true;
+                                                    break;
+                                                }
+
+                                                // Loop to compare the user input with the list of valid advisors
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    // If it is a valid advisor...
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        // If the inputted advisor is already their advisor...
+                                                        if (currentAdvisor == chosenAdvisors[1])
+                                                        {
+                                                            // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                            do
+                                                            {
+                                                                cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                                cin >> currentAdvisor;
+                                                                if (currentAdvisor == "Skip")
+                                                                {
+                                                                    validAdvisor = true;
+                                                                    break;
+                                                                }
+                                                            } while (currentAdvisor == chosenAdvisors[1]);
+                                                        }
+                                                        // Change the advisor of the player to the new one
+                                                        chosenAdvisors[1] = currentAdvisor;
+                                                        validAdvisor = true;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+                                    }
+                                }
+                                // if they decide to boost pride/leadership points instead
+                                else
+                                {
+                                    cout << "Your Pride Points: " << endl
+                                         << player2.getPride() << " -> ";
+                                    player2.addPridePoints(500);
+                                    cout << player2.getPride() << endl;
+
+                                    cout << "Your Stamina: " << endl
+                                         << player2.getStamina() << " -> ";
+                                    player2.addStamina(500);
+                                    cout << player2.getStamina() << endl;
+
+                                    cout << "Your Strength: " << endl
+                                         << player2.getStrength() << " -> ";
+                                    player2.addStrength(500);
+                                    cout << player2.getStrength() << endl;
+
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player2.getWisdom() << " -> ";
+                                    player2.addWisdom(500);
+                                    cout << player2.getWisdom() << endl;
+                                }
+                            }
+
                             endTurn = true;
                         }
                     }
@@ -880,6 +1107,7 @@ int main()
                     {
                         endTurn = true;
                     }
+                    else{
                     outputMenu();
                     while (true)
                     {
@@ -914,80 +1142,254 @@ int main()
                         menu4(2, chosenAdvisors[2], "advisors.txt", playersList);
                     }
                     else if (choice == 5)
+                    {
+                        prideRocks[2] = menu5(mainBoard, 2, pathType[2], currentPositions);
+                        if (prideRocks[2] == true)
                         {
-                            prideRocks[2] = menu5(mainBoard, 2, pathType[2], currentPositions);
-                            if (prideRocks[2] == true){
-                                break;
-                            }
+                            break;
+                        }
 
-                            // Case Purple
-                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'U')
+                        // Case Purple
+                        if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'U')
+                        {
+                            if (purpleTile("riddles.txt") == false)
                             {
-                                if(purpleTile("riddles.txt") == false){
-                                    cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player3.getWisdom() << " -> ";
-                                    player3.addWisdom(-300);
-                                    cout << player3.getWisdom() << endl;
+                                cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
+                                cout << "Your Wisdom Points: " << endl
+                                     << player3.getWisdom() << " -> ";
+                                player3.addWisdom(-300);
+                                cout << player3.getWisdom() << endl;
+                            }
+                            else
+                            {
+                                cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
+                                cout << "Your Wisdom Points: " << endl
+                                     << player3.getWisdom() << " -> ";
+                                player3.addWisdom(500);
+                                cout << player3.getWisdom() << endl;
+                            }
+                        }
+
+                        // Case Brown
+                        while (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'N')
+                        {
+                            cout << "Your Strength: " << endl
+                                 << player3.getStrength() << " -> ";
+                            player3.addStrength(-100);
+                            cout << player3.getStrength() << endl;
+                            cout << "Your Stamina: " << endl
+                                 << player3.getStamina() << " -> ";
+                            player3.addStamina(-100);
+                            cout << player3.getStamina() << endl;
+                            brownTile(mainBoard, 2, pathType[2], currentPositions);
+                        }
+
+                        // Case Blue
+                        if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'B')
+                        {
+                            cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
+                            cout << "Your Strength: " << endl
+                                 << player3.getStrength() << " -> ";
+                            player3.addStrength(blueTile());
+                            cout << player3.getStrength() << endl;
+                            cout << "Your Stamina: " << endl
+                                 << player3.getStamina() << " -> ";
+                            player3.addStamina(blueTile());
+                            cout << player3.getStamina() << endl;
+                            cout << "Your Wisdom: " << endl
+                                 << player3.getWisdom() << " -> ";
+                            player3.addWisdom(blueTile());
+                            cout << player3.getWisdom() << endl;
+                        }
+
+                        // Case Pink
+                        if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'P')
+                        {
+                            player3.addPridePoints(pinkTile(advisors, chosenAdvisors, 2, player3));
+                            cout << player3.getPride() << endl;
+                            cout << "Your new advisor: " << chosenAdvisors[2] << endl;
+                        }
+
+                        // Case Green
+                        if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'G')
+                        {
+                            cout << "Your Strength: " << player3.getStrength() << endl;
+                            cout << "Your Stamina: " << player3.getStamina() << endl;
+                            cout << "Your Wisdom: " << player3.getWisdom() << endl;
+                            cout << "Your Pride Points: " << player3.getPride() << endl;
+                            player3.addPridePoints(greenTile(chosenAdvisors, 2, "randomEvents.txt", player3));
+                            cout << "Your Pride Points: " << player3.getPride() << endl;
+                        }
+
+                        //Case Red
+                            while (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'R')
+                            {
+                                // store player's choice
+                                int choice = redTile(mainBoard, 2, pathType[2], currentPositions);
+                                // if choose to skip..
+                                if (choice == 0)
+                                {
+                                    break;
                                 }
-                                else{
-                                    cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player3.getWisdom() << " -> ";
+                                // if they choose to choose an advisor when they currently don't have one..
+                                else if (choice == 1)
+                                {
+                                    if (haveAdvisor[2] == false)
+                                    {
+                                        displayAdvisors("advisors.txt", advisors);
+                                        cout << playersList[2] << ", please choose your advisor to guide you through your journey." << endl;
+                                        cin >> currentAdvisor;
+
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                validAdvisor = true;
+                                                chosenAdvisors[2] = currentAdvisor;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                                                cin >> currentAdvisor;
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        validAdvisor = true;
+                                                        chosenAdvisors[2] = currentAdvisor;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+
+                                        haveAdvisor[2] = true;
+                                    }
+                                    // if they do have an advisor already and want to change
+                                    else if (haveAdvisor[2] == true)
+                                    {
+
+                                        string currentAdvisor;
+
+                                        bool validAdvisor = false;
+
+                                        displayAdvisors("advisors.txt", advisors);
+
+                                        cout << "You already have an advisor! However, if you wish to change your current advisor go for it. " << endl;
+                                        cout << "Your current advisor: " << chosenAdvisors[2] << endl;
+                                        cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
+                                        cin >> currentAdvisor;
+
+                                        if (currentAdvisor == "Skip")
+                                        {
+                                            validAdvisor = true;
+                                            break;
+                                        }
+
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                // If the inputted advisor is already their advisor...
+                                                if (currentAdvisor == chosenAdvisors[2])
+                                                {
+                                                    // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                    do
+                                                    {
+                                                        cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                        cin >> currentAdvisor;
+                                                        if (currentAdvisor == "Skip")
+                                                        {
+                                                            validAdvisor = true;
+                                                            break;
+                                                        }
+                                                    } while (currentAdvisor == chosenAdvisors[2]);
+                                                }
+                                                // Change the advisor of the player to the new one
+                                                chosenAdvisors[2] = currentAdvisor;
+                                                validAdvisor = true;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly or type \"Skip\" to skip." << endl;
+                                                cin >> currentAdvisor;
+
+                                                // If choose to skip, end the function
+                                                if (currentAdvisor == "Skip")
+                                                {
+                                                    validAdvisor = true;
+                                                    break;
+                                                }
+
+                                                // Loop to compare the user input with the list of valid advisors
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    // If it is a valid advisor...
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        // If the inputted advisor is already their advisor...
+                                                        if (currentAdvisor == chosenAdvisors[2])
+                                                        {
+                                                            // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                            do
+                                                            {
+                                                                cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                                cin >> currentAdvisor;
+                                                                if (currentAdvisor == "Skip")
+                                                                {
+                                                                    validAdvisor = true;
+                                                                    break;
+                                                                }
+                                                            } while (currentAdvisor == chosenAdvisors[2]);
+                                                        }
+                                                        // Change the advisor of the player to the new one
+                                                        chosenAdvisors[2] = currentAdvisor;
+                                                        validAdvisor = true;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+                                    }
+                                }
+                                // if they decide to boost pride/leadership points instead
+                                else
+                                {
+                                    cout << "Your Pride Points: " << endl
+                                         << player3.getPride() << " -> ";
+                                    player3.addPridePoints(500);
+                                    cout << player3.getPride() << endl;
+
+                                    cout << "Your Stamina: " << endl
+                                         << player3.getStamina() << " -> ";
+                                    player3.addStamina(500);
+                                    cout << player3.getStamina() << endl;
+
+                                    cout << "Your Strength: " << endl
+                                         << player3.getStrength() << " -> ";
+                                    player3.addStrength(500);
+                                    cout << player3.getStrength() << endl;
+
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player3.getWisdom() << " -> ";
                                     player3.addWisdom(500);
                                     cout << player3.getWisdom() << endl;
                                 }
                             }
 
-                            // Case Brown
-                            while (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'N')
-                            {
-                                cout << "Your Strength: " << endl << player3.getStrength() << " -> ";
-                                player3.addStrength(-100);
-                                cout << player3.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player3.getStamina() << " -> ";
-                                player3.addStamina(-100);
-                                cout << player3.getStamina() << endl;
-                                brownTile(mainBoard, 2, pathType[2], currentPositions);
-                            }
-
-                            // Case Blue
-                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'B')
-                            {
-                                cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
-                                cout << "Your Strength: " << endl << player3.getStrength() << " -> ";
-                                player3.addStrength(blueTile());
-                                cout << player3.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player3.getStamina() << " -> ";
-                                player3.addStamina(blueTile());
-                                cout << player3.getStamina() << endl;
-                                cout << "Your Wisdom: " << endl << player3.getWisdom() << " -> ";
-                                player3.addWisdom(blueTile());
-                                cout << player3.getWisdom() << endl;
-                            }
-
-                            // Case Pink
-                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'P')
-                            {
-                                player3.addPridePoints(pinkTile(advisors, chosenAdvisors, 2, player3));
-                                cout << player3.getPride() << endl;
-                                cout << "Your new advisor: " << chosenAdvisors[2] << endl;
-                            }
-
-                            // Case Green
-                            if (mainBoard.determineColor(2, pathType[2], currentPositions[2]) == 'G')
-                            {
-                                cout << "Your Strength: " << player3.getStrength() << endl;
-                                cout << "Your Stamina: " << player3.getStamina() << endl;
-                                cout << "Your Wisdom: " << player3.getWisdom() << endl;
-                                cout << "Your Pride Points: " << player3.getPride() << endl;
-                                player3.addPridePoints(greenTile(chosenAdvisors, 2, "randomEvents.txt", player3));
-                                cout << "Your Pride Points: " << player3.getPride() << endl;
-                            }
-
-                            endTurn = true;
-                        }
-                    } 
-                    while (endTurn == false);
-            } 
+                        endTurn = true;
+                    }
+                    }
+                } while (endTurn == false);
+            }
             else if (turnCount == 3)
             {
                 do
@@ -997,6 +1399,8 @@ int main()
                     {
                         endTurn = true;
                     }
+                    else
+                    {
                     outputMenu();
                     while (true)
                     {
@@ -1033,78 +1437,254 @@ int main()
                     else if (choice == 5)
                     {
                         prideRocks[3] = menu5(mainBoard, 3, pathType[3], currentPositions);
-                            if (prideRocks[3] == true){
-                                break;
-                            }
+                        if (prideRocks[3] == true)
+                        {
+                            break;
+                        }
 
-                            // Case Purple
-                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'U')
+                        // Case Purple
+                        if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'U')
+                        {
+                            if (purpleTile("riddles.txt") == false)
                             {
-                                if(purpleTile("riddles.txt") == false){
-                                    cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player4.getWisdom() << " -> ";
-                                    player4.addWisdom(-300);
-                                    cout << player4.getWisdom() << endl;
+                                cout << "Wrong answer! You have lost (-300) Wisdom Points out of shame!" << endl;
+                                cout << "Your Wisdom Points: " << endl
+                                     << player4.getWisdom() << " -> ";
+                                player4.addWisdom(-300);
+                                cout << player4.getWisdom() << endl;
+                            }
+                            else
+                            {
+                                cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
+                                cout << "Your Wisdom Points: " << endl
+                                     << player4.getWisdom() << " -> ";
+                                player4.addWisdom(500);
+                                cout << player4.getWisdom() << endl;
+                            }
+                        }
+
+                        // Case Brown
+                        while (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'N')
+                        {
+                            cout << "Your Strength: " << endl
+                                 << player4.getStrength() << " -> ";
+                            player4.addStrength(-100);
+                            cout << player4.getStrength() << endl;
+                            cout << "Your Stamina: " << endl
+                                 << player4.getStamina() << " -> ";
+                            player4.addStamina(-100);
+                            cout << player4.getStamina() << endl;
+                            brownTile(mainBoard, 3, pathType[3], currentPositions);
+                        }
+
+                        // Case Blue
+                        if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'B')
+                        {
+                            cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
+                            cout << "Your Strength: " << endl
+                                 << player4.getStrength() << " -> ";
+                            player4.addStrength(blueTile());
+                            cout << player4.getStrength() << endl;
+                            cout << "Your Stamina: " << endl
+                                 << player4.getStamina() << " -> ";
+                            player4.addStamina(blueTile());
+                            cout << player4.getStamina() << endl;
+                            cout << "Your Wisdom: " << endl
+                                 << player4.getWisdom() << " -> ";
+                            player4.addWisdom(blueTile());
+                            cout << player4.getWisdom() << endl;
+                        }
+
+                        // Case Pink
+                        if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'P')
+                        {
+                            player4.addPridePoints(pinkTile(advisors, chosenAdvisors, 3, player4));
+                            cout << player4.getPride() << endl;
+                            cout << "Your new advisor: " << chosenAdvisors[3] << endl;
+                        }
+
+                        // Case Green
+                        if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'G')
+                        {
+                            cout << "Your Strength: " << player4.getStrength() << endl;
+                            cout << "Your Stamina: " << player4.getStamina() << endl;
+                            cout << "Your Wisdom: " << player4.getWisdom() << endl;
+                            cout << "Your Pride Points: " << player4.getPride() << endl;
+                            player4.addPridePoints(greenTile(chosenAdvisors, 3, "randomEvents.txt", player4));
+                            cout << "Your Pride Points: " << player4.getPride() << endl;
+                        }
+
+                        //Case Red
+                            while (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'R')
+                            {
+                                // store player's choice
+                                int choice = redTile(mainBoard, 3, pathType[3], currentPositions);
+                                // if choose to skip..
+                                if (choice == 0)
+                                {
+                                    break;
                                 }
-                                else{
-                                    cout << "Correct answer! You have gained (+500) Wisdom Points!" << endl;
-                                    cout << "Your Wisdom Points: " << endl << player4.getWisdom() << " -> ";
+                                // if they choose to choose an advisor when they currently don't have one..
+                                else if (choice == 1)
+                                {
+                                    if (haveAdvisor[3] == false)
+                                    {
+                                        displayAdvisors("advisors.txt", advisors);
+                                        cout << playersList[3] << ", please choose your advisor to guide you through your journey." << endl;
+                                        cin >> currentAdvisor;
+
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                validAdvisor = true;
+                                                chosenAdvisors[3] = currentAdvisor;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly." << endl;
+                                                cin >> currentAdvisor;
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        validAdvisor = true;
+                                                        chosenAdvisors[3] = currentAdvisor;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+
+                                        haveAdvisor[3] = true;
+                                    }
+                                    // if they do have an advisor already and want to change
+                                    else if (haveAdvisor[3] == true)
+                                    {
+
+                                        string currentAdvisor;
+
+                                        bool validAdvisor = false;
+
+                                        displayAdvisors("advisors.txt", advisors);
+
+                                        cout << "You already have an advisor! However, if you wish to change your current advisor go for it. " << endl;
+                                        cout << "Your current advisor: " << chosenAdvisors[3] << endl;
+                                        cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
+                                        cin >> currentAdvisor;
+
+                                        if (currentAdvisor == "Skip")
+                                        {
+                                            validAdvisor = true;
+                                            break;
+                                        }
+
+                                        for (int k = 0; k < 5; k++)
+                                        {
+                                            if (currentAdvisor == advisors[k])
+                                            {
+                                                // If the inputted advisor is already their advisor...
+                                                if (currentAdvisor == chosenAdvisors[3])
+                                                {
+                                                    // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                    do
+                                                    {
+                                                        cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                        cin >> currentAdvisor;
+                                                        if (currentAdvisor == "Skip")
+                                                        {
+                                                            validAdvisor = true;
+                                                            break;
+                                                        }
+                                                    } while (currentAdvisor == chosenAdvisors[3]);
+                                                }
+                                                // Change the advisor of the player to the new one
+                                                chosenAdvisors[3] = currentAdvisor;
+                                                validAdvisor = true;
+                                            }
+                                        }
+
+                                        // If the character the user entered is invalid prompt user to enter the name until one matches
+                                        if (validAdvisor == false)
+                                        {
+                                            do
+                                            {
+                                                cout << "Invalid advisor. Please enter the name of the advisor correctly or type \"Skip\" to skip." << endl;
+                                                cin >> currentAdvisor;
+
+                                                // If choose to skip, end the function
+                                                if (currentAdvisor == "Skip")
+                                                {
+                                                    validAdvisor = true;
+                                                    break;
+                                                }
+
+                                                // Loop to compare the user input with the list of valid advisors
+                                                for (int k = 0; k < 5; k++)
+                                                {
+                                                    // If it is a valid advisor...
+                                                    if (currentAdvisor == advisors[k])
+                                                    {
+                                                        // If the inputted advisor is already their advisor...
+                                                        if (currentAdvisor == chosenAdvisors[3])
+                                                        {
+                                                            // Output that the user already has that advisor. Prompt them to choose a new one or skip
+                                                            do
+                                                            {
+                                                                cout << "You already have that advisor. Please enter a different one or type \"Skip\" to skip." << endl;
+                                                                cin >> currentAdvisor;
+                                                                if (currentAdvisor == "Skip")
+                                                                {
+                                                                    validAdvisor = true;
+                                                                    break;
+                                                                }
+                                                            } while (currentAdvisor == chosenAdvisors[3]);
+                                                        }
+                                                        // Change the advisor of the player to the new one
+                                                        chosenAdvisors[3] = currentAdvisor;
+                                                        validAdvisor = true;
+                                                    }
+                                                }
+                                            } while (validAdvisor == false);
+                                        }
+                                    }
+                                }
+                                // if they decide to boost pride/leadership points instead
+                                else
+                                {
+                                    cout << "Your Pride Points: " << endl
+                                         << player4.getPride() << " -> ";
+                                    player4.addPridePoints(500);
+                                    cout << player4.getPride() << endl;
+
+                                    cout << "Your Stamina: " << endl
+                                         << player4.getStamina() << " -> ";
+                                    player4.addStamina(500);
+                                    cout << player4.getStamina() << endl;
+
+                                    cout << "Your Strength: " << endl
+                                         << player4.getStrength() << " -> ";
+                                    player4.addStrength(500);
+                                    cout << player4.getStrength() << endl;
+
+                                    cout << "Your Wisdom Points: " << endl
+                                         << player4.getWisdom() << " -> ";
                                     player4.addWisdom(500);
                                     cout << player4.getWisdom() << endl;
                                 }
                             }
 
-                            // Case Brown
-                            while (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'N')
-                            {
-                                cout << "Your Strength: " << endl << player1.getStrength() << " -> ";
-                                player4.addStrength(-100);
-                                cout << player4.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player4.getStamina() << " -> ";
-                                player4.addStamina(-100);
-                                cout << player4.getStamina() << endl;
-                                brownTile(mainBoard, 3, pathType[3], currentPositions);
-                            }
-
-                            // Case Blue
-                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'B')
-                            {
-                                cout << "You have reached an oasis. Take a break and recover your strength, stamina, widsom (+100)" << endl;
-                                cout << "Your Strength: " << endl << player4.getStrength() << " -> ";
-                                player4.addStrength(blueTile());
-                                cout << player4.getStrength() << endl;
-                                cout << "Your Stamina: " << endl << player4.getStamina() << " -> ";
-                                player4.addStamina(blueTile());
-                                cout << player4.getStamina() << endl;
-                                cout << "Your Wisdom: " << endl << player4.getWisdom() << " -> ";
-                                player4.addWisdom(blueTile());
-                                cout << player4.getWisdom() << endl;
-                            }
-
-                            // Case Pink
-                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'P')
-                            {
-                                player4.addPridePoints(pinkTile(advisors, chosenAdvisors, 3, player4));
-                                cout << player4.getPride() << endl;
-                                cout << "Your new advisor: " << chosenAdvisors[3] << endl;
-                            }
-
-                            // Case Green
-                            if (mainBoard.determineColor(3, pathType[3], currentPositions[3]) == 'G')
-                            {
-                                cout << "Your Strength: " << player4.getStrength() << endl;
-                                cout << "Your Stamina: " << player4.getStamina() << endl;
-                                cout << "Your Wisdom: " << player4.getWisdom() << endl;
-                                cout << "Your Pride Points: " << player4.getPride() << endl;
-                                player4.addPridePoints(greenTile(chosenAdvisors, 3, "randomEvents.txt", player4));
-                                cout << "Your Pride Points: " << player4.getPride() << endl;
-                            }
-
-                            endTurn = true;
+                        endTurn = true;
+                    }
                     }
                 } while (endTurn == false);
             }
 
+            //count how many players have reached pride rock
             counter = 0;
             for (int m = 0; m < numPlayers; m++)
             {
@@ -1118,6 +1698,7 @@ int main()
                 }
             }
 
+            //if all players have reached pride rock, end the game(end the loop)
             if (counter == numPlayers)
             {
                 endGame = true;
@@ -1132,11 +1713,13 @@ int main()
 
     cout << "All players have reached Pride Rock! Ending game..." << endl;
 
+    // convert all players' leadership points to pride points
     player1.addPridePoints(convertLeadershipPoints(player1));
     player2.addPridePoints(convertLeadershipPoints(player2));
-player3.addPridePoints(convertLeadershipPoints(player3));
+    player3.addPridePoints(convertLeadershipPoints(player3));
     player4.addPridePoints(convertLeadershipPoints(player4));
 
+    // display final player stats with added pride points
     cout << "Final Player Stats: " << endl;
 
     for (int i = 0; i < numPlayers; i++)
@@ -1159,26 +1742,39 @@ player3.addPridePoints(convertLeadershipPoints(player3));
         }
     }
 
+    // create a vector with all final pride points
     vector<int> finalPride;
 
-    for (int k = 0; k < numPlayers; k++){
-        if (k == 0){
-        finalPride.push_back(player1.getPride());
-        } else if (k == 1){
-        finalPride.push_back(player2.getPride());
-        } else if (k == 2){
-        finalPride.push_back(player3.getPride());
-        } else if (k == 3){
-        finalPride.push_back(player4.getPride());
+    for (int k = 0; k < numPlayers; k++)
+    {
+        if (k == 0)
+        {
+            finalPride.push_back(player1.getPride());
+        }
+        else if (k == 1)
+        {
+            finalPride.push_back(player2.getPride());
+        }
+        else if (k == 2)
+        {
+            finalPride.push_back(player3.getPride());
+        }
+        else if (k == 3)
+        {
+            finalPride.push_back(player4.getPride());
         }
     }
 
+    // use a bubble sorting algorithm to sort players depending on their pride points
     int temp;
     string _temp;
-    for (int a = 0; a < numPlayers - 1; a++){
-        for (int b = 0; b < numPlayers - a - 1; b++){
+    for (int a = 0; a < numPlayers - 1; a++)
+    {
+        for (int b = 0; b < numPlayers - a - 1; b++)
+        {
             // cout << finalPride[b] << " " << finalPride[b + 1] << endl;
-            if (finalPride[b] > finalPride[b + 1]){
+            if (finalPride[b] > finalPride[b + 1])
+            {
                 temp = finalPride[b + 1];
                 _temp = playersList[b + 1];
                 finalPride[b + 1] = finalPride[b];
@@ -1193,14 +1789,21 @@ player3.addPridePoints(convertLeadershipPoints(player3));
     //     cout << finalPride[a] << endl;
     // }
 
-    for (int c = numPlayers - 1; c >= 0; c--){
+    // output a leaderboard with players and their pride points in order
+    cout << endl;
+    cout << "Here is the leaderboard, with whoever has the highest pride points!" << endl;
+
+    for (int c = numPlayers - 1; c >= 0; c--)
+    {
         cout << playersList[c] << ", with " << finalPride[c] << " pride points!" << endl;
     }
 
-
+    // output the winner
+    cout << "Congrats " << playersList[numPlayers - 1] << ", you are the winner!" << endl;
 }
 
 // Check if a string is a valid integer
+// Written by Donna
 bool isValidInt(string value)
 {
     for (int i = 0; i < (int)value.length(); i++)
@@ -1560,7 +2163,7 @@ bool menu5(Board _board, int currentPlayerIndex, int vec, int arr[])
         {
             _board.displayTrainTrack(currentPlayerIndex);
         }
-        cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
+        // cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
         return false;
     }
     return false;
@@ -1590,7 +2193,7 @@ void brownTile(Board _board, int currentPlayerIndex, int vec, int arr[])
     {
         _board.displayTrainTrack(currentPlayerIndex);
     }
-    cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
+    // cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
 
     // if (_board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) == 'N')
     // {
@@ -1618,7 +2221,7 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
     cout << "You landed on an advisor tile!" << endl
          << "Your current advisor: " << chosenAdvisors[currentPlayerIndex] << endl
          << "You may change your advisor or choose to skip. Choosing a new advisor will cost 300 pride points." << endl;
-         cout << "Your current pride points: " << currentPlayer.getPride() << endl;
+    cout << "Your current pride points: " << currentPlayer.getPride() << endl;
     cout << "Please enter the name of the advisor you wish to choose. If you wish to skip, please enter \"Skip\"" << endl;
     cin >> currentAdvisor;
 
@@ -1626,7 +2229,8 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
     if (currentAdvisor == "Skip")
     {
         validAdvisor = true;
-        cout << "Your Pride Points: " << endl << currentPlayer.getPride() << " -> ";
+        cout << "Your Pride Points: " << endl
+             << currentPlayer.getPride() << " -> ";
         return 0;
     }
 
@@ -1647,7 +2251,8 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
                     if (currentAdvisor == "Skip")
                     {
                         validAdvisor = true;
-                        cout << "Your Pride Points: " << endl << currentPlayer.getPride() << " -> ";
+                        cout << "Your Pride Points: " << endl
+                             << currentPlayer.getPride() << " -> ";
                         return 0;
                     }
                 } while (currentAdvisor == chosenAdvisors[currentPlayerIndex]);
@@ -1656,7 +2261,8 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
             chosenAdvisors[currentPlayerIndex] = currentAdvisor;
             validAdvisor = true;
             // The amount of pride points subtracted is 300.
-            cout << "Your Pride Points: " << endl << currentPlayer.getPride() << " -> ";
+            cout << "Your Pride Points: " << endl
+                 << currentPlayer.getPride() << " -> ";
             return -300;
         }
     }
@@ -1673,7 +2279,8 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
             if (currentAdvisor == "Skip")
             {
                 validAdvisor = true;
-                cout << "Your Pride Points: " << endl << currentPlayer.getPride() << " -> ";
+                cout << "Your Pride Points: " << endl
+                     << currentPlayer.getPride() << " -> ";
                 return 0;
             }
 
@@ -1694,7 +2301,8 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
                             if (currentAdvisor == "Skip")
                             {
                                 validAdvisor = true;
-                                cout << "Your Pride Points: " << endl << currentPlayer.getPride() << " -> ";
+                                cout << "Your Pride Points: " << endl
+                                     << currentPlayer.getPride() << " -> ";
                                 return 0;
                             }
                         } while (currentAdvisor == chosenAdvisors[currentPlayerIndex]);
@@ -1707,7 +2315,8 @@ int pinkTile(string advisors[], string chosenAdvisors[], int currentPlayerIndex,
         } while (validAdvisor == false);
     }
     // The amount of pride points subtracted is 300.
-    cout << "Your Pride Points: " << endl << currentPlayer.getPride() << " -> ";
+    cout << "Your Pride Points: " << endl
+         << currentPlayer.getPride() << " -> ";
     return -300;
 }
 
@@ -1826,10 +2435,10 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
     int playerStamina = currentPlayer.getStamina();
     int playerWisdom = currentPlayer.getWisdom();
 
-// regarding the negative events
+    // regarding the negative events
     if (eventNumber < 6)
     {
-        //if player has enough leadership points, they can successfully bypass
+        // if player has enough leadership points, they can successfully bypass
         if (playerStrength >= strengthReq[eventNumber] && playerStamina >= staminaReq[eventNumber] && playerWisdom >= wisdomReq[eventNumber])
         {
             cout << "You had enough strength/stamina/wisdom points to successfully bypass this negative event!" << endl
@@ -1883,13 +2492,14 @@ int greenTile(string chosenAdvisors[], int currentPlayerIndex, string filename, 
 }
 
 // Riddle Tile, player must answer a riddle correctly in order to gain leadership points (+500 each), and answering wrong costs wisdom points (-300)
-//Written by Donna
-bool purpleTile(string filename){
+// Written by Donna
+bool purpleTile(string filename)
+{
     string fullLine;
     vector<string> question;
     vector<string> correctAnswer;
 
-        // Open file and make sure it opens
+    // Open file and make sure it opens
     ifstream fileIn(filename);
     if (fileIn.fail())
     {
@@ -1917,27 +2527,29 @@ bool purpleTile(string filename){
     cout << "It's time to check your wisdom! " << endl;
 
     srand(time(0));
-    
+
     int riddle = rand() % 10;
     string answer;
 
-    switch(riddle){
-        case 0:
-        case 1:
-        case 2:   
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-            cout << question[riddle] << " (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
-            cin >> answer;
-            if(answer == correctAnswer[riddle]){
-                return true;
-            }
-            break;
+    switch (riddle)
+    {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+        cout << question[riddle] << " (Exclude 'The' 'A' or 'An' from your answer and write your answer in all lowercase)" << endl;
+        cin >> answer;
+        if (answer == correctAnswer[riddle])
+        {
+            return true;
+        }
+        break;
     }
 
     return false;
@@ -1945,24 +2557,28 @@ bool purpleTile(string filename){
 
 // Bravery Contract, player gets an option to choose an advisor or add leadership/pride points (+500), however, doing so will cause them to move back 10 spaces
 // Written by Donna
-int redTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
+int redTile(Board _board, int currentPlayerIndex, int vec, int arr[])
+{
 
     string choice;
 
+    //output the choices the player has
     cout << "You have stumbled accross a land of brave contract. You can either choose to have an advisor or gain (+500) Stamina, Strength, Wisdom Points and Pride Points. " << endl;
     cout << "However, you will move back 10 tiles for choosing either option. Press 0 to move on, press 1 to choose an advisor or press 2 to gain (+500) Stamina, Strength, Wisdom Points and Pride Points. " << endl;
-
     cin >> choice;
 
-    while(isValidInt(choice) == false || (stoi(choice) != 0 && stoi(choice) != 1 && stoi(choice) != 2)){
+    //make sure their input is a valid one
+    while (isValidInt(choice) == false || (stoi(choice) != 0 && stoi(choice) != 1 && stoi(choice) != 2))
+    {
         cin.clear();  // reset the failbit
         cin.ignore(); // discard the invalid input
         cout << "Invalid choice, please enter 0, 1 or 2." << endl;
         cin >> choice;
-
     }
 
-    if(stoi(choice) == 1 || stoi(choice) == 2){
+    //if the player chooses the advisor or pride/leadership points option, move player back 10 spaces
+    if (stoi(choice) == 1 || stoi(choice) == 2)
+    {
         if (arr[currentPlayerIndex] < 10)
         {
             _board.movePlayer(currentPlayerIndex, arr[currentPlayerIndex] - arr[currentPlayerIndex]);
@@ -1982,15 +2598,16 @@ int redTile(Board _board, int currentPlayerIndex, int vec, int arr[]){
         {
             _board.displayTrainTrack(currentPlayerIndex);
         }
-        cout << "color of tile: " << _board.determineColor(currentPlayerIndex, vec, arr[currentPlayerIndex]) << endl;
     }
-    
+
     return stoi(choice);
 }
 
 // Function that converts leadership points to pride points
 // For every 100 leadership points, player gains 1,000 pride points
-int convertLeadershipPoints(Player currentPlayer){
+// Written by Joanne
+int convertLeadershipPoints(Player currentPlayer)
+{
     int strength, stamina, wisdom, total;
     strength = currentPlayer.getStrength();
     stamina = currentPlayer.getStamina();
