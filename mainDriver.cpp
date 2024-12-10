@@ -121,7 +121,7 @@ int main()
         }
         else
         {
-            cout << "Invalid number of players. Please choose a number between 1 and 4." << endl;
+            cout << "Invalid number of players. Please choose a number between 2 and 4." << endl;
             SnumPlayers = "";
         }
     }
