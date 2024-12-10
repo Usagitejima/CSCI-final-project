@@ -35,6 +35,7 @@ void Board::initializeTrainBoard()
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
+// more special tiles in first 30 tiles
 void Board::initializePrideTiles()
 {
     Tile temp;
@@ -110,6 +111,7 @@ void Board::initializePrideTiles()
     }
 }
 
+//less special tiles in beginning
 void Board::initializeTrainTiles()
 {
     Tile temp;
@@ -349,7 +351,7 @@ void Board::displayPrideTrack(int player_index)
     cout << endl;
 }
 
-//
+//displays pride board
 void Board::displayPrideBoard()
 {
     for (int i = 0; i < 1; i++)
@@ -372,7 +374,7 @@ void Board::displayTrainTrack(int player_index)
     cout << endl;
 }
 
-//
+//displays training board
 void Board::displayTrainBoard()
 {
     for (int i = 0; i < 1; i++)
@@ -385,6 +387,7 @@ void Board::displayTrainBoard()
     }
 }
 
+//moves player based on rolled amount
 bool Board::movePlayer(int player_index, int diceAmount)
 {
     // Increment player position
@@ -397,6 +400,7 @@ bool Board::movePlayer(int player_index, int diceAmount)
     return false;
 }
 
+//gets current position of player
 int Board::getPlayerPosition(int player_index) const
 {
     if (player_index >= 0 && player_index <= _player_count)
@@ -406,6 +410,7 @@ int Board::getPlayerPosition(int player_index) const
     return -1;
 }
 
+//determines the color of the current tile the player is standing on
 char Board::determineColor(int player_index, int pathType, int pos)
 {
     // 1. Based on position of the player, determine the color of the tile that the player is on
