@@ -45,14 +45,14 @@ class Player{
         void printStats();
 
         //The functions that are run based on the current color tile the player is on
-        void Green();
-        void Pink();
-        void Red();
-        void Blue();
-        void Brown();
-        void Purple();
-        void Orange();
-        void Grey();
+        // void Green();
+        // void Pink();
+        // void Red();
+        // void Blue();
+        // void Brown();
+        // void Purple();
+        // void Orange();
+        // void Grey();
 
         //Function to set the stats of the player based on what character they choose. Written by Joanne
         void setStats(string filename, string chosenChar);

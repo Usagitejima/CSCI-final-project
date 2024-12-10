@@ -475,7 +475,7 @@ int main()
         cout << endl;
     }
 
-    // idea of how to run game?
+    //start the game with a while loop that runs until game is over
     bool endGame = false;
     bool endTurn = false;
     bool prideRocks[4] = {0, 0, 0, 0};
@@ -490,6 +490,7 @@ int main()
 
         for (int turnCount = 0; turnCount < numPlayers; turnCount++)
         {
+            //player 1's turn
             if (turnCount == 0)
             {
                 // Display menu and allow user to make a choice. Only move turns when play chooses to move position
@@ -803,6 +804,7 @@ int main()
                     }
                 } while (endTurn == false);
             }
+            //player 2's turn
             else if (turnCount == 1)
             {
                 do
@@ -1095,6 +1097,7 @@ int main()
                     }
                 } while (endTurn == false);
             }
+            //player 3's turn
             else if (turnCount == 2)
             {
                 do
@@ -1386,6 +1389,7 @@ int main()
                     }
                 } while (endTurn == false);
             }
+            //player 4's turn
             else if (turnCount == 3)
             {
                 do
